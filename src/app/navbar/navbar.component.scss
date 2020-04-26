@@ -1,0 +1,117 @@
+@import 'src/variables.scss' ;
+
+// :host {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+* {
+    // border : 1px solid black;
+}
+
+.container {
+    z-index: 3456;
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.nav {
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    cursor: pointer;
+    font-size: 2rem;
+    background-color: $darkColor-main;
+    width: fit-content;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: .45s all ease-out;
+    opacity: 0.3;
+
+
+    transform: translateX(-74%);
+
+
+    &:hover {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+
+    &__item {
+        // &:not(:last-child) { margin-bottom: 5rem; }
+        // border: 1px solid black;
+        padding: 1rem 2rem ;
+        transition: all .3s;
+        outline: none;
+        width: 100%;
+        @include flexCenter;
+        font-family: 'Merriweather Sans', sans-serif;
+
+
+
+        &__text {
+            margin-right: 2rem;
+        }
+
+        & svg {
+            height:2rem;
+            width:2rem;
+            margin-left: auto;
+            fill: currentColor;
+        }
+    }
+}
+
+
+// #ff6550   ,   #50ffa5  , #7950ff , #ffbc50
+
+.tasks {
+    color : #ff6550;
+    &:hover {
+        background-color: #ffbc5052 ;
+    }
+}
+
+.balance {
+    color : #ffbc50;
+    &:hover {
+        background-color: #7950ff54;
+        color : #a07839;
+    }
+}
+
+.addresses {
+    color : #7950ff;
+    &:hover {
+        background-color: #ff64504b;
+    }
+}
+
+.transactions {
+    color : #ff6550;
+    &:hover {
+        background-color: #ffbc5042;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

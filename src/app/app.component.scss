@@ -1,0 +1,9 @@
+@import 'src/variables.scss' ;
+
+
+.container {
+    height: 100vh;
+    background-color: $lightColor-main;
+    overflow-x: scroll;
+}
+

@@ -1,0 +1,59 @@
+
+// this is is how you import it to different components :
+
+// @import 'src/variables.scss' ;
+
+
+
+
+
+// Colors #######################################################
+// from this website : https://www.tutorialrepublic.com/html-reference/html-color-picker.php  . light/dark : three colors to the top/bottom
+
+
+$lightColor-main :   #c6ffec;
+
+
+$mediumColor-main :   #ffecc6;
+$mediumColor-lighter :   #3FFED4;
+$mediumColor-darker :   rgb(9, 122, 98);
+
+
+
+$darkColor-main :   #ffc6ec;
+$darkColor-lighter :   #FFD7F1;
+$darkColor-darker :   #E5B2D4;
+
+
+$tableBordersColor: #ffecc6;
+
+
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

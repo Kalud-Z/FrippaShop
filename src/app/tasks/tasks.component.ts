@@ -24,7 +24,8 @@ export class TasksComponent implements OnInit  { //#############################
 
   ngOnInit(): void {
     this.crudService.tasksListChangedSubject.subscribe(data => { this.tasks = data })
-    this.dataStorageService.fetchTasksList();
+    // this.dataStorageService.fetchTasksList()
+    this.crudService.getTasksList();
 
   } //ngOnInit()
 
@@ -69,11 +70,11 @@ export class TasksComponent implements OnInit  { //#############################
   } //adjustUI()
 
   storeData() {
-    this.dataStorageService.storeTasksList();
+    // this.dataStorageService.storeTasksList();
   }
 
   fetchData() {
-    this.dataStorageService.fetchTasksList();
+    // this.dataStorageService.fetchTasksList();
   }
 
 

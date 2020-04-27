@@ -24,11 +24,67 @@
 }
 
 
+
 html {
     font-family: 'Roboto Mono', monospace;
     font-size: 70%;  /* this is the root font-size ! | and = 62.5% of the default browser font-size which is usually 16px ==> final value 10px */ 
     // this is the fotn size for normal text. ==> 1rem
 }
+
+
+
+.red {
+    background-color: red;
+}
+
+
+
+
+.Tasks-default-btn {
+    cursor: pointer;
+	box-shadow: 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #e4dfdf 5%, #ddd6d6 100%);
+	// background-color:#f9f9f9;
+	border-radius:6px;
+	cursor:pointer;
+	color:#666666;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #ffffff;
+    align-self: center;
+    transition: all 0.1s;
+    border:2px solid transparent;
+    outline: none;
+    
+    &:hover {
+        border:2px solid rgba(255, 0, 0, 0.562);
+    }
+
+}
+
+
+svg {
+    outline: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

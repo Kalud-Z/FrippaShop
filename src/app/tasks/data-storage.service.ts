@@ -21,10 +21,9 @@ export class DataStorageService { //############################################
 
 
 
-
   storeTasksList() {
     const list = this.crudService.getTasksList();
-    this.http.put('https://frippashop.firebaseio.com/TasksList.json' , list).subscribe()
+    this.http.put('https://frippashop.firebaseio.com/TasksList.json' , list).subscribe();
     // localStorage.clear();
     localStorage.removeItem('tasksList');
 

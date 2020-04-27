@@ -12,7 +12,7 @@ export class crudService { //###################################################
 
   tasksList: Task[] = [];
 
-  constructor(private dataStorageService: DataStorageService) { }
+  constructor() { }
 
   
 
@@ -30,7 +30,14 @@ export class crudService { //###################################################
   }
 
   createNewTaskAndPush(type: string, alreadySent: boolean , details: string , id?:number , date?: Date) {
-    const task = this.createNewTask(type, alreadySent, details , id , date);
+    let correctDate : Date;
+    if(!date) {
+      correctDate = new Date();
+    } else {
+      correctDate = date;
+    }
+
+    const task = this.createNewTask(type, alreadySent, details , id , correctDate);
     this.tasksList.push(task);
     this.tasksChangedNotify();
   } //createNewTask()
@@ -87,8 +94,7 @@ export class crudService { //###################################################
   // ###########################################################################   PRIVATE ##################################################################
   private tasksChangedNotify() {
     this.tasksListChangedSubject.next(this.tasksList.slice());
-    this.dataStorageService.storeTasksList();
-    // console.log(' list ' , this.tasksList);
+    console.log(' list ' , this.tasksList);
 
   }
 

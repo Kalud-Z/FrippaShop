@@ -1,14 +1,24 @@
 <div class="container">
 
-<!-- <div style="margin-left: 44rem; margin-bottom: 3rem;" (click)='extraction()'> generate the talbe. </div>
-    <div style="margin-left: 44rem; margin-bottom: 3rem;" (click)='fetchData()'> fetch data the cloud </div> -->
-    <!-- <div style="margin-left: 44rem; margin-bottom: 3rem;" (click)='fixData()'> fetch data the cloud </div> -->
+    <div class="header">
+        
+        <button class="Tasks-default-btn headerButtons storeDataButton" (click)='storeData()'> Save Changes 
+           <div class="header__saveLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> </div>
+        </button>
+
+        <button class="Tasks-default-btn headerButtons addNewTaskButton" routerLink='new-task'> Add New Task
+            <div class="header__addLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-folder-add"></use> </svg>  </div>
+        </button>
+
+        <button class="Tasks-default-btn headerButtons filterButton" > Filter
+            <div class="header__filterLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> </div>
+        </button>
+    </div>
     
-    <div class="saveButton" (click)='storeData()'> Store on Server </div>
-    <!-- <div class="saveButton" (click)='onSaveButton()'> Download Table </div> -->
 
     
-<table class="table">
+<!-- <table class="table" [ngStyle]="{'margin-left' : tableMarginOffset + 'px'}"> appTableStyle -->
+    <table class="table"> 
 
     <thead>
         <tr>
@@ -26,7 +36,6 @@
    
     <tbody *ngFor='let task of tasks; let i = index;'  >
 
-        
         <tr class="tbodyRow" >
             <td class="tbodyRow__itemID" >        {{ task.id }} </td>
             <td class="tbodyRow__transaction">    <svg class="tbodyRow__checkmarkLogo" *ngIf="task.type === 'transaction'">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg>  </td>
@@ -38,22 +47,24 @@
             <td class="tbodyRow__details">        {{ task.details }} </td>
             <td class="tbodyRow__alreadySent">    <svg class="tbodyRow__checkmarkLogo" *ngIf="task.isItemAlreadySent">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg> </td>
 
-            <td class="editLogoCell">
+            <td class="editLogoCell" #logoCell  appTableStyle>
                 <svg class="editLogoCell__editTask-logo" [routerLink]="['/tasks/new-task/' , task.id]" >  <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use> </svg> 
             </td>
         </tr>
 
-
-       <tr class="rowWrapper__month" *ngIf="displayDateRow(i)">
+        
+        <tr class="rowWrapper__month" *ngIf="displayDateRow(i)">
             <td colspan="9"> {{  tasks[i + 1].date | filterDate  }} </td>
-        </tr> 
+        </tr>
+
+
    
     </tbody>
 
      
     
 
-    <svg class="addTask-logo" routerLink='new-task' >  <use xlink:href="/assets/symbol-defs.svg#icon-addthis"></use> </svg>
+    <!-- <svg class="addTask-logo" routerLink='new-task' >  <use xlink:href="/assets/symbol-defs.svg#icon-addthis"></use> </svg> -->
 
 </table>
 
@@ -70,3 +81,7 @@
 <!-- ###################################################################################################################################### -->
 
 
+
+<!-- <div style="margin-left: 44rem; margin-bottom: 3rem;" (click)='extraction()'> generate the talbe. </div>
+    <div style="margin-left: 44rem; margin-bottom: 3rem;" (click)='fetchData()'> fetch data the cloud </div> -->
+    <!-- <div style="margin-left: 44rem; margin-bottom: 3rem;" (click)='fixData()'> fetch data the cloud </div> -->

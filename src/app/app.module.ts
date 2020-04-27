@@ -13,6 +13,7 @@ import { NewTaskComponent } from './tasks/new-task/new-task.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { FilterDatePipe } from './tasks/filter-date.pipe';
 import { AddMonthRowDirective } from './tasks/add-month-row.directive';
+import { TableStyleDirective } from './tasks/table-style.directive';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AddMonthRowDirective } from './tasks/add-month-row.directive';
     NavbarComponent,
     NewTaskComponent,
     FilterDatePipe,
-    AddMonthRowDirective
+    AddMonthRowDirective,
+    TableStyleDirective
   ],
   imports: [
     BrowserModule,

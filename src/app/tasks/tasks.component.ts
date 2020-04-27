@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { crudService } from './crud.service';
 import { Task } from './task.model';
 import { DataStorageService } from './data-storage.service';
@@ -14,6 +14,8 @@ import { FileSaverService } from 'ngx-filesaver';
 export class TasksComponent implements OnInit  { //###########################################################################################################
   tasks: Task[];
   previousDate : string= '';
+  @ViewChild('logoCell')  logoCell: ElementRef;
+  tableMarginOffset : string;
 
   constructor(private crudService : crudService,
               private dataStorageService: DataStorageService
@@ -23,6 +25,7 @@ export class TasksComponent implements OnInit  { //#############################
   ngOnInit(): void {
     this.crudService.tasksListChangedSubject.subscribe(data => { this.tasks = data })
     this.dataStorageService.fetchTasksList();
+
   } //ngOnInit()
 
 
@@ -33,20 +36,20 @@ export class TasksComponent implements OnInit  { //#############################
 
 
   ngAfterViewInit()	 {
-    this.getWidthOfLogoCell();      
-    // this.extraction()
+      // this.getWidthOfLogoCell(); 
+  }
+
+  ngAfterViewChecked() {
+    // this.getWidthOfLogoCell(); 
   }
 
   getWidthOfLogoCell() {
-  let box = document.querySelector('.editLogoCell');
-  // let width = box.offsetWidth;
-  // let height = box.offsetHeight;
-  // let box = document.querySelector('div');
-  // let width = box.clientWidth;
-  // let height = box.clientHeight;
-  // console.log(box);
-  // console.log('this iwidth : ' , width);
-  // console.log(height);
+    let width = this.logoCell.nativeElement.offsetWidth;
+    this.tableMarginOffset = width.toString();
+    console.log(this.tableMarginOffset);
+    console.log(typeof this.tableMarginOffset);
+    
+    // return this.tableMarginOffset + 'px'
   }
 
 
@@ -76,10 +79,13 @@ export class TasksComponent implements OnInit  { //#############################
 
 
   displayDateRow(i:number) {
-    if(i < this.tasks.length-1) {
+    // console.log('#########################################################')
+    // console.log('thsi is i + 1' , this.tasks[i])
+    // console.log('thsi is i' , this.tasks[i+1])
+   if(i < this.tasks.length-1) {
       if(this.tasks[i].date.getMonth() !==  this.tasks[i+1].date.getMonth()) { return true } else { return false }
     } 
-    else { return false }
+    else { return false } 
   }
 
 

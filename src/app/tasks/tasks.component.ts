@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterContentInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { crudService } from './crud.service';
+import { crudService } from './services/crud.service';
 import { Task } from './task.model';
-import { DataStorageService } from './data-storage.service';
+import { DataStorageService } from './services/data-storage.service';
 import { FileSaverService } from 'ngx-filesaver';
 
 @Component({
@@ -13,9 +13,25 @@ import { FileSaverService } from 'ngx-filesaver';
 // ###########################################################################################################################################################
 export class TasksComponent implements OnInit  { //###########################################################################################################
   tasks: Task[];
+
   previousDate : string= '';
   @ViewChild('logoCell')  logoCell: ElementRef;
   tableMarginOffset : string;
+
+  monthsArray= ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  yearsArray = [ 2018 , 2019 , 2020 , 2021];
+  typesArray =  ['transaction'  ,   'shoes' ,  'watch' , 'other' , 'shipment'];
+
+  inFilterMode = false;
+
+  filterByYearInput: number;
+  filterByMonthInput: string;
+  filterByTypeInput: string;
+  filterByAlreadySent : boolean;
+
+  showFilterCrl : boolean = false;
+
+
 
   constructor(private crudService : crudService,
               private dataStorageService: DataStorageService
@@ -29,21 +45,47 @@ export class TasksComponent implements OnInit  { //#############################
 
   } //ngOnInit()
 
+  ngDoCheck() {
+    if(this.filterByMonthInput === '' || !this.filterByMonthInput) {
+      this.inFilterMode = false;
+    } else {
+      this.inFilterMode = true;
+    }
+  }
 
+  setMonth(data : string) {
+    this.filterByMonthInput = data;
+  }
+
+  setYear(year: number) {
+    this.filterByYearInput = year;
+  }
   
+  setType(type : string) {
+    this.filterByTypeInput = type;
+  }
+
+  setAlreadySent(boolVar : boolean) {
+    if(boolVar === true )  { this.filterByAlreadySent = true }
+    if(boolVar === false ) { this.filterByAlreadySent = false }
+  }
+
+  resetAllFilters() {
+    this.filterByYearInput = 0;
+    this.filterByMonthInput = '';
+    this.filterByTypeInput = '';
+    this.filterByAlreadySent = undefined
+  }
+
+
+
+
   fixData() {
     this.crudService.fixingListDates();
   }
 
 
-  ngAfterViewInit()	 {
-      // this.getWidthOfLogoCell(); 
-  }
-
-  ngAfterViewChecked() {
-    // this.getWidthOfLogoCell(); 
-  }
-
+/* 
   getWidthOfLogoCell() {
     let width = this.logoCell.nativeElement.offsetWidth;
     this.tableMarginOffset = width.toString();
@@ -51,7 +93,7 @@ export class TasksComponent implements OnInit  { //#############################
     console.log(typeof this.tableMarginOffset);
     
     // return this.tableMarginOffset + 'px'
-  }
+  } */
 
 
   adjustUI() {
@@ -69,25 +111,28 @@ export class TasksComponent implements OnInit  { //#############################
     
   } //adjustUI()
 
-  storeData() {
+ /*  storeData() {
     // this.dataStorageService.storeTasksList();
-  }
+  } */
 
-  fetchData() {
+  /* fetchData() {
     // this.dataStorageService.fetchTasksList();
-  }
+  } */
 
 
 
   displayDateRow(i:number) {
-    // console.log('#########################################################')
-    // console.log('thsi is i + 1' , this.tasks[i])
-    // console.log('thsi is i' , this.tasks[i+1])
-   if(i < this.tasks.length-1) {
-      if(this.tasks[i].date.getMonth() !==  this.tasks[i+1].date.getMonth()) { return true } else { return false }
-    } 
-    else { return false } 
-  }
+    if(this.inFilterMode) {
+      return false;
+    }
+    else {
+      if(i < this.tasks.length-1) {
+        if(this.tasks[i].date.getMonth() !==  this.tasks[i+1].date.getMonth()) { return true } else { return false }
+      } 
+      else { return false }
+    }
+    
+  } //displayDateRow()
 
 
 
@@ -99,12 +144,18 @@ export class TasksComponent implements OnInit  { //#############################
 // ###############################################################################################################################################
 
 
-
+onStore() {
+  this.dataStorageService.storeTasksList(this.crudService.tasksList);
+}
 
 extraction() {
-  // console.log('we are in extraction hhhhhhhh');
-  const allRows = document.querySelectorAll('.tt tr');
+  console.log('we are in extraction hhhhhhhh');
+  const allRows = document.querySelectorAll('.ff  tr');
+  // const allRowa = document.querySelector('.tt');
+  // const tableBody = document;
 
+
+  console.log(allRows);
   //looping through all rows
   allRows.forEach( (el,index) => {
     const allCells = el.children;
@@ -113,7 +164,7 @@ extraction() {
     var detail : string;
     var id: number;
     var date : Date = new Date();
-    date.setFullYear(2020,0,1);
+    date.setFullYear(2020,2,1);  
 
 
     
@@ -121,6 +172,7 @@ extraction() {
     Array.from(allCells).forEach((td,index) => {
       var checkMarkIndex : number;
       var x = td.textContent; 
+      console.log('this is thecell content : ' , x);
 
       // if (x == String.fromCharCode(160)) { x = ''}
       if(x == '✓')  { 
@@ -143,24 +195,18 @@ extraction() {
       
     }) //end of inner loop
 
+    console.log('this is the id : ' , id)
+    console.log(alreadySent)
+    console.log(type)
+    console.log(detail)
+
+
     this.crudService.createNewTaskAndPush(type , alreadySent , detail , id , date);
 
   }) //end of first loop
 
 
 } //extraction()
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

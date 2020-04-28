@@ -27,7 +27,7 @@
 
 html {
     font-family: 'Roboto Mono', monospace;
-    font-size: 70%;  /* this is the root font-size ! | and = 62.5% of the default browser font-size which is usually 16px ==> final value 10px */ 
+    font-size: 58%;  /* this is the root font-size ! | and = 62.5% of the default browser font-size which is usually 16px ==> final value 10px */ 
     // this is the fotn size for normal text. ==> 1rem
 }
 
@@ -67,6 +67,31 @@ svg {
     outline: none !important;
 }
 
+
+
+@keyframes resetAllButtonOnClick {
+    1% { border:2px solid rgba(255, 255, 255, 0);}
+    99%  { border:2px solid red;}
+}
+
+
+
+
+// Layering : z indexes
+//  component : Tasks
+
+/* 
+
+side nav : 200
+header : 100
+filter : 90
+
+table : 80;
+
+
+
+
+*/
 
 
 

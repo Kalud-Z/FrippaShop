@@ -1,67 +1,57 @@
 @import 'src/variables.scss' ;
 
-// :host {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-// }
 
 * {
     // border : 1px solid black;
 }
 
 .container {
-    z-index: 3456;
+    z-index: 200;
     position: fixed;
     top:50%;
-    left:50%;
-    transform: translate(-301%, -50%);
-    // height: 100vh;
-    // background-color: yellow;
+    left:0%;
+    transform: translate(-75%, -50%);
+
     display: flex;
     align-items: center;
     justify-content: flex-start;
+
 }
 
 .nav {
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+    border-top-right-radius: 1rem; 
+    border-bottom-right-radius: 1rem; 
     cursor: pointer;
     font-size: 2rem;
-    background-color: $darkColor-main;
     width: fit-content;
-    height: 20rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: .45s all ease-out;
-    opacity: 0.3;
-
-
-    transform: translateX(-74%);
-
 
     &:hover {
-        transform: translateX(0%);
-        opacity: 1;
+        transform: translateX(75%);
+        background-color: $darkColor-main;
     }
 
+    &:hover  &__item { opacity: 1; } 
+
     &__item {
-        // &:not(:last-child) { margin-bottom: 5rem; }
-        // border: 1px solid black;
+        background-color: $darkColor-main;
+        &:first-child {  border-top-right-radius: 1rem; }
+        &:last-child  {  border-bottom-right-radius: 1rem; }
         padding: 1rem 2rem ;
         transition: all .3s;
         outline: none;
         width: 100%;
         @include flexCenter;
         font-family: 'Merriweather Sans', sans-serif;
+        opacity: 0.4;
+        &:hover  &__text { opacity: 1;}
 
-
-
-        &__text {
-            margin-right: 2rem;
-        }
+        &__text , & svg { opacity: 0.4;}
+        &__text {  margin-right: 2rem; }
 
         & svg {
             height:2rem;
@@ -77,35 +67,44 @@
 
 .tasks {
     color : #ff6550;
-    &:hover {
-        background-color: #ffbc5052 ;
-    }
+    &:hover  { background-color: #ffbc5052 !important; }
 }
+.nav:hover .activeItem.tasks { background-color: #ffbc5052; }
+ 
 
 .balance {
     color : #ffbc50;
-    &:hover {
-        background-color: #7950ff54;
-        color : #a07839;
-    }
+    &:hover { background-color: #7950ff54; color : #a07839; }
 }
+.nav:hover .activeItem.balance { background-color: #7950ff54; }
+
 
 .addresses {
     color : #7950ff;
-    &:hover {
-        background-color: #ff64504b;
-    }
+    &:hover { background-color: #ff64504b; }
 }
+.nav:hover .activeItem.addresses { background-color: #ff64504b;}
+
 
 .transactions {
     color : #ff6550;
-    &:hover {
-        background-color: #ffbc5042;
-    }
+    &:hover { background-color: #ffbc5042;}
+}
+.nav:hover .activeItem.transactions { background-color: #ffbc5042;}
+
+
+
+.activeLogoAndText {
+    opacity: 1 !important;
 }
 
 
-
+.activeItem {
+    opacity: 1 !important;
+    .nav__item tasks:hover & {
+        background-color: red !important;
+    }
+}
 
 
 

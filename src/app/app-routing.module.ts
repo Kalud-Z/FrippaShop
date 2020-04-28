@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TasksComponent } from '../tasks/tasks.component';
-import { NewTaskComponent } from '../tasks/new-task/new-task.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { NewTaskComponent } from './tasks/new-task/new-task.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 
 
@@ -14,6 +15,7 @@ const AppRoutes: Routes = [
     { path: 'new-task/:id' , component : NewTaskComponent }
   ]},
  
+  {path:'transactions' , component : TransactionsComponent },
   {path:'' , redirectTo : '/tasks' , pathMatch : 'full'}
 
 ]

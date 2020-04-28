@@ -1,83 +1,113 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { crudService } from '../crud.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Task } from '../task.model';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { crudService } from "../services/crud.service";
+import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Task } from "../task.model";
 
 @Component({
-  selector: 'app-new-task',
-  templateUrl: './new-task.component.html',
-  styleUrls: ['./new-task.component.scss']
+  selector: "app-new-task",
+  templateUrl: "./new-task.component.html",
+  styleUrls: ["./new-task.component.scss"],
 })
 
 // ############################################################################################################################################
-export class NewTaskComponent implements OnInit { //###########################################################################################
+export class NewTaskComponent implements OnInit {
+  //###########################################################################################
   taskType: string;
   details: string;
   alreadySent: boolean;
-  currentID : number;
+  currentID: number;
 
   newTaskView: boolean;
   modifyTaskView: boolean;
   popupView: boolean;
 
-  constructor(private crudService : crudService,
-              private router : Router,
-              private route: ActivatedRoute
-              ) { }
+  formValid: boolean = false;
+
+  constructor(
+    private crudService: crudService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      if(params['id']) {
+      if (params["id"]) {
         this.modifyTaskView = true;
-        this.currentID = +params['id'];
-        let currentTask : Task = this.crudService.getTask(this.currentID);
-        this.formInit(currentTask.type , currentTask.details , currentTask.isItemAlreadySent);
+        this.currentID = +params["id"];
+        let currentTask: Task = this.crudService.getTask(this.currentID);
+        this.formInit(
+          currentTask.type,
+          currentTask.details,
+          currentTask.isItemAlreadySent
+        );
+      } else {
+        this.alreadySent = false; //start condition
       }
-    })
-
+    });
   } //ngOnInit()
 
-
-  onAddTask() {
-    if(this.modifyTaskView) { this.crudService.updateTask(this.currentID , this.taskType , this.alreadySent , this.details) }
-    else { this.crudService.createNewTaskAndPush(this.taskType, this.alreadySent , this.details) }
-    
-    this.router.navigate(['../']); 
+  ngDoCheck() {
+    if (!this.taskType || !this.details || this.alreadySent === undefined) {
+      this.formValid = false;
+    } else {
+      this.formValid = true;
+    }
   }
 
+  onAddTask() {
+    if (this.formValid) {
+      if (this.modifyTaskView) {
+        this.crudService.updateTask(
+          this.currentID,
+          this.taskType,
+          this.alreadySent,
+          this.details
+        );
+      } else {
+        this.crudService.createNewTaskAndPush(
+          this.taskType,
+          this.alreadySent,
+          this.details
+        );
+      }
+
+      this.router.navigate(["../"]);
+    }
+  }
 
   onDeleteTask() {
     this.crudService.deleteTask(this.currentID);
+    this.router.navigate(["../../"]);
   }
-
-
-
 
   ExitPopup(event) {
-    if(event.target.className === 'container' || event.target.nodeName === 'svg' || event.target.nodeName === 'use') { this.popupView = true }
+    if (
+      event.target.className === "container" ||
+      event.target.nodeName === "svg" ||
+      event.target.nodeName === "use"
+    ) {
+      this.popupView = true;
+    }
   }
 
-  onPopupYes() {this.router.navigate(['../']) }
-  onPopupNo() { this.popupView = false }
+  onPopupYes() {
+    this.router.navigate(["../"]);
+  }
+  onPopupNo() {
+    this.popupView = false;
+  }
 
-
-
-
+  d;
   // ########################################  PRIVATE METHODS ###############################################################################
 
-
-  
-  private formInit(type: string, details: string , alreadySent : boolean) {
+  private formInit(type: string, details: string, alreadySent: boolean) {
     this.taskType = type;
     this.details = details;
     this.alreadySent = alreadySent;
   }
 
-
   private hasNumber(myString) {
     return /\d/.test(myString);
   }
-
-
 } //class ########################################################################################################################################
 // ###############################################################################################################################################

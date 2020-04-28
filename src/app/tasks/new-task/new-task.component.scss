@@ -26,6 +26,7 @@
     padding: 2rem 3rem;
     display: flex;
     flex-direction: column;
+    flex:0 0 66%;
 
     &__ExitLogo-container {
         position: relative;
@@ -35,7 +36,7 @@
     &__ExitLogo {
         position: absolute;
         top: -50%;
-        right: -4%;
+        right: -3%;
         height: 2rem;
         width: 2rem;
         align-self: flex-end;
@@ -44,8 +45,14 @@
 
 
     &__body {
-        display: flex;
+        white-space: nowrap;
+        @include flexCenter;
+        align-items: stretch;
         & > *:not(:last-child) { margin-right: 3rem; }
+
+        & > *:not(.form__vertical-line) {
+            flex: 1 0 25%;
+        }
     }
 
     &__select {
@@ -57,7 +64,9 @@
     }
 
     &__vertical-line {
-        border-right: 1px solid rgba(128, 128, 128, 0.438);
+        border-right: 1px solid rgba(128, 128, 128, 0.24);
+        height: 20rem;
+        align-self: center;
     }
 
     &__radioButton {
@@ -70,15 +79,23 @@
         @include flexCenter;
         position: relative;
 
-        &  > *:last-child {
+        &__deleteButton{
            position: absolute;
-           right:-4%;
-           top: 156%;
+           right:-3%;
+           top: 157%;
         }
     }
 
 
 } //form
+
+
+
+.f {
+    background-color: red;
+    border:1px solid black;
+    width: 10rem;
+}
 
 
 .textareaFormGroup {
@@ -87,7 +104,7 @@
 
     & label  {
         align-self:center;
-        margin-bottom: 1rem;
+        margin-bottom: 1.4rem;
     }
     
     & textarea {
@@ -158,22 +175,19 @@
 
 
 
+// buttons ###############################################################################################################################
 
 
 
-// imported ###############################################################################################################################
+.disable-button {
+    filter:opacity(60%);
+    cursor: not-allowed;
 
-
-
-
-.submit-button {
-   
-    
     &:hover {
-
+        border-color:transparent;
     }
-
 }
+
 
 .removeTaskButton {
     background:linear-gradient(to bottom, #c94d4d 5%, #c94d4dcb 100%);
@@ -184,7 +198,7 @@
 	padding:4px 20px;
 
     
-    &:hover {
+    &:not(.disable-button):hover {
         border:2px solid pink;
         // fons-size : 
     }

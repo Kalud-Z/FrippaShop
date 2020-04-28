@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Task } from './task.model';
+import { Task } from '../task.model';
 import { Subject, Observable } from 'rxjs';
 import { DataStorageService } from './data-storage.service';
 
@@ -31,6 +31,7 @@ export class crudService { //###################################################
   }
 
   createNewTaskAndPush(type: string, alreadySent: boolean , details: string , id?:number , date?: Date , state?: string) {
+    console.log('createNewTaskAndPush is called')
     let correctDate : Date;
     if(!date) { correctDate = new Date() }
     else { correctDate = date }

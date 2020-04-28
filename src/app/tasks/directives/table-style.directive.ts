@@ -17,7 +17,7 @@ export class TableStyleDirective { //###########################################
     const parent1 = this.renderer.parentNode(targetElement);
     const parent2 = this.renderer.parentNode(parent1);
     const parent3 = this.renderer.parentNode(parent2);
-    this.renderer.setStyle(parent3, 'margin-left', desiredWidth + 'px');
+    this.renderer.setStyle(parent3, 'margin-left', desiredWidth+25 + 'px');
   }
 
 

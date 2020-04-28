@@ -1,6 +1,6 @@
 import { Directive, Renderer2, ElementRef } from '@angular/core';
-import { crudService } from './crud.service';
-import { DataStorageService } from './data-storage.service';
+import { crudService } from '../services/crud.service';
+import { DataStorageService } from '../services/data-storage.service';
 
 @Directive({
   selector: '[appAddMonthRow]'

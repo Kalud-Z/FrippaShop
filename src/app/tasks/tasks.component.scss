@@ -3,8 +3,12 @@
 
 
 * {
-    // border:1px solid blue;
+
+    // border: 1px solid blue;
+
+
 }
+
 
 .container {
     padding: 2rem 3rem;
@@ -14,6 +18,76 @@
     flex-direction: column;
     align-items: center;
 }
+
+
+
+.header {
+    z-index: 100;
+    background:linear-gradient(to bottom, #e5bab200 5%, #e5bab2 100%);
+    box-shadow: 2px 2px 2px 0px rgba(189,134,189,1);
+
+    border-radius: 7px;
+    transition: all .5s;
+    transform: translateY(-95%);
+    &:hover { transform: translateY(0%); }
+    width:fit-content;
+    align-self: flex-start;
+    margin-left: -3rem;
+    @include flexCenter;
+    margin-bottom: -2.5rem;
+    padding: 2rem 3rem;
+    & > *:not(:last-child) { margin-right: 3rem; }
+
+    &:hover div { transform: translate(0px, 0px) scale(1); }
+    &:hover svg { fill : currentColor !important; }
+
+    & button div {
+        margin-left: auto;
+        padding:0.5rem .5rem;
+        transition: 0.5s;
+        transition-delay: 0.18s;
+        display: flex;
+        justify-content:center ;
+        align-items: center;
+
+        & svg { 
+            cursor: pointer;
+            transition: all 0.45s;
+            margin-left: 1rem;
+            height:2rem;
+            width:2rem;
+            fill:rgba(255, 0, 0, 0.5);
+            margin-left: auto;
+        }
+
+        &:hover .header { transform: translateY(0%); }
+    }
+
+    &__saveLogo    { transform: translate(-14rem, 6rem) scale(1.5); }
+    &__addLogo     { transform: translate(-29rem, 6rem) scale(1.5); }
+    &__filterLogo  { transform: translate(-56rem, 6rem) scale(1.5); }
+}
+
+
+.headerButtons {
+    font-family: inherit;
+	background:linear-gradient(to bottom, #2d8568 5%, #4caf8e 100%);
+    // padding:1rem;
+    color: white;
+    text-shadow: none;
+    border:none;
+    transform: translate(0px , 0px);
+    // box-shadow: 1px 1px 2px 1px rgba(179,127,179,1) !important;
+    box-shadow: 1px 1px 2px 1px rgb(148, 96, 148) !important;
+    @include flexCenter;
+    width:20rem;
+
+    &:active {
+        transform: translate(1px , 1px);
+        box-shadow: none;
+    }
+}
+
 
 
 .table {
@@ -26,6 +100,7 @@
     border-collapse: collapse;
     position : relative;
     border-right: none !important;
+    z-index: 80;
 }
 
 tbody {
@@ -37,14 +112,11 @@ tbody {
         // border-bottom:0px solid black;
 
         & > *:not(:last-child) {
-            background-color: yellow;
             border-bottom:1px solid black !important;
         }
     }
 
 }
-
-
 
 .tbodyRow {
     
@@ -63,11 +135,16 @@ tbody {
 }
 
 
-
 .table thead {
     font-family: 'Merriweather Sans', sans-serif;
     font-style: italic;
     background: $darkColor-darker;
+
+    & tr {
+        border-bottom:1px solid transparent;
+    }
+
+
 }
 
 .table thead th {
@@ -77,6 +154,13 @@ tbody {
     text-align: center;
     padding-top: 2rem;
     padding-bottom: 2rem;
+
+    &:last-child {
+        border:none;
+        border-top:1px solid transparent;
+        background-color: #c6ffec;
+
+    }
 }
 
 
@@ -153,97 +237,7 @@ tr:hover .editLogoCell__editTask-logo {
 }
  
 
-
-.header {
-    z-index: 2345;
-    // background-color: #e5bab2;
-    background:linear-gradient(to bottom, #e5bab200 5%, #e5bab2 100%);
-    box-shadow: 2px 2px 2px 0px rgba(189,134,189,1);
-
-    border-radius: 7px;
-    transition: all .6s;
-    transform: translateY(-95%);
-    width:fit-content;
-    align-self: flex-start;
-    margin-left: -3rem;
-    @include flexCenter;
-    margin-bottom: -2.5rem;
-    padding: 2rem 3rem;
-    & > *:not(:last-child) { margin-right: 3rem; }
-
-    & button div {
-        margin-left: auto;
-        padding:0 .5rem;
-        // background-color: yellow;
-        // border: 1px solid black;
-        display: flex;
-        justify-content:center ;
-        align-items: center;
-    }
-
-    &:hover {
-        transform: translateY(0%);
-    }
-
-    & div:hover .header {
-        transform: translateY(0%);
-    }
-
-    &:hover div svg {
-        fill:currentColor;
-    }
-
-    &:hover div  {
-        transform: translate(0px, 0px) scale(1);
-    }
-
-    & div {
-        transition: 0.5s;
-        transition-delay: 0.18s;
-    }
-
-    & svg {
-        cursor: pointer;
-        transition: all 0.45s;
-        margin-left: 1rem;
-        height:2rem;
-        width:2rem;
-        fill:rgba(255, 0, 0, 0.5);
-        margin-left: auto;
-        // padding:2rem;
-    }
-
-    &__saveLogo {
-        transform: translate(-14rem, 6rem) scale(1.5);
-    }
-
-    &__addLogo {
-        transform: translate(-29rem, 6rem) scale(1.5);
-    }
-
-    &__filterLogo {
-        transform: translate(-56rem, 6rem) scale(1.5);
-    }
-}
-
-.headerButtons {
-    font-family: inherit;
-	background:linear-gradient(to bottom, #2d8568 5%, #4caf8e 100%);
-    // padding:1rem;
-    color: white;
-    text-shadow: none;
-    border:none;
-    transform: translate(0px , 0px);
-    // box-shadow: 1px 1px 2px 1px rgba(179,127,179,1) !important;
-    box-shadow: 1px 1px 2px 1px rgb(148, 96, 148) !important;
-    @include flexCenter;
-    width:20rem;
-
-    &:active {
-        transform: translate(1px , 1px);
-        box-shadow: none;
-    }
-}
+// Buttons ##############################################################################################################################################
 
 .storeDataButton {
 	background:linear-gradient(to bottom, #236650 5%, #3a8068 100%);
@@ -255,13 +249,195 @@ tr:hover .editLogoCell__editTask-logo {
 
 
 
+// Filter box ###############################################################################################################################################
+// ##########################################################################################################################################################
+$filterOptionHeight : 4rem;
+
+.filterWrapper {
+    background:linear-gradient(to bottom, #e5bab244 5%, #bb8c83 100%);
+    box-shadow: 2px 2px 2px 0px rgba(189,134,189,1);
+    // margin-bottom: 3rem;
+    z-index: 90;
+    
+    transition: .5s ease-out;
+    margin-bottom: -12rem;
+    // final margin bottom between filer and table : 2rem | starts : -12rem
+    
+    border-radius: 5px;
+    font-size: 1.3rem;
+    padding: 2rem 5rem;
+    padding-top:0;
+    height:11rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: fit-content;
+    transform: translateY(-156%);
+
+
+    .filterHeader {
+        position: relative;
+        margin-bottom: 4rem;
+        // height:2rem;
+
+        &__ExitLogo {
+            position: absolute;
+            top: 0%;
+            right: -6%;
+            height: 2rem;
+            width: 2rem;
+            // align-self: flex-end;
+            cursor: pointer;
+        }
+    
+        &__resetAllButton {
+            padding:.5rem 1rem;
+            background-color: transparent;
+            border:1px solid black;
+            color: red;
+            font-family: inherit;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            position: absolute;
+            top:28%;
+            left: -5%;
+            cursor: pointer;
+            // border:2px solid #BC8F87;
+            border:2px solid red;
+            // transition: all 1s;
+            outline:none;
+            &:active {
+                animation: resetAllButtonOnClick 2s;
+                animation-timing-function: ease-out; /* or: ease, ease-in, ease-in-out, linear, cubic-bezier(x1, y1, x2, y2) */
+
+            }
+
+        }
+    }
+
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+    .filterBody {
+        white-space: nowrap;
+        display: flex;
+        align-items: stretch;
+        & > *:not(:last-child) { margin-right: 3rem; }
+        // width: 76rem;
+            
+        .filterCatWrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+
+           /*  &:hover {
+                // height: auto;
+            } */
+            
+            &__trashBinLogo {
+                // fill: currentColor;
+                // color: currentColor;
+                height:2rem;
+                width:2rem;
+                position: absolute;
+                fill: darken(white , 8%);
+                top:0;
+                right:0;
+
+                &:hover {
+                    fill:rgb(214, 54, 54);
+                }
+            }
+
+                    
+            .filterOptionsWrapper {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                transition: all 1s;
+                clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
+                &:hover {clip-path:none}
+    
+                &:hover > * {
+                    transform: translateY(0);  //add a directive for . onmouse leave , to wait a lil bit before closing the dropdown on mouseleave 
+                    border-bottom:1px solid #114d05;
+                }
+            
+                &__filterOption {
+                    height: $filterOptionHeight;
+                    z-index:  3000 ;
+                    transition: all .2s ease-out;
+                    cursor: pointer;
+                    padding: 1rem 4rem;
+                    border-radius: 3px;
+                    color:white;
+                    background-color: #2d8568;
+                    border:1px solid transparent;
+                    text-align: center;
+                    @include flexCenter;
+                    border-bottom:1px solid transparent;
+                    position: relative;
+
+                }
+
+            }
+
+        }
+
+
+    }
+
+
+        
+    @for $i from 2 through 13 {
+        .monthFilter__option:nth-child( #{$i} ) {
+            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1})  + 4rem ));
+            z-index: calc( 3000 - #{ $i } ) !important;
+        }
+    }
+
+    
+    @for $i from 2 through 5 {
+        .yearFilter__option:nth-child( #{$i} ) {
+            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
+            z-index:  calc( 3000 - #{ $i } ) !important;
+        }
+    }
+
+    
+    @for $i from 2 through 6  {
+        .typeFilter__option:nth-child( #{$i} ) {
+            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
+            z-index:  calc( 3000 - #{ $i } ) !important;
+        }
+    }
+
+    
+    @for $i from 2 through 3 {
+        .alreadySentFilter__option:nth-child( #{$i} ) {
+            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
+            z-index:  calc( 3000 - #{ $i } ) !important;
+        }
+    }
+
+}
 
 
 
 
 
 
+.optionSelected {
+    background-color: #852d3c !important;
+}
 
+
+.showFilter {
+    transform: translateY(0%);
+    margin-bottom: 2rem;
+}
 
 
 

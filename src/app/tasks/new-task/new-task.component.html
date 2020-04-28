@@ -38,15 +38,16 @@
 
             <div class="alreadySent">
                 <p class="alreadySent__text"> Already Sent ? </p>
-                <div class="alreadySent__option" [ngClass]= "{ 'option-selected' : alreadySent }" (click)="alreadySent = true" > Yes </div>
-                <div class="alreadySent__option" [ngClass]= "{ 'option-selected' : !alreadySent }" (click)="alreadySent = false" > Not Yet </div>
-       </div>
+                <div class="alreadySent__option" [ngClass]="{'option-selected' : alreadySent }"        (click)="alreadySent = true" > Yes </div>
+                <div class="alreadySent__option" [ngClass]="{'option-selected' : !this.alreadySent }"  (click)="alreadySent = false" > Not Yet </div>
+            </div>
 
         </div>
                 
         <div class="form__footer">
-            <button class="Tasks-default-btn" (click)='onAddTask()'>   {{ modifyTaskView ? 'Update Task' : 'Add New Task' }} </button>
-            <button class="Tasks-default-btn removeTaskButton" (click)='onDeleteTask()'>  Delete Task Permanently </button>
+            <button class="Tasks-default-btn form__footer__addButton" (click)='onAddTask()'  [ngClass]="{'disable-button' : !formValid}">   {{ modifyTaskView ? 'Update Task' : 'Add New Task' }} </button>
+            <button class="Tasks-default-btn removeTaskButton form__footer__deleteButton" (click)='onDeleteTask()' *ngIf='modifyTaskView; else temp'>  Delete Task Permanently </button>
+            <ng-template #temp></ng-template>
         </div>
       
     </form>

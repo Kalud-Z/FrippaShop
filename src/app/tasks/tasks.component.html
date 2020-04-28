@@ -1,8 +1,12 @@
 <div class="container">
 
+
+    
+<!-- ############################################################################################################################################# -->
+    <!-- Header ################################################################################################################################## -->
     <div class="header">
         
-        <button class="Tasks-default-btn headerButtons storeDataButton" (click)='storeData()'> Save Changes 
+        <button class="Tasks-default-btn headerButtons storeDataButton"> Save Changes 
            <div class="header__saveLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> </div>
         </button>
 
@@ -10,14 +14,81 @@
             <div class="header__addLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-folder-add"></use> </svg>  </div>
         </button>
 
-        <button class="Tasks-default-btn headerButtons filterButton" > Filter
+        <button class="Tasks-default-btn headerButtons filterButton" (click)='showFilterCrl = true' > Filter
             <div class="header__filterLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> </div>
         </button>
     </div>
     
 
+
+
+<!-- ############################################################################################################################################# -->
+    <!-- Filter ################################################################################################################################## -->
+    <div class="filterWrapper" [ngClass]="{'showFilter' : showFilterCrl === true}">
+
+         <div class="filterHeader"> &nbsp;
+            <button type="button" class="filterHeader__resetAllButton" (click)='resetAllFilters()' > Reset All </button>
+            <svg class="filterHeader__ExitLogo" (click)='showFilterCrl = false'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+        </div>
+
+
+        <div class="filterBody">
+
+            <div class="monthFilter  filterCatWrapper">
+                <div class="monthFilter__optionsWrapper  filterOptionsWrapper">
+                    <div class="monthFilter__option  filterOptionsWrapper__filterOption"> Filter By Month 
+                        <!-- <button (click)="filterByMonthInput = ''" >clear</button> -->
+                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByMonthInput = ''" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+                    </div>
+                    <div class="monthFilter__option  filterOptionsWrapper__filterOption" *ngFor='let month of monthsArray' [ngClass]="{'optionSelected' : filterByMonthInput === month }"  (click)='setMonth(month)'  > {{ month }} </div>
+                </div>
+             </div>
+
+
+             <div class="yearFilter  filterCatWrapper">
+                <div class="yearFilter__optionsWrapper  filterOptionsWrapper">
+                    <div class="yearFilter__option  filterOptionsWrapper__filterOption"> Filter By Year
+                        <!-- <button (click)="filterByYearInput = 0" >clear</button> -->
+                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByYearInput = 0">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+                    </div>
+                    <div class="yearFilter__option  filterOptionsWrapper__filterOption" *ngFor='let year of yearsArray'   [ngClass]="{'optionSelected' : filterByYearInput === year }" (click)='setYear(year)'  > {{ year }} </div>
+                </div>
+             </div>
     
-<!-- <table class="table" [ngStyle]="{'margin-left' : tableMarginOffset + 'px'}"> appTableStyle -->
+    
+             <div class="typeFilter  filterCatWrapper">
+                <!-- <p class="typeFilter__Text  filterText"> Filter By Type </p>  -->
+                <div class="typeFilter__optionsWrapper  filterOptionsWrapper">
+                    <div class="typeFilter__option  filterOptionsWrapper__filterOption"> Filter By Type
+                        <!-- <button (click)="filterByTypeInput = ''" >clear</button> -->
+                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByTypeInput = ''">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+                    </div>
+                    <div class="typeFilter__option  filterOptionsWrapper__filterOption" *ngFor='let type of typesArray'  [ngClass]="{'optionSelected' : filterByTypeInput === type }" (click)='setType(type)'> {{ type }} </div>
+                </div>
+             </div>
+
+    
+             <div class="alreadySentFilter  filterCatWrapper">
+                <!-- <p class="alreadySentFilter__Text  filterText"> Already Sent ? </p>  -->
+                <div class="alreadySentFilter__optionsWrapper  filterOptionsWrapper">
+                    <div class="alreadySentFilter__option filterOptionsWrapper__filterOption">Already Sent
+                        <!-- <button (click)="filterByAlreadySent = undefined" >clear</button> -->
+                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByAlreadySent = undefined">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+                    </div>
+                    <div class="alreadySentFilter__option filterOptionsWrapper__filterOption" [ngClass]="{'optionSelected' : filterByAlreadySent === true }"  (click)='setAlreadySent(true)'>Yes</div>
+                    <div class="alreadySentFilter__option filterOptionsWrapper__filterOption"  [ngClass]="{'optionSelected' : filterByAlreadySent === false }" (click)='setAlreadySent(false)'>Not Yet</div>
+                </div>
+             </div>
+    
+        </div>  <!-- filterbody -->
+            
+    </div>  <!-- filterWrapper -->
+    
+
+
+    
+<!-- ############################################################################################################################################# -->
+    <!-- Table ################################################################################################################################## -->
     <table class="table"> 
 
     <thead>
@@ -31,13 +102,15 @@
             <th>Date</th>
             <th>Details</th>
             <th>Already Sent</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
    
-    <tbody *ngFor='let task of tasks; let i = index;'  >
+    <tbody *ngFor='let task of tasks |  filterByYear: filterByYearInput  | filterByMonth:filterByMonthInput
+                | filterByType:filterByTypeInput | filterByAlreadySent:filterByAlreadySent ; let i = index;'  >
 
         <tr class="tbodyRow" >
-            <td class="tbodyRow__itemID" >        {{ task.id }} </td>
+            <td class="tbodyRow__itemID" >        {{ task.id }} </td>  
             <td class="tbodyRow__transaction">    <svg class="tbodyRow__checkmarkLogo" *ngIf="task.type === 'transaction'">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg>  </td>
             <td class="tbodyRow__shoe">           <svg class="tbodyRow__checkmarkLogo" *ngIf="task.type === 'shoes'">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg>        </td>
             <td class="tbodyRow__watch">          <svg class="tbodyRow__checkmarkLogo" *ngIf="task.type === 'watch'">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg> </td>
@@ -53,7 +126,7 @@
         </tr>
 
         
-        <tr class="rowWrapper__month" *ngIf="displayDateRow(i)">
+        <tr class="rowWrapper__month" *ngIf="displayDateRow(i)" >
             <td colspan="9"> {{  tasks[i + 1].date | filterDate  }} </td>
         </tr>
 
@@ -82,6 +155,1167 @@
 
 
 
-<!-- <div style="margin-left: 44rem; margin-bottom: 3rem;" (click)='extraction()'> generate the talbe. </div>
-    <div style="margin-left: 44rem; margin-bottom: 3rem;" (click)='fetchData()'> fetch data the cloud </div> -->
-    <!-- <div style="margin-left: 44rem; margin-bottom: 3rem;" (click)='fixData()'> fetch data the cloud </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+    <button (click)='extraction()'>extracttttt </button>
+
+    <button (click)='onStore()'> on stoooore </button>
+
+
+
+ -->
+
+
+
+
+
+<!-- 
+
+    <table class='ff'>
+        <tbody>
+        <tr>
+        <td>515</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>garmin forerunner 30. state : Perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>516</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 5 plus . state : NEW</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>517</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 3 . State : Perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>518</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Boost . 46 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>519</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Forerunner 920 xt + 2 HR belt + Bike sleed sensor . state : Perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>520</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Forerunner . 735 XT . state : Perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>521</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 3 . State : Perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>522</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>Lass3ed . France . 5kg</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>523</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>fairouz . France . 10kg</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>524</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Primeblue . 46</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>525</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Adizero adios 5 . 40 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>526</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>columbia montreal . 40&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>527</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Hoka . 43;1/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>528</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Terrex Veste . black&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>529</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Terrex . 40</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>530</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adizero prime . 43 1/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>531</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>boost . 38 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>532</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>boost. 46 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>533</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>terrex. 40 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>534</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adizero . 42 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>535</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas . sweater .&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>536</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>terrex . red . 40</td>
+        <td>&nbsp;</td>
+        </tr>
+        
+        </tbody>
+        </table>
+
+
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+    <table class='ff'>
+        <tbody>
+        <tr>
+        <td>482</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>#####</td>
+        <td>bracelet</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>483</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas sweater . grey (For Ahmed)</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>484</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas parley . 40 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>485</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>solar glide st . 41 1/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>486</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>saucony . 38</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>487</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>brooks . 45</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>488</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>terrex . 43 1/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>489</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Ultra boost . 41 1/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>490</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>solar glide st. 43 1/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>491</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas pants. blue&nbsp;</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>492</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas boost. 40</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>493</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>#####</td>
+        <td>scarpa . 43</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>494</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 3HR . State : perfect</td>
+        <td>check</td>
+        </tr>
+        <tr>
+        <td>495</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Ultraboost . 40 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>496</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Salming . 38 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>497</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Everrun . 37.5</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>498</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Energy boost 37 1/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>499</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 3 . state : perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>500</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 3 HR . State : perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>501</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Garmin : forerunner 235 . state : buttons burnt. Button doesnt work</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>502</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 3HR . state : perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>503</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Energy boost . 42</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>504</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Adidas Boost . 36 2/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>505</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 5s. Refurbished</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>506</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>Zghidi . Frnace . 5kg</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>507</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 5 plus . state : perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>508</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Fenix 5 . state : perfect</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>509</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Boost . 40</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>510</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Terrex . 40</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>511</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adizero adios. 38</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>512</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adizero boston. 38</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>513</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>aeroready . 42 sth.</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>514</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>vivo active HR . state : perfect</td>
+        <td>✓</td>
+        </tr>
+        
+        </tbody>
+        </table>
+        
+
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+    <table class="ff">
+        <tbody>
+        <tr>
+        <td>440</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>terrex 260 . 40 2/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>441</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>ultraboost . 44 2/3 . green</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>442</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas toy story</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>443</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas packer . 45 1/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>444</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adizero boston. 42</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>445</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adizero boston 8 . 44 2/3&nbsp;</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>446</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Ultraboost . 46 2/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>447</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas paley . 42 . white</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>448</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas boost . 40 2/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>449</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas solar glide. 45 1/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>450</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>garmin HR belt . blue&nbsp;</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>451</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas jacket. S . grey&nbsp;</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>452</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas running long tights . black</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>453</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Adidas running short 3/4 . blur&nbsp;</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>454</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas running long tights . black</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>455</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas running long tights . black</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>456</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas running long tights . black</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>457</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adizero boston. 44 . beige&nbsp;</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>458</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>pure Boston . 45 1/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>459</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>solar boost . 38</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>460</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Ultraboost . 46</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>461</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Reebok CrossFit . 41&nbsp;</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>462</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Adidas stan Smith . 40</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>463</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Adizero Prime . 41 1/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>464</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Adizero boston . 41:1/3</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>465</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>boost . 40</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>466</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>solar glide . 39 1/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>467</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Solar glide . 40</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>468</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>solar glide . 44</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>469</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>#####</td>
+        <td>Bremen . 5Kg</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>470</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas boost . 38&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>471</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas boost . 40 2/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>472</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adidas boost . 45 1/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>473</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>adizero boston . 44</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>474</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>solar boost . 39 1/3</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>475</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Garmin fenix 5 . state : not tested</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>476</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Soloman . 40</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>477</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Hoka. 40</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>478</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>soloman s . 44</td>
+        <td>✓</td>
+        </tr>
+        <tr>
+        <td>479</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>sunglasses . For Ahmed&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>480</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>screen protectors. for Ahmed</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>481</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>✓</td>
+        <td>#####</td>
+        <td>nadia</td>
+        <td>&nbsp;</td>
+        </tr>
+    
+        </tbody>
+        </table>
+    
+     -->
+    

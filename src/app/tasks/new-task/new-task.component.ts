@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { crudService } from "../services/crud.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Task } from "../task.model";
+import { AuthService } from 'src/app/login/auth.service';
 
 @Component({
   selector: "app-new-task",
@@ -24,10 +25,11 @@ export class NewTaskComponent implements OnInit {
   formValid: boolean = false;
 
   constructor(
+    private authService: AuthService,
     private crudService: crudService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -55,29 +57,21 @@ export class NewTaskComponent implements OnInit {
   }
 
   onAddTask() {
-    if (this.formValid) {
-      if (this.modifyTaskView) {
-        this.crudService.updateTask(
-          this.currentID,
-          this.taskType,
-          this.alreadySent,
-          this.details
-        );
-      } else {
-        this.crudService.createNewTaskAndPush(
-          this.taskType,
-          this.alreadySent,
-          this.details
-        );
+    if (this.authService.currentUserName === 'Khaled') {
+      if (this.formValid) {
+        if (this.modifyTaskView) { this.crudService.updateTask(this.currentID, this.taskType, this.alreadySent, this.details) }
+        else { this.crudService.createNewTaskAndPush(this.taskType, this.alreadySent, this.details) }
+        this.router.navigate(["../"]);
       }
-
-      this.router.navigate(["../"]);
     }
+
   }
 
   onDeleteTask() {
-    this.crudService.deleteTask(this.currentID);
-    this.router.navigate(["../../"]);
+    if (this.authService.currentUserName === 'Khaled') {
+      this.crudService.deleteTask(this.currentID);
+      this.router.navigate(["../../"]);
+    }
   }
 
   ExitPopup(event) {
@@ -97,7 +91,7 @@ export class NewTaskComponent implements OnInit {
     this.popupView = false;
   }
 
-  d;
+
   // ########################################  PRIVATE METHODS ###############################################################################
 
   private formInit(type: string, details: string, alreadySent: boolean) {

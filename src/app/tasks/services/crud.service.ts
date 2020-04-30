@@ -31,7 +31,6 @@ export class crudService { //###################################################
   }
 
   createNewTaskAndPush(type: string, alreadySent: boolean , details: string , id?:number , date?: Date , state?: string) {
-    console.log('createNewTaskAndPush is called')
     let correctDate : Date;
     if(!date) { correctDate = new Date() }
     else { correctDate = date }
@@ -49,8 +48,6 @@ export class crudService { //###################################################
   updateTask(id : number , type: string, alreadySent: boolean , details: string) {
     const task = this.createNewTask(type , alreadySent , details , id)
     this.tasksList.forEach( (el , index) => {
-      // console.log('el id : ' , el.id)
-        // console.log('task id, ' , task.id)
       if(el.id === task.id) {
         Object.assign(el , task);   
       }
@@ -68,6 +65,7 @@ export class crudService { //###################################################
     })
     return taskTemp;
   }
+  
 
   getTasksList() {
     if(this.tasksList.length === 0) {

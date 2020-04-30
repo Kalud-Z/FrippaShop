@@ -1,29 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }        from '@angular/forms';
-import { FileSaverModule } from 'ngx-filesaver';
-import { HttpClientModule }   from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AddMonthRowDirective } from './tasks/directives/add-month-row.directive';
-import { TableStyleDirective } from './tasks/directives/table-style.directive';
 import { TransactionsComponent } from './transactions/transactions.component';
-import { FilterByAlreadySentPipe } from './tasks/pipes/filter-by-already-sent.pipe';
 import { TasksModule } from './tasks/tasks.module';
+import { LoginModule } from './login/login.module';
+import { BalanceComponent } from './balance/balance.component';
+import { SharedModule } from './shared/shared.module';
+import { BalanceTableStyleDirective } from './balance/directives/balance-table-style.directive';
+import { DisplayInEuroPipe } from './balance/pipes/display-in-euro.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    BalanceComponent,
+    BalanceTableStyleDirective,
+    DisplayInEuroPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    TasksModule
+    FormsModule,
+    TasksModule,
+    LoginModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

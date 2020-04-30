@@ -3,6 +3,9 @@ import { crudService } from './services/crud.service';
 import { Task } from './task.model';
 import { DataStorageService } from './services/data-storage.service';
 import { FileSaverService } from 'ngx-filesaver';
+import { AuthService } from '../login/auth.service';
+import { environment } from 'src/environments/environment';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -17,6 +20,9 @@ export class TasksComponent implements OnInit  { //#############################
   previousDate : string= '';
   @ViewChild('logoCell')  logoCell: ElementRef;
   tableMarginOffset : string;
+
+  currentUser : string;
+  adminName : string;
 
   monthsArray= ["January","February","March","April","May","June","July","August","September","October","November","December"];
   yearsArray = [ 2018 , 2019 , 2020 , 2021];
@@ -33,8 +39,11 @@ export class TasksComponent implements OnInit  { //#############################
 
 
 
-  constructor(private crudService : crudService,
-              private dataStorageService: DataStorageService
+  constructor(private authService : AuthService,
+              private crudService : crudService,
+              private dataStorageService: DataStorageService,
+              private router : Router,
+              private route : ActivatedRoute
               ) { }
 
 
@@ -42,6 +51,10 @@ export class TasksComponent implements OnInit  { //#############################
     this.crudService.tasksListChangedSubject.subscribe(data => { this.tasks = data })
     // this.dataStorageService.fetchTasksList()
     this.crudService.getTasksList();
+    this.currentUser = this.authService.currentUserName;
+    this.adminName = environment.khaledName;
+    // console.log('thsis the adminname' , this.adminName);
+
 
   } //ngOnInit()
 
@@ -77,6 +90,17 @@ export class TasksComponent implements OnInit  { //#############################
     this.filterByAlreadySent = undefined
   }
 
+  onAddNewTask() {
+    if(this.currentUser === this.adminName ) {
+      this.router.navigate(['new-task'] , { relativeTo :  this.route } );
+    }
+  }
+
+  onModifyTask(id : number) {
+    if(this.currentUser === this.adminName ) {
+      this.router.navigate(['new-task/' + id ] , { relativeTo :  this.route } );
+    }
+  }
 
 
 
@@ -155,7 +179,7 @@ extraction() {
   // const tableBody = document;
 
 
-  console.log(allRows);
+  // console.log(allRows);
   //looping through all rows
   allRows.forEach( (el,index) => {
     const allCells = el.children;
@@ -195,10 +219,6 @@ extraction() {
       
     }) //end of inner loop
 
-    console.log('this is the id : ' , id)
-    console.log(alreadySent)
-    console.log(type)
-    console.log(detail)
 
 
     this.crudService.createNewTaskAndPush(type , alreadySent , detail , id , date);

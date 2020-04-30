@@ -1,0 +1,64 @@
+
+
+<div class="container">
+
+     <div class="form-wrapper" [ngClass]="{'showForm-wrapper' : currentUserEmail }">
+    
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="loginForm" >
+    
+            <p> Login to your account</p>
+    
+            <div class="loginForm__inputGroup">
+                <label for="email"> Email </label>
+                <input type="email" id="email" ngModel name="email" required email [(ngModel)]='initialEmail'>
+            </div>
+    
+            <div class="loginForm__inputGroup">
+                <label for="password"> Password </label>
+                <input type="password"  id="password" ngModel name="password" required>
+            </div> 
+    
+            <button type="submit" class="loginForm__button" [disabled]="loginForm.invalid"> Login 
+            <app-loading-spinner-login *ngIf='isLoading' ></app-loading-spinner-login>
+            </button>
+
+    
+        </form>
+    
+    
+    
+    
+    </div>
+ 
+
+
+ <div class="usersWrapper">
+     <div class="usersWrapper__imageWrapper">
+         <img src="/assets/ahmed-pic.jpg" alt="" class="usersWrapper__imageWrapper__image" 
+          [ngClass]="{ 'usersWrapper__imageWrapper__image-ahmed' : currentUserEmail ,  'userNotSelected' : currentUserName !== 'ahmed' && currentUserName }" 
+          (click)='ahmedLogin()' >
+     </div>
+
+     <div class="usersWrapper__imageWrapper">
+        <img src="/assets/khaled-pic-small.jpg" alt="" class="usersWrapper__imageWrapper__image usersWrapper__imageWrapper__image-khaled"
+        [ngClass]="{ 'usersWrapper__imageWrapper__image-khaled' : currentUserEmail , 'userNotSelected' : currentUserName !== 'khaled' && currentUserName }" (click)='khaledLogin()'>
+    </div>
+
+
+ </div>
+
+
+
+ <div class="layer layer-1" appCutLayer></div>
+ <div class="layer layer-2"></div>
+<div class="layer layer-3" appCutLayer></div>
+
+
+    
+</div>
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{ 'hideNavBar' : hideNavBar === true}" >
   <div class="nav">
 
     <div class="nav__item tasks"  routerLinkActive='activeItem'     routerLink="/tasks">
@@ -8,7 +8,7 @@
       </svg>
     </div>
 
-    <div class="nav__item balance" routerLink="/tasks">
+    <div class="nav__item balance"  routerLinkActive='activeItem'  routerLink="/balance">
       <span class="nav__item__text"> Balance </span>
       <svg class="balance__logo">
         <use xlink:href="/assets/symbol-defs.svg#icon-money-bag"></use>
@@ -28,6 +28,15 @@
         <use xlink:href="/assets/symbol-defs.svg#icon-home"></use>
       </svg>
     </div>
+
+
+    
+    <div class="nav__item logout"  (click)='onLogout()'>
+      <span class="nav__item__text  logout__text"> Logout </span>
+    </div>
+
+
+
   </div>
 
 </div>

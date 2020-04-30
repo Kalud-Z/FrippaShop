@@ -1,29 +1,41 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
-import { TasksComponent } from './tasks/tasks.component';
-import { NewTaskComponent } from './tasks/new-task/new-task.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './login/auth.guard';
+import { TasksModule } from './tasks/tasks.module';
+import { LoadAfterDelayService } from './load-after-delay.service';
+import { LoginModule } from './login/login.module';
+import { BalanceComponent } from './balance/balance.component';
 
-
+LoginModule
 
 const AppRoutes: Routes = [ 
+  
+  // {path:'login' , component : LoginComponent},
+  {path:'login' ,  data: { preload: true, loadAfter: 3000 },
+  loadChildren : () => import('./login/login.module').then(m => m.LoginModule) },
+  
 
-  {path:'tasks' , component: TasksComponent , children : [
-    { path: 'new-task' , component : NewTaskComponent },
-    { path: 'new-task/:id' , component : NewTaskComponent }
-  ]},
- 
-  {path:'transactions' , component : TransactionsComponent },
-  {path:'' , redirectTo : '/tasks' , pathMatch : 'full'}
+  {path:'tasks' ,  data: { preload: true, loadAfter: 6000 },
+  loadChildren : () => import('./tasks/tasks.module').then(m => m.TasksModule) },
+  
+
+  {path:'transactions' , component : TransactionsComponent , canActivate : [AuthGuard] },
+
+  {path:'balance' , component : BalanceComponent , canActivate : [AuthGuard] }
+
+  // {path:'' , redirectTo : '/tasks' , pathMatch : 'full'}
 
 ]
 
 
 @NgModule({
-  imports: [ RouterModule.forRoot(AppRoutes)],
+  imports: [ RouterModule.forRoot(AppRoutes , { preloadingStrategy : LoadAfterDelayService })],
   exports : [RouterModule]
 })
 
 export class AppRoutingModule { }
+
+

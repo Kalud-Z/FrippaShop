@@ -1,0 +1,26 @@
+
+<table class="tt">
+    <tbody>
+    <tr>
+    <td>11-Mar-2018</td>
+    <td>&nbsp;</td>
+    <td>160,00 &euro;</td>
+    <td>160,00 &euro;</td>
+    <td>whatever details</td>
+    </tr>
+    <tr>
+    <td>27-Mar-2018</td>
+    <td>25,84 &euro;</td>
+    <td>&nbsp;</td>
+    <td>134,16 &euro;</td>
+    <td>&nbsp;</td>
+    </tr>
+    <tr>
+    <td>29-Mar-2018</td>
+    <td>134,16 &euro;</td>
+    <td>&nbsp;</td>
+    <td>0,00 &euro;</td>
+    <td>&nbsp;</td>
+    </tr>
+    </tbody>
+    </table>

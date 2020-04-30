@@ -17,6 +17,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    // background-color: yellow;
 }
 
 
@@ -345,6 +346,7 @@ $filterOptionHeight : 4rem;
                 fill: darken(white , 8%);
                 top:0;
                 right:0;
+                transition: all 0.2s;
 
                 &:hover {
                     fill:rgb(214, 54, 54);
@@ -440,4 +442,8 @@ $filterOptionHeight : 4rem;
 }
 
 
+.hideElement {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
 

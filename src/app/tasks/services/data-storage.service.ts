@@ -4,6 +4,9 @@ import { HttpClient } from "@angular/common/http";
 import { Task } from "../task.model";
 import { Subject, BehaviorSubject } from "rxjs";
 import { FileSaverService } from "ngx-filesaver";
+import { AuthService } from 'src/app/login/auth.service';
+import { take , tap, exhaustMap } from "rxjs/operators";
+import { BalanceItem } from 'src/app/balance/balanceItem.model';
 
 @Injectable({
   providedIn: "root",
@@ -12,26 +15,62 @@ import { FileSaverService } from "ngx-filesaver";
 // ####################################################################################################################################################
 export class DataStorageService {
   //###################################################################################################################
-  addDirectiveSubject = new BehaviorSubject<boolean>(false);
 
   constructor(
     private http: HttpClient,
-    private fileSaverService: FileSaverService
+    private fileSaverService: FileSaverService,
+    private authService : AuthService
   ) {}
 
+// AIzaSyDIVA6P44Okinr0qT4z9XzJCpzX1qRDuwo
+
   storeTasksList(list: Task[]) {
-    this.http
-      .put("https://frippashop.firebaseio.com/TasksList.json", list)
-      .subscribe();
-    localStorage.removeItem("tasksList");
-    this.downloadTable(list);
+    // console.log('we are storing now')
+    this.authService.userSubject.pipe(take(1) , tap(userData => {
+      // console.log('this isthe token : ' , userData.token)
+      this.http.put("https://frippashop.firebaseio.com/TasksList.json?auth=" + userData.token , list).subscribe();
+      localStorage.removeItem("tasksList");
+      this.downloadTable(list);
+    }))
   }
 
   fetchTasksList() {
-    return this.http.get<any[]>(
-      "https://frippashop.firebaseio.com/TasksList.json"
-    );
+    return this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
+      return this.http.get<any[]>("https://frippashop.firebaseio.com/TasksList.json?auth=" + userData.token);
+    }))
+
   }
+
+
+
+  storeBalanceItemsList(list: BalanceItem[]) {
+    // this.authService.userSubject.subscribe(data => console.log(data));
+    // console.log('store is called')
+    // this.authService.userSubject.pipe(take(1) , tap(userData => {
+    //   console.log('this is userData : ' ,userData)
+    //   this.http.put("https://frippashop.firebaseio.com/BalanceItemsList.json?auth=" + userData.token , list).subscribe();
+    //   // localStorage.removeItem("tasksList");
+    //   // this.downloadTable(list);
+    // }))
+
+    // this.authService.userSubject.subscribe(data => console.log(data));
+
+      this.http.put("https://frippashop.firebaseio.com/BalanceItemsList.json" , list).subscribe();
+
+  }
+
+
+
+  fetchBalanceItemsList() {
+    // return this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
+    //   return this.http.get<any[]>("https://frippashop.firebaseio.com/TasksList.json?auth=" + userData.token);
+    // }))
+
+    return this.http.get<any[]>("https://frippashop.firebaseio.com/BalanceItemsList.json");
+  }
+ 
+
+
 
   // #############################################################################  PRIVATE ##############################################################
 
@@ -50,6 +89,7 @@ export class DataStorageService {
       "November",
       "December",
     ];
+    
     const lastTaskAdded = list[list.length - 1];
     const dateObj = lastTaskAdded.date;
     const monthIndex = dateObj.getMonth();

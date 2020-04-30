@@ -1,0 +1,88 @@
+<div class="container">
+
+
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Spent</th>
+                <th>Received</th>
+                <th>Left</th>
+                <th>Details</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+
+        <tbody *ngFor='let item of balanceItemsList; let i = index'>
+
+            <tr class="tbodyRow">
+                <td class="tbodyRow__id">      {{ item.id }} </td>
+                <td class="tbodyRow__date">      {{ item.date | filterDate:true }} </td>
+                <td class="tbodyRow__spent">     {{ item.spent | displayInEuro }} </td>
+                <td class="tbodyRow__received">  {{ item.received | displayInEuro }} </td>
+                <td class="tbodyRow__left">      {{ item.left | displayInEuro }}  </td>
+                <td class="tbodyRow__details">   {{ item.details }}</td>
+
+                <td class="editLogoCell" #logoCell  appBalanceTableStyle>
+                    <svg class="editLogoCell__editTask-logo"  (click)='onModifyTask()'  >
+                        <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use>
+                    </svg> 
+                </td> 
+            </tr>
+
+        
+        <tr class="rowWrapper__month" *ngIf="displayDateRow(i)" >
+            <td colspan="6"> {{  balanceItemsList[i + 1].date | filterDate  }} </td>
+        </tr> 
+
+
+
+        </tbody>
+
+
+
+
+
+    </table>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<button (click)='store()' > storrrreee </button>
+<button (click)='fixid()' > fix id </button>
+
+
+
+<!-- ################################################################################################################# -->
+
+<!-- 
+
+
+
+<button (click)='extraction()'> extracttttttttttttttttttt </button>
+
+
+
+
+
+
+ -->
+
+
+

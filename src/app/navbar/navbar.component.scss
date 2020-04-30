@@ -6,6 +6,7 @@
 }
 
 .container {
+
     z-index: 200;
     position: fixed;
     top:50%;
@@ -29,6 +30,7 @@
     justify-content: center;
     align-items: center;
     transition: .45s all ease-out;
+    position: relative;
 
     &:hover {
         transform: translateX(75%);
@@ -94,6 +96,32 @@
 
 
 
+.logout {
+    border-bottom-right-radius: 1rem !important;
+    border-bottom-left-radius: 1rem;
+    color : white;
+    opacity: 1 !important;
+    text-transform: uppercase;
+    // margin-top: .5rem;
+    border:1px solid black;
+    position: absolute;
+    bottom:0;
+    right:0;
+    width: 10rem;
+    transform: translate(-50%,105%);
+    background-color: rgba(128, 128, 128, 0.767);
+    @include flexCenter;
+    &:hover { background-color: rgba(99, 80, 80, 0.705); }
+
+    &__text {
+        margin:0;
+        opacity: 1 !important;
+    }
+}
+.nav:hover .activeItem.logout { background-color: yellow;}
+
+
+
 .activeLogoAndText {
     opacity: 1 !important;
 }
@@ -106,6 +134,10 @@
     }
 }
 
+
+.hideNavBar {
+    display:none;
+}
 
 
 

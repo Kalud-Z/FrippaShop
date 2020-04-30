@@ -30,10 +30,11 @@ export class BalanceCrudService { //############################################
           this.dataStorageService.fetchBalanceItemsList().subscribe(data => {
           this.pushToList(data);
           localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
+          this.BalanceItemsListUpdatedNotify();
+
         })
       }
     }
-    this.BalanceItemsListUpdatedNotify();
   }
 
 
@@ -73,30 +74,39 @@ export class BalanceCrudService { //############################################
 
 
 
-  private pushToList (data: Array<any>) {
+  private pushToList (data: BalanceItem[]) {
+    // console.log('retuend data fom server ' , data)
 
-    console.log('retuend data fom server ' , data)
+    data.forEach((el, index ) => {
 
-    data.forEach(el => {
+    // console.log('robject returned :  ' , el)
+
       const id = el.id;
       const left = el.left;
       const spent = el.spent;
       const received     = el.received;
       const details     = el.details;
+
+      if(index === 4) {
+        console.log('id ' , el.id );
+        console.log('left ' , el.left );
+        console.log('received ' , el.received );
+        console.log('details ' , el.details );
+      }
   
-      const dateStr = el.date.substr(0 ,10);   // 2019-11-01
-      const dateStrArray = dateStr.split('-');
+      // const dateStr = el.date.substr(0 ,10);   // 2019-11-01
+      // const dateStrArray = dateStr.split('-');
 
-      const year = parseInt(dateStrArray[0]) 
-      const month = parseInt(dateStrArray[1]) 
-      const day = parseInt(dateStrArray[2]) 
+      // const year = parseInt(dateStrArray[0]) 
+      // const month = parseInt(dateStrArray[1]) 
+      // const day = parseInt(dateStrArray[2]) 
 
-      var dateObj : Date = new Date();
-      dateObj.setFullYear(year,month-1,day);
+      // var dateObj : Date = new Date();
+      // dateObj.setFullYear(year, month-1, day);
 
-      //we create Task items and push them to the array.
-      console.log('this is the id' , id)
-      this.createNewItemAndPush(spent , received , left , details , id , dateObj , 'initial');
+      // //we create Task items and push them to the array.
+      // // console.log('this is the id' , id)
+      // this.createNewItemAndPush(spent , received , left , details , id , dateObj);
     })
 
   }

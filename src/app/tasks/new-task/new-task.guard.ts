@@ -11,12 +11,12 @@ export class NewTaskGuard implements CanActivate {
   constructor(private authService: AuthService) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // if (this.authService.currentUserName === environment.khaledName) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-    return true;
+    if (this.authService.currentUserName === environment.khaledName) {
+      return true;
+    } else {
+      return false;
+    }
+    // return true;
   }
 
 }

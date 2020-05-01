@@ -1,0 +1,41 @@
+"rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+
+
+"rules": {
+    ".read": true,
+    ".write": true
+  }
+
+
+____________________________________
+
+
+date 	 = correct.
+details  = id
+id  	 = spent
+left 	 = detail
+received = left
+spent    = received
+
+
+
+date 	 = correct.
+details  = left
+id  	 = details
+left 	 = received
+received = spent
+spent    = id
+
+__________________________________________________________-
+
+
+ const id        = el.details;
+        const left      = el.received;
+        const spent     = el.id;
+        const received  = el.spent;
+        const details   = el.left;
+
+

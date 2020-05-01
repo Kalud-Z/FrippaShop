@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { TransactionsComponent } from './transactions/transactions.component';
-import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './login/auth.guard';
-import { TasksModule } from './tasks/tasks.module';
 import { LoadAfterDelayService } from './load-after-delay.service';
 import { LoginModule } from './login/login.module';
 import { BalanceComponent } from './balance/balance.component';
+import { NewBalanceItemComponent } from './balance/new-balance-item/new-balance-item.component';
 
 LoginModule
 
 const AppRoutes: Routes = [ 
   
-  // {path:'login' , component : LoginComponent},
   {path:'login' ,  data: { preload: true, loadAfter: 3000 },
   loadChildren : () => import('./login/login.module').then(m => m.LoginModule) },
   
@@ -24,9 +22,13 @@ const AppRoutes: Routes = [
 
   {path:'transactions' , component : TransactionsComponent , canActivate : [AuthGuard] },
 
-  {path:'balance' , component : BalanceComponent , canActivate : [AuthGuard] }
+  {path:'balance' , component : BalanceComponent , canActivate : [AuthGuard]  , children : [
+    // { path : '' , component : BalanceComponent },
+    { path : 'new-balanceItem' , component : NewBalanceItemComponent },
+    { path : 'new-balanceItem/:id' , component : NewBalanceItemComponent }
+  ] },
 
-  // {path:'' , redirectTo : '/tasks' , pathMatch : 'full'}
+  {path:'' , redirectTo : '/tasks' , pathMatch : 'full'}
 
 ]
 

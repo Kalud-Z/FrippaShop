@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Task } from '../tasks/task.model';
+import { BalanceItem } from '../balance/balanceItem.model';
 // import { Task } from '../task.model';
 
 @Pipe({
@@ -8,7 +9,7 @@ import { Task } from '../tasks/task.model';
 
 export class FilterByMonthPipe implements PipeTransform { //##############################################
 
-  transform(tasks: Task[], monthStrInput: string) {
+  transform(tasks: any[], monthStrInput: string) {
     if (!monthStrInput || monthStrInput === '') { return tasks }
 
     const monthsArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

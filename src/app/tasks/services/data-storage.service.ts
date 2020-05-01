@@ -26,11 +26,11 @@ export class DataStorageService {
 
   storeTasksList(list: Task[]) {
     // console.log('we are storing now')
-    this.authService.userSubject.pipe(take(1) , tap(userData => {
-      // console.log('this isthe token : ' , userData.token)
-      this.http.put("https://frippashop.firebaseio.com/TasksList.json?auth=" + userData.token , list).subscribe();
-      localStorage.removeItem("tasksList");
-      this.downloadTable(list);
+    return  this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
+      console.log('this isthe token : ' , userData.token);
+       return this.http.put("https://frippashop.firebaseio.com/TasksList.json?auth=" + userData.token , list);
+      
+      // this.downloadTable(list);
     }))
   }
 
@@ -44,21 +44,14 @@ export class DataStorageService {
 
 
   storeBalanceItemsList(list: BalanceItem[]) {
-    // this.authService.userSubject.subscribe(data => console.log(data));
-    // console.log('store is called')
-    // this.authService.userSubject.pipe(take(1) , tap(userData => {
-    //   console.log('this is userData : ' ,userData)
-    //   this.http.put("https://frippashop.firebaseio.com/BalanceItemsList.json?auth=" + userData.token , list).subscribe();
-    //   // localStorage.removeItem("tasksList");
-    //   // this.downloadTable(list);
-    // }))
+      return this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
+        // console.log('this isthe token : ' , userData.token)
+        return this.http.put("https://frippashop.firebaseio.com/BalanceItemsList.json?auth=" + userData.token , list)
+      })) 
 
-    // this.authService.userSubject.subscribe(data => console.log(data));
-
-      this.http.put("https://frippashop.firebaseio.com/BalanceItemsList.json" , list).subscribe();
-
+        // this.downloadTable(list);
+    
   }
-
 
 
   fetchBalanceItemsList() {
@@ -66,7 +59,12 @@ export class DataStorageService {
     //   return this.http.get<any[]>("https://frippashop.firebaseio.com/TasksList.json?auth=" + userData.token);
     // }))
 
-    return this.http.get<any[]>("https://frippashop.firebaseio.com/BalanceItemsList.json");
+    return this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
+      return this.http.get<any[]>("https://frippashop.firebaseio.com/BalanceItemsList.json?auth=" + userData.token);
+    }))
+
+
+    // return this.http.get<any[]>("https://frippashop.firebaseio.com/BalanceItemsList.json");
   }
  
 

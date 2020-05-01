@@ -15,7 +15,7 @@ import { NewTaskGuard } from './new-task/new-task.guard';
 
 const AppRoutes: Routes = [ 
 
-  {path:'**' , component: TasksComponent , canActivate : [AuthGuard] , children : [
+  {path:'' , component: TasksComponent , canActivate : [AuthGuard] , children : [
     { path: 'new-task' , component : NewTaskComponent , canActivate : [NewTaskGuard] },
     { path: 'new-task/:id' , component : NewTaskComponent , canActivate : [NewTaskGuard] }
   ]},

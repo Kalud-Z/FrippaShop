@@ -1,0 +1,11 @@
+
+
+Balance table , 
+fix the left column. when u update one cell , all the 'left' cells g, that comes afterward gets updated.
+
+
+
+filter :
+*pick multiple months/years.
+
+*display the chosen selected filter options in top case.

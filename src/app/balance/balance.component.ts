@@ -2,28 +2,71 @@ import { Component, OnInit } from '@angular/core';
 import { BalanceItem } from './balanceItem.model';
 import { BalanceCrudService } from './services/balance-crud.service';
 import { DataStorageService } from '../tasks/services/data-storage.service';
+import { AuthService } from '../login/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.component.html',
   styleUrls: ['./balance.component.scss']
 })
+
 // #######################################################################################################################################################
 export class BalanceComponent implements OnInit { //########################################################################################################
   balanceItemsList: BalanceItem[];
+  currentUser : string;
+  adminName : string;
 
   inFilterMode = false;
+  showFilterCrl : boolean;
+
+  monthsArray= ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  yearsArray = [ 2018 , 2019 , 2020 , 2021];
+
+  filterByMonthInput: string;
+  filterByYearInput: number;
+
 
   constructor(private balanceCrudService: BalanceCrudService,
-              private dt: DataStorageService
+              private dt: DataStorageService,
+              private authService : AuthService,
+              private router : Router,
+              private route : ActivatedRoute
               ) { }
 
   ngOnInit(): void {
+    // this.authService.autoLogin();
+
     this.balanceCrudService.getBalanceItemsList();
-    this.balanceCrudService.balanceItemSubject.subscribe(data => {
-      this.balanceItemsList = data;
-    })
+    this.balanceCrudService.balanceItemSubject.subscribe(data => { this.balanceItemsList = data })
+    this.currentUser = this.authService.currentUserName;
+    this.adminName = environment.khaledName;
+  } //ngOninit
+
+
+   ngDoCheck() {
+    if(this.filterByMonthInput === '' || !this.filterByMonthInput) {
+      this.inFilterMode = false;
+    } else {
+      this.inFilterMode = true;
+    }
   }
+
+
+
+  onAddBalanceItem() {
+    if(this.currentUser === this.adminName ) {
+      this.router.navigate(['new-balanceItem'] , { relativeTo :  this.route } );
+    }
+  }
+
+  onModifyBalanceItem(id : number) {
+    if(this.currentUser === this.adminName ) {
+      this.router.navigate(['new-balanceItem/' + id ] , { relativeTo :  this.route } );
+    }
+  }
+
 
   displayDateRow(i : number) {
     if(this.inFilterMode) {
@@ -38,14 +81,16 @@ export class BalanceComponent implements OnInit { //############################
     
   }
 
-  onModifyTask() {
-
+  onModifyTask(id : number) {
+    if(this.currentUser === this.adminName ) {
+      this.router.navigate(['new-balanceItem/' + id] , { relativeTo :  this.route } );
+    }
   }
 
   fixid() {
     this.balanceCrudService.adjustIDs();
-
   }
+
   store() {
     this.dt.storeBalanceItemsList(this.balanceCrudService.balanceItemsList);
   }
@@ -121,9 +166,8 @@ export class BalanceComponent implements OnInit { //############################
 
 
   setDate(str: string) {
-    var monthsArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var monthArrayShort = [];
-    monthsArray.map(el => { monthArrayShort.push(el.substr(0, 3)) })
+    this.monthsArray.map(el => { monthArrayShort.push(el.substr(0, 3)) })
 
     var arrayOfData = str.split('-');
     var day = +arrayOfData[0]
@@ -140,6 +184,20 @@ export class BalanceComponent implements OnInit { //############################
 
 
 
+  resetAllFilters() {
+    this.filterByYearInput = 0;
+    this.filterByMonthInput = '';
+  }
+
+  
+  setMonth(data : string) {
+    this.filterByMonthInput = data;
+  }
+
+  
+  setYear(year: number) {
+    this.filterByYearInput = year;
+  }
 
 
 

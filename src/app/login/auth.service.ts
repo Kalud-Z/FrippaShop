@@ -48,21 +48,25 @@ export class AuthService { //###################################################
   logout() {
     console.log('we re on logout')
     localStorage.removeItem('userData');
-    this.router.navigate(['/']);
+    this.router.navigate(['login']);
   }
  
 
 
 autoLogin() {
   const userData = JSON.parse(localStorage.getItem('userData'));  //this is how you retrieve data from the local storage
-  if(!userData) { return; }
-  console.log('retiured exp date from local storage : ', userData._tokenExpDate);
-  console.log('type',typeof userData._tokenExpDate);
+  if(!userData) { return }
   const loadedUser = new UserSubject(userData.email, userData.id , userData._token , new Date(userData._tokenExpDate));
   if(loadedUser.token) {
       this.userSubject.next(loadedUser);
-      // this.token = loadedUser.token;
-      this.router.navigate(['/tasks']);
+
+      if(loadedUser.email === environment.ahmedEmail) {
+        this.currentUserName = environment.ahmedName;
+      } 
+      
+      if(loadedUser.email === environment.khaledEmail) {
+        this.currentUserName = environment.khaledName;
+      } 
   } 
 } 
 

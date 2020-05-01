@@ -57,10 +57,10 @@ export class NewTaskComponent implements OnInit {
   }
 
   onAddTask() {
-    if (this.authService.currentUserName === 'Khaled') {
+    if (this.authService.currentUserName === 'khaled') {
       if (this.formValid) {
-        if (this.modifyTaskView) { this.crudService.updateTask(this.currentID, this.taskType, this.alreadySent, this.details) }
-        else { this.crudService.createNewTaskAndPush(this.taskType, this.alreadySent, this.details) }
+        if(this.modifyTaskView) { this.crudService.updateTask(this.currentID, this.taskType, this.alreadySent, this.details) }
+        else { this.crudService.createNewTaskAndPush(this.taskType, this.alreadySent, this.details , null , null , 'store') }
         this.router.navigate(["../"]);
       }
     }
@@ -68,7 +68,7 @@ export class NewTaskComponent implements OnInit {
   }
 
   onDeleteTask() {
-    if (this.authService.currentUserName === 'Khaled') {
+    if (this.authService.currentUserName === 'khaled') {
       this.crudService.deleteTask(this.currentID);
       this.router.navigate(["../../"]);
     }

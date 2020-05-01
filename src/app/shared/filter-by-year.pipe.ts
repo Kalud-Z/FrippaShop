@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Task } from '../tasks/task.model';
+import { BalanceItem } from '../balance/balanceItem.model';
 
 @Pipe({
   name: 'filterByYear'
@@ -7,7 +8,7 @@ import { Task } from '../tasks/task.model';
 export class FilterByYearPipe implements PipeTransform {
 
  
-  transform(tasks: Task[], yearInput: number) {
+  transform(tasks: Task[] | BalanceItem[], yearInput: number) {
     if (!yearInput) { return tasks }
 
     let finalArray: Task[] = [];

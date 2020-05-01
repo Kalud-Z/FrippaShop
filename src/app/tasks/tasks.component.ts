@@ -48,6 +48,7 @@ export class TasksComponent implements OnInit  { //#############################
 
 
   ngOnInit(): void {
+    // this.authService.autoLogin();
     this.crudService.tasksListChangedSubject.subscribe(data => { this.tasks = data })
     // this.dataStorageService.fetchTasksList()
     this.crudService.getTasksList();
@@ -92,6 +93,7 @@ export class TasksComponent implements OnInit  { //#############################
 
   onAddNewTask() {
     if(this.currentUser === this.adminName ) {
+      console.log('we are now going to new task')
       this.router.navigate(['new-task'] , { relativeTo :  this.route } );
     }
   }

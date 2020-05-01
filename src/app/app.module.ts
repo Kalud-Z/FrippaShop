@@ -13,6 +13,7 @@ import { BalanceComponent } from './balance/balance.component';
 import { SharedModule } from './shared/shared.module';
 import { BalanceTableStyleDirective } from './balance/directives/balance-table-style.directive';
 import { DisplayInEuroPipe } from './balance/pipes/display-in-euro.pipe';
+import { NewBalanceItemComponent } from './balance/new-balance-item/new-balance-item.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DisplayInEuroPipe } from './balance/pipes/display-in-euro.pipe';
     BalanceComponent,
     BalanceTableStyleDirective,
     DisplayInEuroPipe,
+    NewBalanceItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,7 @@
 
 
 <!-- ############################################################################################################################################# -->
-    <!-- Filter ################################################################################################################################## -->
+<!-- Filter ######################################################################################################################################## -->
     <div class="filterWrapper" [ngClass]="{'showFilter' : showFilterCrl === true}">
 
          <div class="filterHeader"> &nbsp;
@@ -88,7 +88,7 @@
 
     
 <!-- ############################################################################################################################################# -->
-    <!-- Table ################################################################################################################################## -->
+<!-- Table ##################################################################################################################################### -->
     <table class="table"> 
 
     <thead>
@@ -119,34 +119,29 @@
             <td class="tbodyRow__date">           {{ task.date | filterDate }} </td>
             <td class="tbodyRow__details">        {{ task.details }} </td>
             <td class="tbodyRow__alreadySent">    <svg class="tbodyRow__checkmarkLogo" *ngIf="task.isItemAlreadySent">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg> </td>
-
             <td class="editLogoCell" #logoCell  appTableStyle  >
                 <svg class="editLogoCell__editTask-logo"  (click)='onModifyTask(task.id)'  [ngClass]="{ 'hideElement' : currentUser !== adminName}" >
                     <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use>
                 </svg> 
             </td>
         </tr>
-
         
         <tr class="rowWrapper__month" *ngIf="displayDateRow(i)" >
             <td colspan="9"> {{  tasks[i + 1].date | filterDate  }} </td>
         </tr>
-
-
    
     </tbody>
-
-     
-    
-
-    <!-- <svg class="addTask-logo" routerLink='new-task' >  <use xlink:href="/assets/symbol-defs.svg#icon-addthis"></use> </svg> -->
 
     </table>
 
 
 <router-outlet></router-outlet>
 
-</div>
+</div>  <!-- container -->
+
+
+
+
 
 
 <!-- ###################################################################################################################################### -->

@@ -7,6 +7,7 @@ import { LoadAfterDelayService } from './load-after-delay.service';
 import { LoginModule } from './login/login.module';
 import { BalanceComponent } from './balance/balance.component';
 import { NewBalanceItemComponent } from './balance/new-balance-item/new-balance-item.component';
+import { NewTaskGuard } from './tasks/new-task/new-task.guard';
 
 LoginModule
 
@@ -23,9 +24,8 @@ const AppRoutes: Routes = [
   {path:'transactions' , component : TransactionsComponent , canActivate : [AuthGuard] },
 
   {path:'balance' , component : BalanceComponent , canActivate : [AuthGuard]  , children : [
-    // { path : '' , component : BalanceComponent },
-    { path : 'new-balanceItem' , component : NewBalanceItemComponent },
-    { path : 'new-balanceItem/:id' , component : NewBalanceItemComponent }
+    { path : 'new-balanceItem' , component : NewBalanceItemComponent ,  canActivate : [NewTaskGuard]},
+    { path : 'new-balanceItem/:id' , component : NewBalanceItemComponent , canActivate : [NewTaskGuard] }
   ] },
 
   {path:'' , redirectTo : '/tasks' , pathMatch : 'full'}

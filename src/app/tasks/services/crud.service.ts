@@ -91,7 +91,7 @@ export class crudService { //###################################################
             // console.log('we just fetched from API')
             this.pushToList(data);
             localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
-d        })
+        })
       }
     }
     this.tasksChangedNotify();

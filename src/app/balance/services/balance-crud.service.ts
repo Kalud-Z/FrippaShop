@@ -43,19 +43,24 @@ export class BalanceCrudService { //############################################
   }
 
   updateBalanceItem(id : number ,spent : number , received : number , details : string) {
-    this.balanceItemsList.forEach( el => {
+    let correctIndex : number;
+    this.balanceItemsList.forEach( (el, index) => {
       if(el.id === id) {
         el.spent = spent;
         el.received = received;
         el.details = details;
+        correctIndex = index;
       }
     })
+
+    for(var i = correctIndex ; i < this.balanceItemsList.length ; i++) {
+      this.balanceItemsList[i].left = this.balanceItemsList[i-1].left + this.balanceItemsList[i].received - this.balanceItemsList[i].spent;  
+    }
+
     this.BalanceItemsListUpdatedNotify();
     this.dataStorageService.storeBalanceItemsList(this.balanceItemsList).subscribe( data => {
       localStorage.removeItem("balanceItemsList");
       localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
-
-
     });
   }
 

@@ -74,7 +74,7 @@
             </tr>
         </thead>
 
-        <tbody *ngFor='let item of balanceItemsList | filterByYear:filterByYearInput | filterByMonth: filterByMonthInput ; let i = index'>
+        <tbody *ngFor='let item of balanceItemsList | filterByYear:filterByYearInput | filterByMonth: filterByMonthInput as filteredbalanceItemsList ; let i = index'>
 
             <tr class="tbodyRow">
                 <td class="tbodyRow__id">        {{ item.id }} </td>
@@ -90,8 +90,8 @@
                 </td> 
             </tr>
         
-        <tr class="rowWrapper__month" *ngIf="displayDateRow(i)" >
-            <td colspan="6"> {{  balanceItemsList[i + 1].date | filterDate  }} </td>
+        <tr class="rowWrapper__month" *ngIf="displayDateRow(i , filteredbalanceItemsList)" >
+            <td colspan="6"> {{  filteredbalanceItemsList[i + 1].date | filterDate  }} </td>
         </tr> 
 
         </tbody>

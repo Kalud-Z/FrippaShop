@@ -16,6 +16,7 @@ export class FilterByTypePipe implements PipeTransform {
     tasks.forEach(el => {
       if(typeInput.indexOf(el.type) !== -1) { finalArray.push(el) }
     })
+    // console.log('from filter : '  , finalArray)
     return finalArray;
 
   }  //transform()

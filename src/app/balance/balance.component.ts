@@ -60,21 +60,32 @@ export class BalanceComponent implements OnInit { //############################
   }
 
 
-  displayDateRow(i : number) {
-    if(this.inFilterMode) { return false }
-    else {
-      if(i < this.balanceItemsList.length-1) {
-        if(this.balanceItemsList[i].date.getMonth() !==  this.balanceItemsList[i+1].date.getMonth()) { return true } else { return false }
-      } 
-      else { return false }
+  
+  displayDateRow(i : number , items : BalanceItem[]) {
+    if(i < (items.length - 1)) {
+      if(items[i].date.getMonth() !==  items[i+1].date.getMonth()) {  return true } else { return false }
     }
-
-    // if(i < this.balanceItemsList.length-1) {
-    //     if(this.balanceItemsList[i].date.getMonth() !==  this.balanceItemsList[i+1].date.getMonth()) { return true } else { return false }
-    // } 
-    // else { return false }
-    
+    else {
+      return false
+    }
   }
+
+
+  // displayDateRow(i : number) {
+  //   if(this.inFilterMode) { return false }
+  //   else {
+  //     if(i < this.balanceItemsList.length-1) {
+  //       if(this.balanceItemsList[i].date.getMonth() !==  this.balanceItemsList[i+1].date.getMonth()) { return true } else { return false }
+  //     } 
+  //     else { return false }
+  //   }
+
+  //   // if(i < this.balanceItemsList.length-1) {
+  //   //     if(this.balanceItemsList[i].date.getMonth() !==  this.balanceItemsList[i+1].date.getMonth()) { return true } else { return false }
+  //   // } 
+  //   // else { return false }
+    
+  // }
 
 
   onModifyTask(id : number) {

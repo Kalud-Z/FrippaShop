@@ -17,6 +17,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class TasksComponent implements OnInit  { //###########################################################################################################
   tasks: Task[];
 
+  // test : any;
+
   previousDate : string= '';
   @ViewChild('logoCell')  logoCell: ElementRef;
   tableMarginOffset : string;
@@ -110,18 +112,53 @@ export class TasksComponent implements OnInit  { //#############################
 
 
 
-  displayDateRow(i:number) {
-    if(this.inFilterMode) {
-      return false;
+
+
+  displayDateRow(i : number , tasks : Task[]) {
+    if(i < (tasks.length - 1)) {
+      if(tasks[i].date.getMonth() !==  tasks[i+1].date.getMonth()) {  return true } else { return false }
     }
     else {
-      if(i < this.tasks.length-1) {
-        if(this.tasks[i].date.getMonth() !==  this.tasks[i+1].date.getMonth()) { return true } else { return false }
-      } 
-      else { return false }
+      return false
     }
+  }
+
+
+
+  // displayDateRow(currentIndex : number , currentDate : string , nextDate : string , tasks : Task[]) {
+  //   if(currentIndex < tasks.length-1) {
+  //     if(nextDate !== currentDate) { return true } else { return false}
+  //   }
+  //   else { return false }
+  // }
+
+
+
+  // displayDateRow(i:number) {
+  //   // if(this.inFilterMode) { return false; }
+  //   // else {
+  //   //   if(i < this.tasks.length-1) {
+  //   //     if(this.tasks[i].date.getMonth() !==  this.tasks[i+1].date.getMonth()) { return true } else { return false }
+  //   //   } 
+  //   //   else { return false }
+  //   // }
+
+  //   if(i < this.tasks.length-1) {
+  //     // console.log('currecnt month : ' , this.tasks[i].date.getMonth())
+  //     // console.log('next month : ' , this.tasks[i + 1].date.getMonth())
+
+  //     // console.log('currecnt month : ' , this.tasks[i])
+  //     // console.log('next month : ' , this.tasks[i + 1])
+
+  //       if(this.tasks[i].date.getMonth() !==  this.tasks[i+1].date.getMonth()) { return true } else { return false }
+  //   } 
+  //   else { return false }
+
     
-  } //displayDateRow()
+  // } //displayDateRow()
+
+
+
 
 
 

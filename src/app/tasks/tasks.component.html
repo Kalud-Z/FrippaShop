@@ -100,7 +100,7 @@
     </thead>
    
     <tbody *ngFor='let task of tasks |  filterByYear: filterByYearInput  | filterByMonth: filterByMonthInput
-                | filterByType:filterByTypeInput | filterByAlreadySent:filterByAlreadySent ; let i = index;'  >
+                | filterByType:filterByTypeInput | filterByAlreadySent:filterByAlreadySent as filteredTasks ; let i = index;'  >
 
         <tr class="tbodyRow" >
             <td class="tbodyRow__itemID" >        {{ task.id }} </td>  
@@ -119,8 +119,9 @@
             </td>
         </tr>
         
-        <tr class="rowWrapper__month" *ngIf="displayDateRow(i)" >
-            <td colspan="9"> {{  tasks[i + 1].date | filterDate  }} </td>
+        <!-- <tr class="rowWrapper__month" *ngIf="displayDateRow(i , tasks[i].date | filterDate , tasks[i+1].date | filterDate  , tasks |  filterByYear: filterByYearInput  | filterByMonth: filterByMonthInput | filterByType:filterByTypeInput | filterByAlreadySent:filterByAlreadySent )" >   -->
+        <tr class="rowWrapper__month" *ngIf="displayDateRow(i , filteredTasks)" >  
+            <td colspan="9"> {{  filteredTasks[i + 1].date | filterDate  }} </td>
         </tr>
    
     </tbody>

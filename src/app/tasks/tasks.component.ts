@@ -32,7 +32,7 @@ export class TasksComponent implements OnInit  { //#############################
 
   filterByYearInput: number;
   filterByMonthInput: string[] = [];
-  filterByTypeInput: string;
+  filterByTypeInput: string[] = [];
   filterByAlreadySent : boolean;
 
   showFilterCrl : boolean = false;
@@ -73,8 +73,14 @@ export class TasksComponent implements OnInit  { //#############################
     this.filterByYearInput = year;
   }
   
-  setType(type : string) {
-    this.filterByTypeInput = type;
+  addOrRemoveType(type : string) {
+    let indexOfTarget =  this.filterByTypeInput.indexOf(type);
+    if(indexOfTarget === -1) {
+      this.filterByTypeInput = [...this.filterByTypeInput , type];
+    } else {
+      this.filterByTypeInput.splice(indexOfTarget , 1);
+      this.filterByTypeInput = [...this.filterByTypeInput];
+    }
   }
 
   setAlreadySent(boolVar : boolean) {
@@ -85,7 +91,7 @@ export class TasksComponent implements OnInit  { //#############################
   resetAllFilters() {
     this.filterByYearInput = 0;
     this.filterByMonthInput = [];
-    this.filterByTypeInput = '';
+    this.filterByTypeInput = [];
     this.filterByAlreadySent = undefined
   }
 

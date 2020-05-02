@@ -55,22 +55,18 @@
     
     
              <div class="typeFilter  filterCatWrapper">
-                <!-- <p class="typeFilter__Text  filterText"> Filter By Type </p>  -->
                 <div class="typeFilter__optionsWrapper  filterOptionsWrapper">
                     <div class="typeFilter__option  filterOptionsWrapper__filterOption"> Filter By Type
-                        <!-- <button (click)="filterByTypeInput = ''" >clear</button> -->
-                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByTypeInput = ''">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByTypeInput = []">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                     </div>
-                    <div class="typeFilter__option  filterOptionsWrapper__filterOption" *ngFor='let type of typesArray'  [ngClass]="{'optionSelected' : filterByTypeInput === type }" (click)='setType(type)'> {{ type }} </div>
+                    <div class="typeFilter__option  filterOptionsWrapper__filterOption" *ngFor='let type of typesArray'  [ngClass]="{'optionSelected' : filterByTypeInput.indexOf(type) !== -1 }" (click)='addOrRemoveType(type)'> {{ type }} </div>
                 </div>
              </div>
 
     
              <div class="alreadySentFilter  filterCatWrapper">
-                <!-- <p class="alreadySentFilter__Text  filterText"> Already Sent ? </p>  -->
                 <div class="alreadySentFilter__optionsWrapper  filterOptionsWrapper">
                     <div class="alreadySentFilter__option filterOptionsWrapper__filterOption">Already Sent
-                        <!-- <button (click)="filterByAlreadySent = undefined" >clear</button> -->
                         <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByAlreadySent = undefined">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                     </div>
                     <div class="alreadySentFilter__option filterOptionsWrapper__filterOption" [ngClass]="{'optionSelected' : filterByAlreadySent === true }"  (click)='setAlreadySent(true)'>Yes</div>

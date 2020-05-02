@@ -31,7 +31,7 @@ export class TasksComponent implements OnInit  { //#############################
   inFilterMode = false;
 
   filterByYearInput: number;
-  filterByMonthInput: string;
+  filterByMonthInput: string[] = [];
   filterByTypeInput: string;
   filterByAlreadySent : boolean;
 
@@ -48,27 +48,25 @@ export class TasksComponent implements OnInit  { //#############################
 
 
   ngOnInit(): void {
-    // this.authService.autoLogin();
     this.crudService.tasksListChangedSubject.subscribe(data => { this.tasks = data })
-    // this.dataStorageService.fetchTasksList()
     this.crudService.getTasksList();
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;
-    // console.log('thsis the adminname' , this.adminName);
-
-
   } //ngOnInit()
 
   ngDoCheck() {
-    if(this.filterByMonthInput === '' || !this.filterByMonthInput) {
-      this.inFilterMode = false;
-    } else {
-      this.inFilterMode = true;
-    }
+    if(this.filterByMonthInput.length === 0) { this.inFilterMode = false } 
+    else { this.inFilterMode = true  }
   }
 
-  setMonth(data : string) {
-    this.filterByMonthInput = data;
+  addOrRemoveMonth(month : string) {
+    let indexOfTarget =  this.filterByMonthInput.indexOf(month);
+    if(indexOfTarget === -1) {
+      this.filterByMonthInput = [...this.filterByMonthInput , month];
+    } else {
+      this.filterByMonthInput.splice(indexOfTarget , 1);
+      this.filterByMonthInput = [...this.filterByMonthInput];
+    }
   }
 
   setYear(year: number) {
@@ -86,7 +84,7 @@ export class TasksComponent implements OnInit  { //#############################
 
   resetAllFilters() {
     this.filterByYearInput = 0;
-    this.filterByMonthInput = '';
+    this.filterByMonthInput = [];
     this.filterByTypeInput = '';
     this.filterByAlreadySent = undefined
   }
@@ -106,47 +104,6 @@ export class TasksComponent implements OnInit  { //#############################
 
 
 
-  fixData() {
-    this.crudService.fixingListDates();
-  }
-
-
-/* 
-  getWidthOfLogoCell() {
-    let width = this.logoCell.nativeElement.offsetWidth;
-    this.tableMarginOffset = width.toString();
-    console.log(this.tableMarginOffset);
-    console.log(typeof this.tableMarginOffset);
-    
-    // return this.tableMarginOffset + 'px'
-  } */
-
-
-  adjustUI() {
-    // let markup = `<svg class="checklogo" style="height: 1.5rem; width: 1.5rem;">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg> `;
-    let markup = `<svg class="checklogo" style="height: 1.5rem; width: 1.5rem;">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg> `;
-
-    const allCell = document.getElementsByTagName('td');
-
-    Array.from(allCell).forEach(el => {
-      if(el.innerText === 'check') {
-        el.innerText = '';
-        el.insertAdjacentHTML('afterbegin', markup);
-      }
-    })
-    
-  } //adjustUI()
-
- /*  storeData() {
-    // this.dataStorageService.storeTasksList();
-  } */
-
-  /* fetchData() {
-    // this.dataStorageService.fetchTasksList();
-  } */
-
-
-
   displayDateRow(i:number) {
     if(this.inFilterMode) {
       return false;
@@ -163,25 +120,34 @@ export class TasksComponent implements OnInit  { //#############################
 
 
 
-// ###############################################################################################################################################
-// ###############################################################################################################################################
-// ###############################################################################################################################################
-// ###############################################################################################################################################
-// ###############################################################################################################################################
+// converting data from excel  ###############################################################################################################################################
 
+
+fixData() {
+  this.crudService.fixingListDates();
+}
+
+
+adjustUI() {
+  let markup = `<svg class="checklogo" style="height: 1.5rem; width: 1.5rem;">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg> `;
+  const allCell = document.getElementsByTagName('td');
+
+  Array.from(allCell).forEach(el => {
+    if(el.innerText === 'check') {
+      el.innerText = '';
+      el.insertAdjacentHTML('afterbegin', markup);
+    }
+  })
+  
+} //adjustUI()
 
 onStore() {
   this.dataStorageService.storeTasksList(this.crudService.tasksList);
 }
 
 extraction() {
-  console.log('we are in extraction hhhhhhhh');
   const allRows = document.querySelectorAll('.ff  tr');
-  // const allRowa = document.querySelector('.tt');
-  // const tableBody = document;
 
-
-  // console.log(allRows);
   //looping through all rows
   allRows.forEach( (el,index) => {
     const allCells = el.children;
@@ -235,13 +201,8 @@ extraction() {
 
 
 
-
-
-
-
-
-}  //class ####################################################################################################
-
+}  //class #################################################################################################################################################
+// ####################################################################################################################################################
 
 
 

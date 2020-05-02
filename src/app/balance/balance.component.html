@@ -21,7 +21,7 @@
 
     
 <!-- ############################################################################################################################################# -->
-    <!-- Filter ################################################################################################################################## -->
+<!-- Filter ####################################################################################################################################### -->
     <div class="filterWrapper" [ngClass]="{'showFilter' : showFilterCrl === true}">
 
         <div class="filterHeader"> &nbsp;
@@ -35,9 +35,9 @@
            <div class="monthFilter  filterCatWrapper">
                <div class="monthFilter__optionsWrapper  filterOptionsWrapper">
                    <div class="monthFilter__option  filterOptionsWrapper__filterOption"> Filter By Month 
-                       <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByMonthInput = ''" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+                       <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByMonthInput = []" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                    </div>
-                   <div class="monthFilter__option  filterOptionsWrapper__filterOption" *ngFor='let month of monthsArray' [ngClass]="{'optionSelected' : filterByMonthInput === month }"  (click)='setMonth(month)'  > {{ month }} </div>
+                   <div class="monthFilter__option  filterOptionsWrapper__filterOption" *ngFor='let month of monthsArray' [ngClass]="{'optionSelected' : filterByMonthInput.indexOf(month) !== -1 }"  (click)='addOrRemoveMonth(month)'  > {{ month }} </div>
                </div>
             </div>
 
@@ -51,10 +51,7 @@
                </div>
             </div>
    
-
-   
        </div>  <!-- filterbody -->
-           
    </div>  <!-- filterWrapper -->
    
 
@@ -77,7 +74,7 @@
             </tr>
         </thead>
 
-        <tbody *ngFor='let item of balanceItemsList | filterByYear:filterByYearInput  | filterByMonth:filterByMonthInput ; let i = index'>
+        <tbody *ngFor='let item of balanceItemsList | filterByYear:filterByYearInput | filterByMonth: filterByMonthInput ; let i = index'>
 
             <tr class="tbodyRow">
                 <td class="tbodyRow__id">        {{ item.id }} </td>
@@ -86,24 +83,18 @@
                 <td class="tbodyRow__received">  {{ item.received | displayInEuro }} </td>
                 <td class="tbodyRow__left">      {{ item.left | displayInEuro }}  </td>
                 <td class="tbodyRow__details">   {{ item.details }}</td>
-
                 <td class="editLogoCell" #logoCell  appBalanceTableStyle>
                     <svg class="editLogoCell__editTask-logo"  (click)='onModifyTask(item.id)' [ngClass]="{ 'hideElement' : currentUser !== adminName}" >
                         <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use>
                     </svg> 
                 </td> 
             </tr>
-
         
         <tr class="rowWrapper__month" *ngIf="displayDateRow(i)" >
             <td colspan="6"> {{  balanceItemsList[i + 1].date | filterDate  }} </td>
         </tr> 
 
-
-
         </tbody>
-
-
 
 
 

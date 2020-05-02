@@ -13,7 +13,7 @@ import { AuthGuard } from '../login/auth.guard';
 import { NewTaskGuard } from './new-task/new-task.guard';
 
 
-const AppRoutes: Routes = [ 
+const tasksRoutes: Routes = [ 
 
   {path:'' , component: TasksComponent , canActivate : [AuthGuard] , children : [
     { path: 'new-task' , component : NewTaskComponent , canActivate : [NewTaskGuard] },
@@ -32,7 +32,7 @@ const AppRoutes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(AppRoutes),
+    RouterModule.forChild(tasksRoutes),
     FormsModule,
     HttpClientModule,
     FileSaverModule,

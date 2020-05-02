@@ -143,10 +143,22 @@ tbody {
 }
 
 
+.test {
+    align-self: flex-start;
+    height: 3rem;
+    width:22rem;
+    background-color: red;
+    position: sticky;
+    top: 0rem ;
+}
+
 .table thead {
     font-family: 'Merriweather Sans', sans-serif;
     font-style: italic;
-    background: $darkColor-darker;
+    // background: $darkColor-darker;
+   
+   
+    
 
     & tr {
         border-bottom:1px solid transparent;
@@ -156,12 +168,19 @@ tbody {
 }
 
 .table thead th {
+    background: $darkColor-darker;
+
     font-size : 1.5rem;
     font-weight: bold;
     color: #000000;
     text-align: center;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    position: sticky;
+    top: -.5rem ;
+
+
+    
 
     &:last-child {
         border:none;

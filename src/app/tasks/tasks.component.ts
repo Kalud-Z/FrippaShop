@@ -1,8 +1,7 @@
-import { Component, OnInit, AfterContentInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { crudService } from './services/crud.service';
 import { Task } from './task.model';
 import { DataStorageService } from './services/data-storage.service';
-import { FileSaverService } from 'ngx-filesaver';
 import { AuthService } from '../login/auth.service';
 import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -38,6 +37,7 @@ export class TasksComponent implements OnInit  { //#############################
   filterByAlreadySent : boolean;
 
   showFilterCrl : boolean = false;
+
 
 
 

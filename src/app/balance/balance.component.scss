@@ -140,7 +140,7 @@ tbody {
     font-family: 'Merriweather Sans', sans-serif;
     font-style: italic;
     // background: $darkColor-darker; //original
-    background-color: #d4e5b2;
+    // background-color: #d4e5b2;
 
     & tr {
         border-bottom:1px solid transparent;
@@ -156,6 +156,9 @@ tbody {
     text-align: center;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    background-color: #d4e5b2;
+    position: sticky;
+    top: -.5rem ;
 
     &:last-child {
         border:none;

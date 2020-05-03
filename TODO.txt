@@ -1,14 +1,19 @@
 
 
 
-
-filter :
-*pick multiple types
-
-
+Address Book  module.
+table , the same as the other two,
++ quick search box.
 
 _____________________________________________________
 
 issues :
 
 filter options , upon deselect , it takes a while till the highlight class is removed !!!
+
+in firefox , border in the table header , is not showing. its been covered by the background color !
+
+
+
+_____________________________________________________
+

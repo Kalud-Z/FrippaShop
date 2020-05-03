@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { AuthGuard } from './login/auth.guard';
 import { LoadAfterDelayService } from './load-after-delay.service';
+import { AddressBookComponent } from './address-book/address-book.component';
+import { NewAddressComponent } from './address-book/new-address/new-address.component';
 
 
 const AppRoutes: Routes = [ 
@@ -21,6 +23,10 @@ const AppRoutes: Routes = [
   
 
   {path:'transactions' , component : TransactionsComponent , canActivate : [AuthGuard] },
+
+  {path:'address-book' , component : AddressBookComponent , children : [
+    { path : 'new-address' , component : NewAddressComponent }
+  ] },
 
   
 

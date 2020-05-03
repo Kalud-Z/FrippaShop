@@ -88,15 +88,11 @@ export class BalanceComponent implements OnInit { //############################
   // }
 
 
-  onModifyTask(id : number) {
-    if(this.currentUser === this.adminName ) {
-      this.router.navigate(['new-balanceItem/' + id] , { relativeTo :  this.route } );
-    }
-  }
 
 
 // filter Methods ########################################################################################################################
 
+ 
   resetAllFilters() {
     this.filterByYearInput = 0;
     this.filterByMonthInput = [];

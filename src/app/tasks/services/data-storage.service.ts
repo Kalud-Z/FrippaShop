@@ -7,6 +7,7 @@ import { FileSaverService } from "ngx-filesaver";
 import { AuthService } from 'src/app/login/auth.service';
 import { take , tap, exhaustMap } from "rxjs/operators";
 import { BalanceItem } from 'src/app/balance/balanceItem.model';
+import { Address } from 'src/app/address-book/address.model';
 
 @Injectable({
   providedIn: "root",
@@ -22,14 +23,11 @@ export class DataStorageService {
     private authService : AuthService
   ) {}
 
-// AIzaSyDIVA6P44Okinr0qT4z9XzJCpzX1qRDuwo
 
   storeTasksList(list: Task[]) {
-    // console.log('we are storing now')
     return  this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
       console.log('this isthe token : ' , userData.token);
        return this.http.put("https://frippashop.firebaseio.com/TasksList.json?auth=" + userData.token , list);
-      
       // this.downloadTable(list);
     }))
   }
@@ -42,31 +40,44 @@ export class DataStorageService {
   }
 
 
+  // ##################################################################################################################################################
+
 
   storeBalanceItemsList(list: BalanceItem[]) {
       return this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
-        // console.log('this isthe token : ' , userData.token)
         return this.http.put("https://frippashop.firebaseio.com/BalanceItemsList.json?auth=" + userData.token , list)
       })) 
-
         // this.downloadTable(list);
-    
   }
 
 
   fetchBalanceItemsList() {
-    // return this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
-    //   return this.http.get<any[]>("https://frippashop.firebaseio.com/TasksList.json?auth=" + userData.token);
-    // }))
-
     return this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
       return this.http.get<any[]>("https://frippashop.firebaseio.com/BalanceItemsList.json?auth=" + userData.token);
     }))
-
-
-    // return this.http.get<any[]>("https://frippashop.firebaseio.com/BalanceItemsList.json");
   }
  
+
+
+  // ######################################################################################################################################################
+
+
+  storeAddressList(list: Address[]) {
+    return this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
+      return this.http.put("https://frippashop.firebaseio.com/AddressList.json?auth=" + userData.token , list)
+    })) 
+      // this.downloadTable(list);
+}
+
+
+fetchAddressList() {
+  return this.authService.userSubject.pipe(take(1) , exhaustMap(userData => {
+    return this.http.get<any[]>("https://frippashop.firebaseio.com/AddressList.json?auth=" + userData.token);
+  }))
+}
+
+
+
 
 
 
@@ -101,5 +112,7 @@ export class DataStorageService {
     const txtBlob = new Blob([text], { type: fileType });
     this.fileSaverService.save(txtBlob, fileName);
   } //onSaveButton
+
+
 } //class #################################################################################################################################################
 // ########################################################################################################################################################

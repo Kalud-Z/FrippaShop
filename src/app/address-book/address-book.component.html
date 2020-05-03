@@ -1,0 +1,160 @@
+
+<div class="container">
+
+
+
+
+
+    <div class="header">
+        <button class="Tasks-default-btn headerButtons storeDataButton" 
+            [ngClass]="{ 'hideElement' : currentUser !== adminName }" > Save Changes 
+           <div class="header__saveLogo"> <svg [ngClass]="{ 'hideElement' : currentUser !== adminName}">  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> </div>
+        </button>
+
+        <button class="Tasks-default-btn headerButtons addNewTaskButton" 
+            [ngClass]="{ 'hideElement' : currentUser !== adminName}" (click)='onAddAddress()'> Add Address
+            <div class="header__addLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-folder-add"></use> </svg>  </div>
+        </button>
+
+        <button class="Tasks-default-btn headerButtons filterButton" 
+            (click)='showFilterCrl = true' > Filter
+            <div class="header__filterLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> </div>
+        </button>
+    </div> 
+
+    
+<!-- ############################################################################################################################################# -->
+<!-- Filter ####################################################################################################################################### -->
+<div class="filterWrapper" [ngClass]="{'showFilter' : showFilterCrl === true}">
+
+    <div class="filterHeader"> &nbsp;
+       <button type="button" class="filterHeader__resetAllButton" (click)='resetAllFilters()' > Reset All </button>
+       <svg class="filterHeader__ExitLogo" (click)='showFilterCrl = false'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+   </div>
+
+
+   <div class="filterBody">
+
+       <div class="countryFilter  filterCatWrapper">
+           <div class="countryFilter__optionsWrapper  filterOptionsWrapper">
+               <div class="countryFilter__option  filterOptionsWrapper__filterOption"> Filter By Country 
+                   <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByCountryInput = []" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+               </div>
+               <div class="countryFilter__option  filterOptionsWrapper__filterOption" *ngFor='let country of countries' [ngClass]="{'optionSelected' : filterByCountryInput.indexOf(country) !== -1 }"  (click)='addOrRemoveCountry(country)'  > {{ country }} </div>
+           </div>
+        </div>
+
+
+        <div class="cityFilter  filterCatWrapper">
+           <div class="cityFilter__optionsWrapper  filterOptionsWrapper">
+               <div class="cityFilter__option  filterOptionsWrapper__filterOption"> Filter By City
+                   <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByCityInput = []">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+               </div>
+               <div class="cityFilter__option  filterOptionsWrapper__filterOption" *ngFor='let city of cities'   [ngClass]="{'optionSelected' : filterByCityInput.indexOf(city) !== -1 }" (click)='addOrRemoveCity(city)'> {{ city }} </div>
+           </div>
+        </div>
+
+   </div> 
+</div> 
+
+
+
+
+   
+
+
+
+
+   <!-- Table ######################################################################################################################################## -->
+<!-- ####################################################################################################################################################### -->
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+<button type="button" (click)='storeData()' > storeee </button>
+
+                <th>Name</th>
+                <th>Street</th>
+                <th>House Number</th>
+                <th>City</th>
+                <th>Postal Code</th>
+                <th>Country</th>
+                <th>Phone</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+
+        <tbody *ngFor='let address of addressList | filterByCountry:filterByCountryInput | filterByCity: filterByCityInput ; let i = index'>
+
+            <tr class="tbodyRow">
+                <td class="tbodyRow__id">          {{ address.id }} </td>
+                <td class="tbodyRow__name">        {{ address.name }} </td>
+                <td class="tbodyRow__street">      {{ address.street }} </td>
+                <td class="tbodyRow__houseNr">     {{ address.houseNr }} </td>
+                <td class="tbodyRow__city">        {{ address.city }} </td>
+                <td class="tbodyRow__postalCode">  {{ address.postalCode }}  </td>
+                <td class="tbodyRow__country">     {{ address.country }}</td>
+                <td class="tbodyRow__phone">       {{ address.phone }}</td>
+                <td class="editLogoCell" #logoCell  appBalanceTableStyle>
+                    <svg class="editLogoCell__editTask-logo" (click)='onModifyAddress(i)' >
+                        <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use>
+                    </svg> 
+                </td>
+            </tr>
+        
+    
+
+        </tbody>
+
+
+
+    </table>
+
+
+    <router-outlet></router-outlet>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ####################################################################################################################### -->
+<!-- ####################################################################################################################### -->
+<!-- ####################################################################################################################### -->
+<!-- ####################################################################################################################### -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

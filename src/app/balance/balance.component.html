@@ -84,7 +84,7 @@
                 <td class="tbodyRow__left">      {{ item.left | displayInEuro }}  </td>
                 <td class="tbodyRow__details">   {{ item.details }}</td>
                 <td class="editLogoCell" #logoCell  appBalanceTableStyle>
-                    <svg class="editLogoCell__editTask-logo"  (click)='onModifyTask(item.id)' [ngClass]="{ 'hideElement' : currentUser !== adminName}" >
+                    <svg class="editLogoCell__editTask-logo"  (click)='onModifyBalanceItem(item.id)' [ngClass]="{ 'hideElement' : currentUser !== adminName}" >
                         <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use>
                     </svg> 
                 </td> 

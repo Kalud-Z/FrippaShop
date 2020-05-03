@@ -1,0 +1,187 @@
+@import 'src/variables.scss' ;
+
+* {
+    // border: 1px solid black;
+}
+
+.container {
+    z-index: 99999;
+    // position: absolute;
+    position: fixed;
+    top:0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(255, 0, 0, 0.479);
+    @include flexCenter;
+    font-size: 1.5rem;
+
+}
+
+
+
+.form {
+    border-radius: 5px;
+    background-color: $lightColor-main ;
+    border:1px solid rgba(0, 0, 0, 0.363);
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    // flex:0 0 66%;
+
+    & > *:not(:last-child) { margin-bottom: 3rem; }
+
+    &__ExitLogo-container {
+        position: relative;
+        height: 3rem;
+    }
+
+    &__ExitLogo {
+        position: absolute;
+        top: -55%;
+        right: -9%;
+        height: 2rem;
+        width: 2rem;
+        align-self: flex-end;
+        cursor: pointer;
+    }
+
+    &__vertical-line {
+        border-bottom: 1px solid rgba(129, 111, 111, 0.24);
+        width: 20rem;
+        align-self: center;
+    }
+
+    &__group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & label {
+            width: 10rem;
+            margin-right: 3rem;
+        }
+
+        & input {
+            width: 16rem;
+            height: 3rem;
+            padding: .5rem 1rem;
+        }
+
+        & textarea {
+            width: 16rem;
+            height:6rem;
+            padding: .5rem 1rem;
+        }
+    }
+
+    
+    &__footer {
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+        @include flexCenter;
+        position: relative;
+
+        &__deleteButton{
+           position: absolute;
+           right:-9%;
+           top: 168%;
+        }
+    }
+
+} //form
+
+
+
+
+
+
+
+
+// buttons ###############################################################################################################################
+
+.saveButton {
+    
+}
+
+
+.removeTaskButton {
+    background:linear-gradient(to bottom, #c94d4d 5%, #c94d4dcb 100%);
+    color: white;
+    text-shadow: none;
+    box-shadow: none;
+    font-size: 1rem;
+	padding:4px 20px;
+
+    
+    &:not(.disable-button):hover {
+        border:2px solid pink;
+        // fons-size : 
+    }
+
+
+}
+
+// #######################################################################################################################################
+
+
+.popupContainer {
+    position: fixed;
+    top:0;
+    right:0;
+    height: 100vh;
+    width: 100vw;
+    @include flexCenter;
+    background-color:  rgba(0, 0, 0, 0.623);
+}
+
+.popup__body {
+    margin-bottom: 33rem;
+    border-radius: 7px;
+    font-size: 1.5rem;
+    background-color:pink;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 3rem;
+
+    &__question {
+        margin-bottom: 2rem;
+    }
+
+    &__optionsContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+    
+    &__button {
+        &:first-child { margin-right: 3rem; }
+        font-size: inherit;
+
+    }
+
+    
+    
+
+}
+
+
+
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+

@@ -15,12 +15,20 @@ import { BalanceTableStyleDirective } from './balance/directives/balance-table-s
 import { DisplayInEuroPipe } from './balance/pipes/display-in-euro.pipe';
 import { NewBalanceItemComponent } from './balance/new-balance-item/new-balance-item.component';
 import { BalanceModule } from './balance/balance.module';
+import { AddressBookComponent } from './address-book/address-book.component';
+import { FilterByCountryPipe } from './address-book/pipes/filter-by-country.pipe';
+import { FilterByCityPipe } from './address-book/pipes/filter-by-city.pipe';
+import { NewAddressComponent } from './address-book/new-address/new-address.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     TransactionsComponent,
+    AddressBookComponent,
+    FilterByCountryPipe,
+    FilterByCityPipe,
+    NewAddressComponent,
   ],
   imports: [
     BrowserModule,

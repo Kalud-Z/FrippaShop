@@ -95,14 +95,16 @@
 
 
 
-
-
-
 // buttons ###############################################################################################################################
 
-.saveButton {
-    
+.saveButton[disabled] {
+    opacity: 0.65;
+    cursor: not-allowed;
+    &:hover {
+        border-color: transparent;
+    }
 }
+
 
 
 .removeTaskButton {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Address } from '../address.model';
+import { AddressCrudService } from '../services/address-crud.service';
 
 @Component({
   selector: 'app-new-address',
@@ -8,13 +9,13 @@ import { Address } from '../address.model';
   styleUrls: ['./new-address.component.scss']
 })
 export class NewAddressComponent implements OnInit { //############################################################################################
-  name : string;
-  city: string;
-  country: string;
-  postalCode : number;
-  street : string;
-  houseNr : number;
-  phone : number;
+  name : string 
+  city: string 
+  phone : string 
+  country: string 
+  street : string 
+  postalCode : number
+  houseNr : number
 
 
   modifyAddressView: boolean;
@@ -24,44 +25,44 @@ export class NewAddressComponent implements OnInit { //#########################
   
 
   constructor(private route : ActivatedRoute,
-              private router : Router
+              private router : Router,
+              private addressCrudService : AddressCrudService
               ) { }
 
   ngOnInit(): void {
-    // this.route.params.subscribe((params: Params) => {
-    //   if (params["id"]) {
-    //     this.modifyAddressView = true;
-    //     this.currentID = +params["id"];
-    //     this.currentBalanceItem = this.balanceCrudService.getBalanceItem(this.currentID);
-    //     this.spent = this.currentBalanceItem.spent;
-    //     this.received = this.currentBalanceItem.received;
-    //     this.details = this.currentBalanceItem.details;
-    //     console.log('this is spent ' , this.spent)
-    //     console.log('this is spent . type ' ,typeof this.spent)
-       
-    //   }  
-    // }) //subscribe()
+    this.route.params.subscribe((params: Params) => {
+      if (params["id"]) {
+        this.modifyAddressView = true;
+        this.currentID = +params["id"];
+        this.currentAddress = this.addressCrudService.getAddress(this.currentID);
+        this.name = this.currentAddress.name;
+        this.city = this.currentAddress.city;
+        this.country = this.currentAddress.country;
+        this.postalCode = this.currentAddress.postalCode;
+        this.houseNr = this.currentAddress.houseNr;
+        this.phone = this.currentAddress.phone;
+        this.street = this.currentAddress.street;
+      }  
+    }) //subscribe()
   }
 
 
   onSubmit(saveForm) {
-    const spent = saveForm.form.value.spent;
-    const received = saveForm.form.value.received;
-    const details = saveForm.form.value.details;
+    console.log(saveForm)
 
-    const spentFinal    =  spent === undefined ? 0 : spent;
-    const receivedFinal =  received === undefined ? 0 : received;
+    if(this.modifyAddressView) {
+      console.log('we are in modify')
+      this.addressCrudService.updateAddress(this.currentID , this.name , this.city , this.country , this.postalCode , this.street , this.houseNr , this.phone)
+      this.modifyAddressView = false;
+      this.router.navigate(['../../'] , { relativeTo :  this.route });
+    }
 
-    // if(this.modifyAddressView) {
-    //   this.balanceCrudService.updateBalanceItem(this.currentID ,spentFinal , receivedFinal , details);
-    //   this.modifyAddressView = false;
-    //   this.router.navigate(['../../'] , { relativeTo :  this.route });
-    // }
+    else {
+      console.log('we are in add')
 
-    // else {
-    //   this.balanceCrudService.addBalanceItem(spentFinal , receivedFinal , details);
-    //   this.router.navigate(['../'] , { relativeTo :  this.route });
-    // }
+      this.addressCrudService.addAddress(this.name , this.city , this.country , this.postalCode , this.street , this.houseNr , this.phone);
+      this.router.navigate(['../'] , { relativeTo :  this.route });
+    }
   } //onSubmit()
 
   
@@ -89,6 +90,11 @@ export class NewAddressComponent implements OnInit { //#########################
     this.popupView = false;
   }
 
+
+
+  onDeleteTask() {
+    this.addressCrudService.deleteAddress(this.currentID)
+  }
 
 
 

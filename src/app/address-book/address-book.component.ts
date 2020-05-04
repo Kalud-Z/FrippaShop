@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AddressService } from './address.service';
 import { Address } from './address.model';
 import { AuthService } from '../login/auth.service';
 import { environment } from 'src/environments/environment';
@@ -13,14 +12,14 @@ import { DataStorageService } from '../tasks/services/data-storage.service';
   styleUrls: ['./address-book.component.scss']
 })
 export class AddressBookComponent implements OnInit { //#####################################################################################################
-  addressList : Address[];
+  addressList : Address[] = [];
 
 
   currentUser : string;
   adminName : string;
   showFilterCrl : boolean;
-  countries : string[];
-  cities    : string[];
+  countries : string[] = []
+  cities    : string[] = []
 
 
   // countries : string[] = ['ghana' , 'France'];
@@ -42,13 +41,23 @@ export class AddressBookComponent implements OnInit { //########################
               ) { }
 
   ngOnInit(): void {
-    this.addressList = this.addressCrudService.getAddressList();
-    this.countries = this.buildCountriesArray();
-    this.cities = this.buildCitiesArray();
+    this.addressCrudService.getAddressList();
+    this.addressCrudService.addressSubject.subscribe(data => { 
+      this.addressList = data;
+      // console.log(' wsubject just triggred , ,  this is the list : ' , this.addressList)
+      // console.log(' wsubject just triggred , ,  this is passed along data : ' , data)
+      if(data !== null) {
+        this.countries = this.buildCountriesArray();
+        this.cities    = this.buildCitiesArray();
+
+      }
+    })
+    
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;
 
   }
+
 
 
   addOrRemoveCountry(country : string) {
@@ -76,8 +85,8 @@ export class AddressBookComponent implements OnInit { //########################
 
 
   buildCountriesArray () {
+    // console.log(' we are in builcoutry ,  this is the list : ' , this.addressList)
     let finalArray : string[] = [];
-    
     this.addressList.forEach(el => {
       if(finalArray.indexOf(el.country) === -1) {
         finalArray.push(el.country);
@@ -107,14 +116,15 @@ export class AddressBookComponent implements OnInit { //########################
 
   onAddAddress() {
     if(this.currentUser === this.adminName ) {
-      this.router.navigate(['new-balanceItem'] , { relativeTo :  this.route } );
+      this.router.navigate(['new-address'] , { relativeTo :  this.route } );
     }
   }
 
 
   onModifyAddress(id : number) {
+    console.log('modify noww')
     if(this.currentUser === this.adminName ) {
-      this.router.navigate(['new-balanceItem/' + id ] , { relativeTo :  this.route } );
+      this.router.navigate(['new-address/' + id ] , { relativeTo :  this.route } );
     }
   }
 
@@ -128,7 +138,7 @@ export class AddressBookComponent implements OnInit { //########################
 
 
   storeData() {
-    console.log('in storeeee')
+    // console.log('in storeeee')
     this.ds.storeAddressList(this.addressCrudService.addressList).subscribe( data => {
       console.log(data)
     })

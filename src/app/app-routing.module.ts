@@ -25,7 +25,8 @@ const AppRoutes: Routes = [
   {path:'transactions' , component : TransactionsComponent , canActivate : [AuthGuard] },
 
   {path:'address-book' , component : AddressBookComponent , children : [
-    { path : 'new-address' , component : NewAddressComponent }
+    { path : 'new-address' , component : NewAddressComponent },
+    { path : 'new-address/:id' , component : NewAddressComponent }
   ] },
 
   

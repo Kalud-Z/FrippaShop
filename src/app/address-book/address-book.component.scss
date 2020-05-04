@@ -295,7 +295,6 @@ $filterOptionHeight : 4rem;
         display: flex;
         align-items: stretch;
         & > *:not(:last-child) { margin-right: 3rem; }
-        // width: 76rem;
             
         .filterCatWrapper {
             display: flex;
@@ -303,13 +302,7 @@ $filterOptionHeight : 4rem;
             justify-content: flex-start;
             align-items: stretch;
 
-           /*  &:hover {
-                // height: auto;
-            } */
-            
             &__trashBinLogo {
-                // fill: currentColor;
-                // color: currentColor;
                 height:2rem;
                 width:2rem;
                 position: absolute;
@@ -318,9 +311,7 @@ $filterOptionHeight : 4rem;
                 right:0;
                 transition: all 0.2s;
 
-                &:hover {
-                    fill:rgb(214, 54, 54);
-                }
+                &:hover { fill:rgb(214, 54, 54) }
             }
 
                     
@@ -328,7 +319,6 @@ $filterOptionHeight : 4rem;
                 display: flex;
                 flex-direction: column;
                 position: relative;
-                transition: all 1s;
                 clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
                 &:hover {clip-path:none}
     
@@ -363,40 +353,40 @@ $filterOptionHeight : 4rem;
 
 
         
-    @for $i from 2 through 13 {
-        .monthFilter__option:nth-child( #{$i} ) {
+    @for $i from 2 through 3 {
+        .countryFilter__option:nth-child( #{$i} ) {
             transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1})  + 4rem ));
             z-index: calc( 3000 - #{ $i } ) !important;
         }
     }
 
     
-    @for $i from 2 through 5 {
-        .yearFilter__option:nth-child( #{$i} ) {
+    @for $i from 2 through 8 {
+        .cityFilter__option:nth-child( #{$i} ) {
             transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
             z-index:  calc( 3000 - #{ $i } ) !important;
         }
     }
 
     
-    @for $i from 2 through 6  {
-        .typeFilter__option:nth-child( #{$i} ) {
-            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
-            z-index:  calc( 3000 - #{ $i } ) !important;
-        }
-    }
+    // @for $i from 2 through 6  {
+    //     .typeFilter__option:nth-child( #{$i} ) {
+    //         transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
+    //         z-index:  calc( 3000 - #{ $i } ) !important;
+    //     }
+    // }
 
     
-    @for $i from 2 through 3 {
-        .alreadySentFilter__option:nth-child( #{$i} ) {
-            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
-            z-index:  calc( 3000 - #{ $i } ) !important;
-        }
-    }
+    // @for $i from 2 through 3 {
+    //     .alreadySentFilter__option:nth-child( #{$i} ) {
+    //         transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
+    //         z-index:  calc( 3000 - #{ $i } ) !important;
+    //     }
+    // }
 
 }
 
-
+ 
 
 .optionSelected {
     background-color: #852d3c !important;

@@ -1,9 +1,14 @@
 
 
 
-Address Book  module.
-table , the same as the other two,
-+ quick search box.
+*Address Book  module.
+quick search box.
+
+
+*read recent work
+
+
+*Take Animation course
 
 _____________________________________________________
 
@@ -13,7 +18,8 @@ filter options , upon deselect , it takes a while till the highlight class is re
 
 in firefox , border in the table header , is not showing. its been covered by the background color !
 
-
+==> you can fix it with dirictives that insert a div shaped like a border to each cell.
 
 _____________________________________________________
+
 

@@ -10,12 +10,14 @@ import { LoginModule } from './login/login.module';
 import { SharedModule } from './shared/shared.module';
 import { BalanceModule } from './balance/balance.module';
 import { AddressModule } from './address-book/address.module';
+import { UnderConstructionComponent } from './transactions/under-construction/under-construction.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     TransactionsComponent,
+    UnderConstructionComponent,
     
   ],
   imports: [

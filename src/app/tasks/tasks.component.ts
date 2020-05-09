@@ -114,6 +114,10 @@ export class TasksComponent implements OnInit  { //#############################
   }
 
 
+  hostClciked() {
+    console.log('sdsgsgsgsggs')
+  }
+
 
 
 

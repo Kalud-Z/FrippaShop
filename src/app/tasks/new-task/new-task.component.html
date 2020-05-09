@@ -1,6 +1,6 @@
 
 
-<div class="container" (click)='ExitPopup($event)' >
+<!-- <div class="container" (click)='ExitPopup($event)' > -->
 
     <form class="form">
 
@@ -55,7 +55,7 @@
 
     
 
-<div class="popupContainer" *ngIf='popupView'>
+<div class="popupContainer" *ngIf='popupView' @createNewState>
 
      <div class="popup__body">
 
@@ -72,7 +72,7 @@
 
 
 
-</div>
+<!-- </div> -->
 
 
 

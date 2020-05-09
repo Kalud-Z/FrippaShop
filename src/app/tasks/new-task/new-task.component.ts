@@ -1,18 +1,21 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, HostBinding } from "@angular/core";
 import { crudService } from "../services/crud.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Task } from "../task.model";
 import { AuthService } from 'src/app/login/auth.service';
+import { createNewTrigger } from 'src/app/shared/animations';
 
 @Component({
   selector: "app-new-task",
   templateUrl: "./new-task.component.html",
   styleUrls: ["./new-task.component.scss"],
+  animations : [
+    createNewTrigger
+  ]
 })
 
 // ############################################################################################################################################
 export class NewTaskComponent implements OnInit {
-  //###########################################################################################
   taskType: string;
   details: string;
   alreadySent: boolean;
@@ -23,6 +26,8 @@ export class NewTaskComponent implements OnInit {
   popupView: boolean;
 
   formValid: boolean = false;
+
+  @HostBinding('@createNewState') routeAnim = true;
 
   constructor(
     private authService: AuthService,

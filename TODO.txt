@@ -19,6 +19,8 @@ in firefox , border in the table header , is not showing. its been covered by th
 ==> you can fix it with dirictives that insert a div shaped like a border to each cell.
 
 
+lazy loading aint working !
+
 
 _____________________________________________________
 

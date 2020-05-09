@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Address } from '../address.model';
 import { AddressCrudService } from '../services/address-crud.service';
+import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/animations';
 
 @Component({
   selector: 'app-new-address',
   templateUrl: './new-address.component.html',
-  styleUrls: ['./new-address.component.scss']
+  styleUrls: ['./new-address.component.scss'],
+  animations : [
+    createNewTrigger,
+    popupWindowTrigger
+  ]
 })
 export class NewAddressComponent implements OnInit { //############################################################################################
   name : string 
@@ -22,6 +27,9 @@ export class NewAddressComponent implements OnInit { //#########################
   currentID : number;
   currentAddress : Address;
   popupView = false;
+
+  @HostBinding('@createNewState') routeAnimation = true;
+
   
 
   constructor(private route : ActivatedRoute,

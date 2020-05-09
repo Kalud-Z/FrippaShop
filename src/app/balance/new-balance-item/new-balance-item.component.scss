@@ -4,7 +4,7 @@
     // border: 1px solid black;
 }
 
-.container {
+:host {
     z-index: 99999;
     // position: absolute;
     position: fixed;
@@ -15,8 +15,12 @@
     background-color: rgba(255, 0, 0, 0.479);
     @include flexCenter;
     font-size: 1.5rem;
-
 }
+
+// .container {
+   
+
+// }
 
 
 

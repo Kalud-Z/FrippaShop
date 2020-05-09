@@ -1,19 +1,20 @@
-import { Component, OnInit,  } from '@angular/core';
+import { Component, OnInit, HostBinding,  } from '@angular/core';
 import { BalanceCrudService } from '../services/balance-crud.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BalanceItem } from '../balanceItem.model';
+import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/animations';
 
 
 @Component({
   selector: 'app-new-balance-item',
   templateUrl: './new-balance-item.component.html',
-  styleUrls: ['./new-balance-item.component.scss']
+  styleUrls: ['./new-balance-item.component.scss'],
+  animations : [
+    createNewTrigger,
+    popupWindowTrigger
+  ]
 })
 export class NewBalanceItemComponent implements OnInit { //#########################################################################################
-  // @ViewChild('saveForm' , {static : true}) newBalanceItemForm; 
-  // @ViewChild('saveForm' , {static : false}) NgForm newBalanceItemForm; 
-  // @ViewChild('heroForm') NgForm heroForm;
-
   popupView: boolean;
   currentID : number;
   modifyTaskView: boolean;
@@ -22,6 +23,9 @@ export class NewBalanceItemComponent implements OnInit { //#####################
   spent : number;
   received: number;
   details : string;
+
+  @HostBinding('@createNewState') routeAnim = true;
+
   
 
   constructor(private balanceCrudService : BalanceCrudService,

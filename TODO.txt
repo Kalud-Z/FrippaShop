@@ -14,11 +14,11 @@ _____________________________________________________
 
 issues :
 
-filter options , upon deselect , it takes a while till the highlight class is removed !!!
 
 in firefox , border in the table header , is not showing. its been covered by the background color !
-
 ==> you can fix it with dirictives that insert a div shaped like a border to each cell.
+
+
 
 _____________________________________________________
 

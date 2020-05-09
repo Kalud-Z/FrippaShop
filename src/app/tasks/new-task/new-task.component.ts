@@ -3,14 +3,15 @@ import { crudService } from "../services/crud.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Task } from "../task.model";
 import { AuthService } from 'src/app/login/auth.service';
-import { createNewTrigger } from 'src/app/shared/animations';
+import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/animations';
 
 @Component({
   selector: "app-new-task",
   templateUrl: "./new-task.component.html",
   styleUrls: ["./new-task.component.scss"],
   animations : [
-    createNewTrigger
+    createNewTrigger,
+    popupWindowTrigger
   ]
 })
 
@@ -27,7 +28,7 @@ export class NewTaskComponent implements OnInit {
 
   formValid: boolean = false;
 
-  @HostBinding('@createNewState') routeAnim = true;
+  @HostBinding('@createNewState') routeAnimation = true;
 
   constructor(
     private authService: AuthService,
@@ -60,6 +61,8 @@ export class NewTaskComponent implements OnInit {
       this.formValid = true;
     }
   }
+
+
 
   onAddTask() {
     if (this.authService.currentUserName === 'khaled') {

@@ -9,6 +9,8 @@ import { BalanceTableStyleDirective } from './directives/balance-table-style.dir
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../login/auth.guard';
 import { NewTaskGuard } from '../tasks/new-task/new-task.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 
@@ -33,6 +35,7 @@ const balanceRoutes: Routes = [
     CommonModule,
     FormsModule,
     SharedModule,
+    // BrowserAnimationsModule,
     RouterModule.forChild(balanceRoutes)
   ]
 })

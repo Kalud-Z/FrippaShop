@@ -6,7 +6,7 @@ import { AddressBookComponent } from './address-book.component';
 import { NewAddressComponent } from './new-address/new-address.component';
 import { FilterByCountryPipe } from './pipes/filter-by-country.pipe';
 import { FilterByCityPipe } from './pipes/filter-by-city.pipe';
-
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -16,9 +16,7 @@ const addressRoutes: Routes = [
     { path : 'new-address' , component : NewAddressComponent },
     { path : 'new-address/:id' , component : NewAddressComponent }
   ] }
-
 ]
-
 
 
 @NgModule({
@@ -31,7 +29,8 @@ const addressRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(addressRoutes)
+    RouterModule.forChild(addressRoutes),
+    SharedModule
   ]
 })
 export class AddressModule { }

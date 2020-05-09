@@ -11,6 +11,8 @@ import { SharedModule } from './shared/shared.module';
 import { BalanceModule } from './balance/balance.module';
 import { AddressModule } from './address-book/address.module';
 import { UnderConstructionComponent } from './transactions/under-construction/under-construction.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,6 @@ import { UnderConstructionComponent } from './transactions/under-construction/un
     NavbarComponent,
     TransactionsComponent,
     UnderConstructionComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -27,7 +28,9 @@ import { UnderConstructionComponent } from './transactions/under-construction/un
     LoginModule,
     SharedModule,
     BalanceModule,
-    AddressModule
+    AddressModule,
+    BrowserAnimationsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

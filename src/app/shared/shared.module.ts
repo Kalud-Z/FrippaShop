@@ -4,6 +4,7 @@ import { FilterDatePipe } from './filter-date.pipe';
 import { FilterByMonthPipe } from './filter-by-month.pipe';
 import { FilterByYearPipe } from './filter-by-year.pipe';
 import { FilterByTypePipe } from './filter-by-type.pipe';
+import { LoadingSpinnerLoginComponent } from './loading-spinner-login/loading-spinner-login.component';
 
 
 
@@ -12,7 +13,8 @@ import { FilterByTypePipe } from './filter-by-type.pipe';
     FilterDatePipe,
     FilterByMonthPipe,
     FilterByYearPipe,
-    FilterByTypePipe
+    FilterByTypePipe,
+    LoadingSpinnerLoginComponent
   ],
   imports: [
     CommonModule
@@ -21,7 +23,8 @@ import { FilterByTypePipe } from './filter-by-type.pipe';
     FilterDatePipe,
     FilterByMonthPipe,
     FilterByYearPipe,
-    FilterByTypePipe
+    FilterByTypePipe,
+    LoadingSpinnerLoginComponent
   ]
 })
 

@@ -1,26 +1,31 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostBinding } from '@angular/core';
 import { crudService } from './services/crud.service';
 import { Task } from './task.model';
 import { DataStorageService } from './services/data-storage.service';
 import { AuthService } from '../login/auth.service';
 import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
+import { routeSlideStateTrigger } from '../shared/animations';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss']
+  styleUrls: ['./tasks.component.scss'],
+  animations: [
+    routeSlideStateTrigger
+  ]
 })
 
 // ###########################################################################################################################################################
 export class TasksComponent implements OnInit  { //###########################################################################################################
   tasks: Task[];
 
-  // test : any;
-
   previousDate : string= '';
   @ViewChild('logoCell')  logoCell: ElementRef;
   tableMarginOffset : string;
+
+  @HostBinding('@routeSlideState') routeAnimation = true;
+
 
   currentUser : string;
   adminName : string;
@@ -37,8 +42,6 @@ export class TasksComponent implements OnInit  { //#############################
   filterByAlreadySent : boolean;
 
   showFilterCrl : boolean = false;
-
-
 
 
   constructor(private authService : AuthService,

@@ -1,42 +1,34 @@
 <div class="container" [ngClass]="{ 'hideNavBar' : hideNavBar === true}" >
   <div class="nav">
 
-    <div class="nav__item tasks"  routerLinkActive='activeItem'     routerLink="/tasks">
+    <div class="nav__item tasks"  routerLinkActive='activeItem'   (click)="showLoadingSpinner('tasks')"   routerLink="/tasks">
       <span class="nav__item__text" routerLinkActive='activeLogoAndText'> Tasks </span>
-      <svg class="tasks__logo" routerLinkActive='activeLogoAndText'>
-        <use xlink:href="/assets/symbol-defs.svg#icon-clipboard-edit"></use>
-      </svg>
+      <app-loading-spinner-login [ngClass]="{show : isLoading && module === 'tasks' }" class="nav__item__spinner navbarView" ></app-loading-spinner-login>
+      <svg class="tasks__logo" routerLinkActive='activeLogoAndText' [ngClass]="{'hidden' : isLoading && module === 'tasks' }" > <use xlink:href="/assets/symbol-defs.svg#icon-clipboard-edit"></use> </svg>
     </div>
 
-    <div class="nav__item balance"  routerLinkActive='activeItem'  routerLink="/balance">
+    <div class="nav__item balance"  routerLinkActive='activeItem'  routerLink="/balance" (click)="showLoadingSpinner('balance')">
       <span class="nav__item__text"> Balance </span>
-      <svg class="balance__logo">
-        <use xlink:href="/assets/symbol-defs.svg#icon-money-bag"></use>
-      </svg>
+      <app-loading-spinner-login  [ngClass]="{show : isLoading && module === 'balance'}"  class="nav__item__spinner navbarView" ></app-loading-spinner-login>
+      <svg class="balance__logo" routerLinkActive='activeLogoAndText' [ngClass]="{'hidden' : isLoading && module === 'balance' }"> <use xlink:href="/assets/symbol-defs.svg#icon-money-bag"></use> </svg>
     </div>
 
-    <div class="nav__item transactions" routerLinkActive='activeItem'  routerLink="/transactions">
-      <span class="nav__item__text" routerLinkActive='activeLogoAndText' > Transactions </span>
-      <svg class="transactions__logo" routerLinkActive='activeLogoAndText'>
-        <use xlink:href="/assets/symbol-defs.svg#icon-credit-card"></use>
-      </svg>
+    <div class="nav__item transactions" routerLinkActive='activeItem' (click)="showLoadingSpinner('transactions')"  routerLink="/transactions">
+      <span class="nav__item__text" routerLinkActive='activeLogoAndText'> Transactions </span>
+      <app-loading-spinner-login [ngClass]="{show : isLoading && module === 'transactions'}" class="nav__item__spinner navbarView" ></app-loading-spinner-login>
+      <svg class="transactions__logo" routerLinkActive='activeLogoAndText' [ngClass]="{'hidden' : isLoading && module === 'transactions' }" > <use xlink:href="/assets/symbol-defs.svg#icon-credit-card"></use> </svg>
     </div>
 
-    <div class="nav__item addresses" routerLink="/address-book">
+    <div class="nav__item addresses" routerLinkActive='activeItem'  routerLink="/address-book" (click)="showLoadingSpinner('address-book')">
       <span class="nav__item__text"> Address Book</span>
-      <svg class="addresses__logo">
-        <use xlink:href="/assets/symbol-defs.svg#icon-home"></use>
-      </svg>
+      <app-loading-spinner-login [ngClass]="{show : isLoading && module === 'address-book'}" class="nav__item__spinner navbarView" ></app-loading-spinner-login>
+      <svg class="addresses__logo" routerLinkActive='activeLogoAndText' [ngClass]="{'hidden' : isLoading && module === 'address-book' }" > <use xlink:href="/assets/symbol-defs.svg#icon-home"></use> </svg>
     </div>
 
-
-    
     <div class="nav__item logout"  (click)='onLogout()'>
       <span class="nav__item__text  logout__text"> Logout </span>
     </div>
 
+  </div> <!-- nav -->
+</div>  <!-- container -->
 
-
-  </div>
-
-</div>

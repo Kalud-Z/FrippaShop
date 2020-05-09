@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Address } from './address.model';
 import { AuthService } from '../login/auth.service';
 import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AddressCrudService } from './services/address-crud.service';
 import { DataStorageService } from '../tasks/services/data-storage.service';
+import { routeSlideStateTrigger } from '../shared/animations';
 
 @Component({
   selector: 'app-address-book',
   templateUrl: './address-book.component.html',
-  styleUrls: ['./address-book.component.scss']
+  styleUrls: ['./address-book.component.scss'],
+  animations : [
+    routeSlideStateTrigger
+  ]
 })
 export class AddressBookComponent implements OnInit { //#####################################################################################################
   addressList : Address[] = [];
@@ -20,6 +24,9 @@ export class AddressBookComponent implements OnInit { //########################
   showFilterCrl : boolean;
   countries : string[] = []
   cities    : string[] = []
+
+  @HostBinding('@routeSlideState') routeAnimation = true;
+
 
 
   // countries : string[] = ['ghana' , 'France'];

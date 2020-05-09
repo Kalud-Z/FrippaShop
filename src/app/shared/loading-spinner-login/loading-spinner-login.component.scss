@@ -1,43 +1,78 @@
 
 
+
 @import 'src/variables.scss' ;
 
-:host {
-    z-index: 210;
+* {
+  // border : 1px solid black;
 }
 
-.container {
+:host(.loginView) {
+    z-index: 210;
     pointer-events: none;
     @include flexCenter;
     position: absolute;
     top:50%;
     right:0%;
-    transform: translate(30%, -50%);
+    transform: translate(-10%, -50%);
 }
+
+
+:host(.navbarView) {
+    z-index: 210;
+    pointer-events: none;
+    // @include flexCenter;
+    // position: absolute;
+    // top:50%;
+    // right:0%;
+    // transform: translate(-30%, -50%);
+}
+
+
+
+// .container {
+//     pointer-events: none;
+//     @include flexCenter;
+//     position: absolute;
+//     top:50%;
+//     right:0%;
+//     transform: translate(30%, -50%);
+// }
 
 // ##################################################################################################
 
 
 
 .lds-hourglass {
-    transform: scale(0.35);
+    // transform: scale(0.35);
+    transform: scale(1);
     display: inline-block;
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 32px;
+    height: 32px;
   }
+
   .lds-hourglass:after {
     content: " ";
     display: block;
+
+    // position: absolute;
+    // top:50%;
+    // right:50%;
+    // transform: translate(-50%, -50%);
+
     border-radius: 50%;
-    width: 0;
-    height: 0;
-    margin: 8px;
+    width: 16px;
+    height: 16px;
+    // background-color: yellow;
+    // margin: 8px;
     box-sizing: border-box;
-    border: 32px solid #fff;
+    border: 16px solid #fff;
+    // border: 11% solid #fff;
     border-color: #fff transparent #fff transparent;
     animation: lds-hourglass 1.2s infinite;
   }
+
   @keyframes lds-hourglass {
     0% {
       transform: rotate(0);

@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { BalanceItem } from './balanceItem.model';
 import { BalanceCrudService } from './services/balance-crud.service';
 import { DataStorageService } from '../tasks/services/data-storage.service';
 import { AuthService } from '../login/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { routeSlideStateTrigger } from '../shared/animations';
 
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.component.html',
-  styleUrls: ['./balance.component.scss']
+  styleUrls: ['./balance.component.scss'],
+  animations : [
+    routeSlideStateTrigger
+  ]
 })
 
 // #######################################################################################################################################################
@@ -17,6 +21,10 @@ export class BalanceComponent implements OnInit { //############################
   balanceItemsList: BalanceItem[];
   currentUser : string;
   adminName : string;
+
+  @HostBinding('@routeSlideState') routeAnimation = true;
+  // @HostBinding('@routeSlideState') 
+
 
   inFilterMode = false;
   showFilterCrl : boolean;

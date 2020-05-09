@@ -39,14 +39,11 @@ export class crudService { //###################################################
     else { correctDate = date }
 
     const task = this.createNewTask(type, alreadySent, details , id , correctDate);
-    // console.log('this is the created task' , task);
     this.tasksList.push(task);
     this.tasksChangedNotify();
-    // console.log('this is list after creating thw task' , this.tasksList);
 
     if(state && state === 'store') {
       this.dataStorageService.storeTasksList(this.tasksList).subscribe(data => {
-        // console.log('data stored success...');
         localStorage.removeItem("tasksList");
       });
     }
@@ -136,20 +133,20 @@ export class crudService { //###################################################
 
 
   private pushToList(data: Array<any>) {
-    // console.log('Data fetched : ' , data);
     data.forEach(el => {
-      const type = el.type;
-      const details = el.details;
-      const id     = el.id;
+     
+      const type        = el.type;
+      const details     = el.details;
+      const id          = el.id;
       const alreadySent = el.isItemAlreadySent;
 
-        //we create legit Date object from the fetched data
+      //we create legit Date object from the fetched data
       const dateStr = el.date.substr(0 ,10);   // 2019-11-01
       const dateStrArray = dateStr.split('-');
 
-      const year = parseInt(dateStrArray[0]) 
+      const year  = parseInt(dateStrArray[0]) 
       const month = parseInt(dateStrArray[1]) 
-      const day = parseInt(dateStrArray[2]) 
+      const day   = parseInt(dateStrArray[2]) 
 
       var dateObj : Date = new Date();
       dateObj.setFullYear(year,month-1,day);

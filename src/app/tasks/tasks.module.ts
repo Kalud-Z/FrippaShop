@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FileSaverModule } from 'ngx-filesaver';
 import { AuthGuard } from '../login/auth.guard';
 import { NewTaskGuard } from './new-task/new-task.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 const tasksRoutes: Routes = [ 
@@ -36,6 +38,7 @@ const tasksRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     FileSaverModule,
+    // BrowserAnimationsModule
   ]
 })
 

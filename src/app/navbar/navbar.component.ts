@@ -10,6 +10,8 @@ import { AuthService } from '../login/auth.service';
 export class NavbarComponent {
   hideNavBar : boolean;
   currentURL  : string;
+  isLoading = false;
+  module : string;
 
 
   constructor(private router : Router , private authService : AuthService) { }
@@ -18,8 +20,6 @@ export class NavbarComponent {
     this.currentURL  = this.router.url; 
 
     if(this.currentURL.includes('login')) {
-      // console.log(this.router.url),
-      // console.log('we are in TRUE')
       this.hideNavBar = true;
     }
 
@@ -31,6 +31,14 @@ export class NavbarComponent {
 
   onLogout() {
     this.authService.logout();
+  }
+
+
+  showLoadingSpinner(moduleClicked : string) {
+    this.isLoading = true;
+    this.module = moduleClicked;
+    setTimeout(() => { this.isLoading = false }, 2000);
+
   }
 
 

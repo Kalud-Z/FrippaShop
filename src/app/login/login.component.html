@@ -3,6 +3,7 @@
 <div class="container">
 
      <div class="form-wrapper" [ngClass]="{'showForm-wrapper' : currentUserEmail }">
+        <!-- <div class="form-wrapper" [ngClass]="{'showForm-wrapper' : true }"> -->
     
         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="loginForm" >
     
@@ -19,7 +20,7 @@
             </div> 
     
             <button type="submit" class="loginForm__button" [disabled]="loginForm.invalid"> Login 
-            <app-loading-spinner-login *ngIf='isLoading' ></app-loading-spinner-login>
+            <app-loading-spinner-login *ngIf='isLoading' class='loginView' ></app-loading-spinner-login>
             </button>
 
     

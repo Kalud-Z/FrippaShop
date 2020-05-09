@@ -1,10 +1,10 @@
 @import 'src/variables.scss' ;
 
-
-
-* {
-    // border : 1px solid black;
+:host {
+    display : block;
 }
+
+
 
 .container {
     padding: 2rem 3rem;

@@ -1,4 +1,4 @@
-import { trigger, style, transition, animate, query, group } from '@angular/animations';
+import { trigger, style, transition, animate, query, group, stagger, keyframes } from '@angular/animations';
 
 
 export const routeSlideStateTrigger = trigger('routeSlideState', [
@@ -64,6 +64,35 @@ export const popupWindowTrigger = trigger('popupWindowState', [
 
 ]);//createNewTrigger
 
+
+
+
+// export const listStateTrigger = trigger('listState', [
+//     transition('* => *', [
+//       query(':enter', [
+//         style({
+//           opacity : 0,
+//           transform : 'translateX(-100%)',
+//         }),
+//         stagger(1000 , [ 
+//           animate('1s', keyframes([
+//             style({
+//               opacity : 1,
+//               transform : 'translateX(10%)',
+//               offset : 0.5
+//             }),
+//             style({
+//               opacity : 1,
+//               transform : 'translateX(0)',
+//               offset : 1
+//             })
+//           ]))
+//         ])
+       
+//       ], {optional : true})//query
+//     ])//transition
+//   ]);
+  
 
 
 

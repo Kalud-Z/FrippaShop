@@ -34,14 +34,6 @@ export class BalanceCrudService { //############################################
     })
   }
 
-  getBalanceItem(id : number): BalanceItem {
-      let correctItem : BalanceItem;
-      this.balanceItemsList.forEach(el => {
-        if(el.id === id) correctItem = el;
-      })
-      return correctItem;
-  }
-
   updateBalanceItem(id : number ,spent : number , received : number , details : string) {
     let correctIndex : number;
     this.balanceItemsList.forEach( (el, index) => {
@@ -96,6 +88,14 @@ export class BalanceCrudService { //############################################
       }
     }
   }
+  
+  getBalanceItem(id : number): BalanceItem {
+    let correctItem : BalanceItem;
+    this.balanceItemsList.forEach(el => {
+      if(el.id === id) correctItem = el;
+    })
+    return correctItem;
+}
 
 
 
@@ -116,8 +116,6 @@ export class BalanceCrudService { //############################################
       return balanceItem;
   }
 
-
-  
    createNewItemAndPush(spent : number , received : number , left: number , details : string , id?: number , date? : Date, state?: string) {
     let correctDate : Date;
     let correctId : number;
@@ -186,10 +184,6 @@ export class BalanceCrudService { //############################################
     })
 
   }
-
-
-
-
 
 
 

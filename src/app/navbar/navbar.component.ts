@@ -1,21 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../login/auth.service';
+import { crudService } from '../tasks/services/crud.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+// #########################################################################################################################################################
+export class NavbarComponent implements OnInit { //###########################################################################################################################
   hideNavBar : boolean;
   currentURL  : string;
   isLoading = false;
+  isLoadingTemp : boolean;
   module : string;
 
 
-  constructor(private router : Router , private authService : AuthService) { }
+  constructor(private router : Router ,
+              private authService : AuthService,
+              private tasksCrudService : crudService
+              ) { }
+
+  ngOnInit(){
+    this.tasksCrudService.isLoadingSubject.subscribe(data => {
+      this.isLoadingTemp = data;
+    })
+  }
   
+
   ngDoCheck() {
     this.currentURL  = this.router.url; 
 
@@ -37,7 +50,10 @@ export class NavbarComponent {
   showLoadingSpinner(moduleClicked : string) {
     this.isLoading = true;
     this.module = moduleClicked;
-    setTimeout(() => { this.isLoading = false }, 2000);
+    
+    setTimeout(() => { 
+      this.isLoading = this.isLoadingTemp
+     }, 2000);
 
   }
 

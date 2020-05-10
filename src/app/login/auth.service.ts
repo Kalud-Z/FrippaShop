@@ -46,7 +46,7 @@ export class AuthService { //###################################################
   } //login()#############
 
   logout() {
-    console.log('we re on logout')
+    // console.log('we re on logout')
     localStorage.removeItem('userData');
     this.router.navigate(['login']);
   }
@@ -92,7 +92,7 @@ private handleAuthentication(email: string, userId: string, token: string, expir
 
   const user = new UserSubject(email, userId , token , expirationDate);
   this.userSubject.next(user);
-  console.log(expirationDate);
+  // console.log(expirationDate);
 
   localStorage.setItem('userData', JSON.stringify(user)) //converts a js object into a string.
 }

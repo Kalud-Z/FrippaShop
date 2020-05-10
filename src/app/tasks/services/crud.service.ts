@@ -1,20 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../task.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { DataStorageService } from './data-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class crudService { //#########################################################################
+// ####################################################################################################################################################
+export class crudService { //##########################################################################################################################
   tasksListChangedSubject = new Subject<Task[]>();
-
+  
   tasksList: Task[] = [];
+  
+  sentDataToTasksNow = false;
+  
+  // isLoading = false;
+  // isLoadingSubject = new BehaviorSubject<boolean>(null);
+  isLoadingSubject = new Subject<boolean>();
+
+
 
   constructor(private dataStorageService : DataStorageService) { }
 
-  
 
   setTasksList(newList: Task[]) {
     // this.tasksList = newList;
@@ -40,7 +48,11 @@ export class crudService { //###################################################
 
     const task = this.createNewTask(type, alreadySent, details , id , correctDate);
     this.tasksList.push(task);
-    this.tasksChangedNotify();
+
+    if(this.sentDataToTasksNow) {
+      // console.log('We are just about to Notify from createNewTaskAndPush')
+      this.tasksChangedNotify();
+    }
 
     if(state && state === 'store') {
       this.dataStorageService.storeTasksList(this.tasksList).subscribe(data => {
@@ -80,23 +92,33 @@ export class crudService { //###################################################
   
 
   getTasksList() {
+    // console.log('we are in getTasks')
     if(this.tasksList.length === 0) {
+      // console.log('we are about to access localstorage #######')
       const localStorageData = JSON.parse(localStorage.getItem('tasksList'));
-      if(localStorageData && localStorageData.length !== 0) { this.pushToList(localStorageData) ; console.log('we just fetched from localstorage') }
+      if(localStorageData && localStorageData.length !== 0) { 
+        this.pushToList(localStorageData) ;
+        // console.log('we just fetched from localstorage')
+      }
       else {
           this.dataStorageService.fetchTasksList().subscribe(data => {
-            // console.log('we just fetched from API')
+            console.log('we just fetched from API')
             this.pushToList(data);
             localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
         })
       }
+    }//the outer if
+    else if(this.tasksList.length > 0) {
+      // console.log('the listt is already saved in service , adn we are about to pass ************************* ')
+      this.tasksChangedNotify();
     }
-    this.tasksChangedNotify();
+    
+
+    // this.tasksChangedNotify();
 
     // this.repairData();
   }
   
-
 
 
   fixingListDates() {
@@ -133,8 +155,9 @@ export class crudService { //###################################################
 
 
   private pushToList(data: Array<any>) {
-    data.forEach(el => {
-     
+    // console.log('pushToList is called ')
+    const arrayLength = data.length;
+    data.forEach((el, index) => {
       const type        = el.type;
       const details     = el.details;
       const id          = el.id;
@@ -148,14 +171,19 @@ export class crudService { //###################################################
       const month = parseInt(dateStrArray[1]) 
       const day   = parseInt(dateStrArray[2]) 
 
-      var dateObj : Date = new Date();
+      let dateObj : Date = new Date();
       dateObj.setFullYear(year,month-1,day);
 
       //we create Task items and push them to the array.
-      this.createNewTaskAndPush(type , alreadySent , details , id , dateObj , 'initial');
+      if(index === arrayLength-1) {
+        // console.log('index : ' , index)
+        // console.log('length : ' , arrayLength-1)
+        this.sentDataToTasksNow = true;
+      } 
+      this.createNewTaskAndPush(type , alreadySent , details , id , dateObj);
     })
 
-  }
+  }//pushToList
 
 
 

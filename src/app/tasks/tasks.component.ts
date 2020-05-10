@@ -53,7 +53,11 @@ export class TasksComponent implements OnInit  { //#############################
 
 
   ngOnInit(): void {
-    this.crudService.tasksListChangedSubject.subscribe(data => { this.tasks = data })
+    this.crudService.tasksListChangedSubject.subscribe(data => {
+      this.tasks = data;
+      // now , hopefully , template is fully rendered , so now we stop the loading spinner
+      this.crudService.isLoadingSubject.next(false);
+    })
     this.crudService.getTasksList();
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;

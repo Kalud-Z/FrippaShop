@@ -25,6 +25,9 @@ when you click the navbar , to change routes. the loading spinner takes forever 
 lazy loading aint working !
 
 
+
+
+
 add tasks items to the table . is broken !
 
 _____________________________________________________

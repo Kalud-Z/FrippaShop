@@ -21,8 +21,11 @@ export class AddressCrudService { //############################################
 
   addressList: Address[] = [];
 
-  addressSubject = new BehaviorSubject<Address[]>(null);
-  // addressSubject = new Subject<Address[]>();
+  // addressSubject = new BehaviorSubject<Address[]>(null);
+  addressSubject = new Subject<Address[]>();
+
+  sentDataToAddressNow = false;
+
 
   constructor(private dataStorageService: DataStorageService) { }
   
@@ -93,7 +96,10 @@ export class AddressCrudService { //############################################
   getAddressList() {
     if(this.addressList.length === 0) {
       const localStorageData = JSON.parse(localStorage.getItem('addressList'));
-      if(localStorageData && localStorageData.length === 0) { this.pushToList(localStorageData , 'fromLocalStorage'); }
+      if(localStorageData && localStorageData.length !== 0) {
+        this.pushToList(localStorageData , 'fromLocalStorage');
+        console.log('we just loaded from localsotrage');
+      }
       else {
         console.log('we just loaded from API')
           this.dataStorageService.fetchAddressList().subscribe(data => {
@@ -102,6 +108,9 @@ export class AddressCrudService { //############################################
           this.addressListUpdatedNotify();
         })
       }
+    }//outer if
+    else if(this.addressList.length > 0) { this.addressListUpdatedNotify();
+      console.log('we just loaded from service array')
     }
   }
 
@@ -132,25 +141,36 @@ export class AddressCrudService { //############################################
 
     const address = this.createNewAddress(name , city, country , postalCode, street, houseNr, phone , correctId)
     this.addressList.push(address);
-    this.addressListUpdatedNotify();
+
+
+    if(this.sentDataToAddressNow) {
+      this.addressListUpdatedNotify();
+    }
+
   }
 
 
 
-  private pushToList (data: any[] , type : string) {
-    // console.log('retuend data fom server ' , data)
+  private pushToList(data: any[] , type : string) {
+    console.log('we in pushToList');
+    console.log(data);
 
-    data.forEach(el => {
-      let city : string = el.city;
-      let country : string = el.country;
-      let name : string = el.name;
-      let street : string = el.street;
-      let phone : string = el.phone;
+    const arrayLength = data.length;
+
+    data.forEach((el, index) => {
+      let city : string       = el.city;
+      let country : string    = el.country;
+      let name : string       = el.name;
+      let street : string     = el.street;
+      let phone : string      = el.phone;
       let postalCode : number = el.postalCode;
-      let houseNr : number = el.houseNr;
-      let id : number = el.id;
+      let houseNr : number    = el.houseNr;
+      let id : number         = el.id;
 
 
+      if(index === arrayLength-1) {
+        this.sentDataToAddressNow = true;
+      } 
       this.createNewAddressAndPush(name , city , country , postalCode , street , houseNr , phone , id);
     })
 

@@ -6,6 +6,7 @@ import { AuthService } from '../login/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { routeSlideStateTrigger } from '../shared/animations';
+import { crudService } from '../tasks/services/crud.service';
 
 @Component({
   selector: 'app-balance',
@@ -38,12 +39,17 @@ export class BalanceComponent implements OnInit { //############################
               private dt: DataStorageService,
               private authService : AuthService,
               private router : Router,
-              private route : ActivatedRoute
+              private route : ActivatedRoute,
+              private crudService : crudService
               ) { }
 
   ngOnInit(): void {
+    this.balanceCrudService.balanceItemSubject.subscribe(data => {
+      this.balanceItemsList = data 
+      // console.log('balance items subject just returned. this is the data :  ' , data); //ISSUE : its been called twice ! I wanted to be called only once.
+      this.crudService.isLoadingSubject.next(false);
+    })
     this.balanceCrudService.getBalanceItemsList();
-    this.balanceCrudService.balanceItemSubject.subscribe(data => { this.balanceItemsList = data })
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;
   } //ngOninit

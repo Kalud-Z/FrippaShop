@@ -52,7 +52,8 @@ export class NavbarComponent implements OnInit { //#############################
     this.module = moduleClicked;
     
     setTimeout(() => { 
-      this.isLoading = this.isLoadingTemp
+      this.isLoading = this.isLoadingTemp;
+      this.isLoadingTemp = true;
      }, 2000);
 
   }

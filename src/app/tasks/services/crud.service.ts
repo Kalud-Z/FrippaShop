@@ -50,7 +50,6 @@ export class crudService { //###################################################
     this.tasksList.push(task);
 
     if(this.sentDataToTasksNow) {
-      // console.log('We are just about to Notify from createNewTaskAndPush')
       this.tasksChangedNotify();
     }
 
@@ -92,13 +91,10 @@ export class crudService { //###################################################
   
 
   getTasksList() {
-    // console.log('we are in getTasks')
     if(this.tasksList.length === 0) {
-      // console.log('we are about to access localstorage #######')
       const localStorageData = JSON.parse(localStorage.getItem('tasksList'));
       if(localStorageData && localStorageData.length !== 0) { 
-        this.pushToList(localStorageData) ;
-        // console.log('we just fetched from localstorage')
+        this.pushToList(localStorageData)
       }
       else {
           this.dataStorageService.fetchTasksList().subscribe(data => {
@@ -108,14 +104,7 @@ export class crudService { //###################################################
         })
       }
     }//the outer if
-    else if(this.tasksList.length > 0) {
-      // console.log('the listt is already saved in service , adn we are about to pass ************************* ')
-      this.tasksChangedNotify();
-    }
-    
-
-    // this.tasksChangedNotify();
-
+    else if(this.tasksList.length > 0) { this.tasksChangedNotify() }
     // this.repairData();
   }
   
@@ -155,7 +144,6 @@ export class crudService { //###################################################
 
 
   private pushToList(data: Array<any>) {
-    // console.log('pushToList is called ')
     const arrayLength = data.length;
     data.forEach((el, index) => {
       const type        = el.type;
@@ -174,10 +162,7 @@ export class crudService { //###################################################
       let dateObj : Date = new Date();
       dateObj.setFullYear(year,month-1,day);
 
-      //we create Task items and push them to the array.
       if(index === arrayLength-1) {
-        // console.log('index : ' , index)
-        // console.log('length : ' , arrayLength-1)
         this.sentDataToTasksNow = true;
       } 
       this.createNewTaskAndPush(type , alreadySent , details , id , dateObj);

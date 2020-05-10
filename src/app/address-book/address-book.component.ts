@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AddressCrudService } from './services/address-crud.service';
 import { DataStorageService } from '../tasks/services/data-storage.service';
 import { routeSlideStateTrigger } from '../shared/animations';
+import { crudService } from '../tasks/services/crud.service';
 
 @Component({
   selector: 'app-address-book',
@@ -27,13 +28,8 @@ export class AddressBookComponent implements OnInit { //########################
 
   @HostBinding('@routeSlideState') routeAnimation = true;
 
-
-
-  // countries : string[] = ['ghana' , 'France'];
-  // cities    : string[] = ['Paris' , 'berlin'];
-
   filterByCountryInput: string[] = [];
-  filterByCityInput: string[] = [];
+  filterByCityInput:    string[] = [];
 
 
   
@@ -44,21 +40,22 @@ export class AddressBookComponent implements OnInit { //########################
               private authService : AuthService,
               private router : Router,
               private route : ActivatedRoute,
-              private ds : DataStorageService
+              private ds : DataStorageService,
+              private crudService : crudService
               ) { }
 
   ngOnInit(): void {
-    this.addressCrudService.getAddressList();
     this.addressCrudService.addressSubject.subscribe(data => { 
       this.addressList = data;
-      // console.log(' wsubject just triggred , ,  this is the list : ' , this.addressList)
-      // console.log(' wsubject just triggred , ,  this is passed along data : ' , data)
+      this.crudService.isLoadingSubject.next(false);
+      console.log('we just got data back for address ts')
       if(data !== null) {
         this.countries = this.buildCountriesArray();
         this.cities    = this.buildCitiesArray();
-
       }
     })
+
+    this.addressCrudService.getAddressList();
     
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;

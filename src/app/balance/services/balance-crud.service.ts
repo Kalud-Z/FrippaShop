@@ -11,13 +11,15 @@ import { DataStorageService } from 'src/app/tasks/services/data-storage.service'
 export class BalanceCrudService { //######################################################################################################################
   balanceItemsList: BalanceItem[] = [];
 
-  balanceItemSubject = new BehaviorSubject<BalanceItem[]>(null);
+  sentDataToTBalanceNow = false;
+
+  // balanceItemSubject = new BehaviorSubject<BalanceItem[]>(null);
+  balanceItemSubject = new Subject<BalanceItem[]>();
 
   constructor(private dataStorageService: DataStorageService) { }
 
   private BalanceItemsListUpdatedNotify()  {
     this.balanceItemSubject.next(this.balanceItemsList.slice());
-    // console.log('this is the list' , this.balanceItemsList);
   }
 
   addBalanceItem(spent: number , received : number , details : string) {
@@ -73,21 +75,28 @@ export class BalanceCrudService { //############################################
 
   getBalanceItemsList() {
     if(this.balanceItemsList.length === 0) {
+      console.log('we tryin to fecht balance , the array is empty')
       const localStorageData = JSON.parse(localStorage.getItem('balanceItemsList'));
-      // const localStorageData = JSON.parse(localStorage.getItem('test2')); //sth is wrong with local storage. Im not using it for the moment.
-      if(localStorageData && localStorageData.length === 0) { this.pushToList(localStorageData , 'fromLocalStorage'); console.log('we just loaded from localstorage') }
+      console.log('localstoragedata : ' , localStorageData);
+      if(localStorageData && localStorageData.length !== 0) {
+        console.log('we just loaded from localstorage')
+        this.pushToList(localStorageData , 'fromLocalStorage');
+      }
       else {
-        console.log('we just loaded from API')
+          console.log('we just loaded from API')
           this.dataStorageService.fetchBalanceItemsList().subscribe(data => {
-          // console.log('this is data retuedn from API  firsssst' , data)
           this.pushToList(data , 'fromAPI');
           localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
-          this.BalanceItemsListUpdatedNotify();
-
+          // this.BalanceItemsListUpdatedNotify();
         })
       }
+    }//the outer if
+    else if(this.balanceItemsList.length > 0) {
+      console.log('we tryin to fecht balance , it is already saved in the service. we got it from there')
+        this.BalanceItemsListUpdatedNotify();
     }
-  }
+  }//getBalanceItemsList
+
   
   getBalanceItem(id : number): BalanceItem {
     let correctItem : BalanceItem;
@@ -98,14 +107,12 @@ export class BalanceCrudService { //############################################
 }
 
 
-
   adjustIDs() {
     this.balanceItemsList.forEach( (el,index) => {
       el.id = index+1;
     })
     this.BalanceItemsListUpdatedNotify();
   } 
-
 
 
   createNewBalanceItem(spent : number , received : number , left: number , details : string , id?: number , date? : Date) {
@@ -130,14 +137,16 @@ export class BalanceCrudService { //############################################
 
     const balanceItem = this.createNewBalanceItem(spent, received , left , details , correctId , correctDate);
     this.balanceItemsList.push(balanceItem);
-    this.BalanceItemsListUpdatedNotify();
+    if(this.sentDataToTBalanceNow) {
+      this.BalanceItemsListUpdatedNotify();
+    }
+
   }
 
 
 
   private pushToList (data: any[] , type : string) {
-    // console.log('retuend data fom server ' , data)
-
+    const arrayLength = data.length;
     data.forEach((el, index ) => {
 
       let id : number
@@ -146,29 +155,26 @@ export class BalanceCrudService { //############################################
       let received : number;
       let details : string;
 
-    if(type === 'fromAPI') {
-       id         = el.id;
-       left       = el.left;
-       spent      = el.spent;
-       received   = el.received;
-       details    = el.details;
-    }
+    // if(type === 'fromAPI') {
+    //    id         = el.id;
+    //    left       = el.left;
+    //    spent      = el.spent;
+    //    received   = el.received;
+    //    details    = el.details;
+    // } else {
+    //     id         = el.id;
+    //     left       = el.left;
+    //     spent      = el.spent;
+    //     received   = el.received;
+    //     details    = el.details;
+    // }
+
+      id         = el.id;
+      left       = el.left;
+      spent      = el.spent;
+      received   = el.received;
+      details    = el.details;
    
-
-            
-      // const id        = el.details;
-      // const left      = el.received;
-      // const spent     = el.id;
-      // const received  = el.spent;
-      // const details   = el.left;
-
-      // if(index === 4) {
-      //   console.log('id ' , id );
-      //   console.log('left ' , left );
-      //   console.log('received ' , received );
-      //   console.log('details ' , details );
-      //   console.log('spent ' , spent );
-      // }
   
       const dateStr = el.date.substr(0 ,10);   // 2019-11-01
       const dateStrArray = dateStr.split('-');
@@ -180,6 +186,9 @@ export class BalanceCrudService { //############################################
       var dateObj : Date = new Date();
       dateObj.setFullYear(year, month-1, day);
 
+      if(index === arrayLength-1) {
+        this.sentDataToTBalanceNow = true;
+      } 
       this.createNewItemAndPush(spent , received , left , details , id , dateObj);
     })
 

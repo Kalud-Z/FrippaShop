@@ -12,6 +12,7 @@ import { FileSaverModule } from 'ngx-filesaver';
 import { AuthGuard } from '../login/auth.guard';
 import { NewTaskGuard } from './new-task/new-task.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SalaryComponent } from './salary/salary.component';
 
 
 
@@ -29,7 +30,8 @@ const tasksRoutes: Routes = [
     NewTaskComponent,
     TasksComponent,
     FilterByAlreadySentPipe,
-    TableStyleDirective
+    TableStyleDirective,
+    SalaryComponent
    ],
   imports: [
     CommonModule,

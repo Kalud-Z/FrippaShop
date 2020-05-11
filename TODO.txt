@@ -16,7 +16,7 @@ issues :
 
 
 in firefox , border in the table header , is not showing. its been covered by the background color !
-==> you can fix it with dirictives that insert a div shaped like a border to each cell.
+==> you can fix it with directive that insert a div shaped like a border to each cell.
 
 
 when you click the navbar , to change routes. the loading spinner takes forever to start loading !

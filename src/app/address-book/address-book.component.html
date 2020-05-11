@@ -3,8 +3,6 @@
 
 
 
-
-
     <div class="header">
         <button class="Tasks-default-btn headerButtons storeDataButton" 
             [ngClass]="{ 'hideElement' : currentUser !== adminName }" > Save Changes 
@@ -54,8 +52,8 @@
            </div>
         </div>
 
-   </div> 
-</div> 
+   </div>  <!-- filterbody -->
+</div> <!-- filterWrapper -->
 
 
 
@@ -95,9 +93,7 @@
                 <td class="tbodyRow__country">     {{ address.country }}</td>
                 <td class="tbodyRow__phone">       {{ address.phone }}</td>
                 <td class="editLogoCell" #logoCell  appBalanceTableStyle>
-                    <svg class="editLogoCell__editTask-logo" (click)='onModifyAddress(i+1)'  >
-                        <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use>
-                    </svg> 
+                    <svg class="editLogoCell__editTask-logo" (click)='onModifyAddress(i+1)'> <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use> </svg> 
                 </td>
             </tr>
         

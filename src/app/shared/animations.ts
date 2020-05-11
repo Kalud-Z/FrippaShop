@@ -7,7 +7,7 @@ export const routeSlideStateTrigger = trigger('routeSlideState', [
             style({
                 opacity : 0
             }),
-            animate('2.25s 2.25s' , style({
+            animate('.25s .25s' , style({
                 opacity : 1
             }))
         ])//query
@@ -15,7 +15,7 @@ export const routeSlideStateTrigger = trigger('routeSlideState', [
   
     transition(':leave' , [
         query('.table' , [
-            animate('2.25s' , style({
+            animate('.25s' , style({
                 opacity : 0
             }))
         ])//query

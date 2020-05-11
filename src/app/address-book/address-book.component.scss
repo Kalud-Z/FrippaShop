@@ -5,10 +5,6 @@
     display : block
 }
 
-* {
-    // border : 1px solid black;
-}
-
 .container {
     padding: 2rem 3rem;
     padding-top: 0rem;
@@ -102,7 +98,7 @@
     border-right: none !important;
     z-index: 80;
     width: 80%;
-    white-space: nowrap;
+    // white-space: nowrap;
 
 }
 
@@ -112,7 +108,6 @@ tbody {
 
     &:last-child tr {
         border-bottom:1px solid transparent;
-        // border-bottom:0px solid black;
 
         & > *:not(:last-child) {
             border-bottom:1px solid black !important;
@@ -199,11 +194,8 @@ tr:hover .editLogoCell__editTask-logo {
     z-index: -23;
     border-right: none;
     width: 0.2rem;
-    // width: fit-content;
     &__editTask-logo {
         transition: all 1s;
-        // transition-property: transform, opacity;
-        // transition-duration: 1.4s, 1.5s;
         opacity: 0;
         visibility: hidden;
         transform: translateX(-151%) ;
@@ -324,6 +316,8 @@ $filterOptionHeight : 4rem;
                 position: relative;
                 clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
                 &:hover {clip-path:none}
+                transition: all 1s;
+
     
                 &:hover > * {
                     transform: translateY(0);  //add a directive for . onmouse leave , to wait a lil bit before closing the dropdown on mouseleave 
@@ -371,21 +365,6 @@ $filterOptionHeight : 4rem;
         }
     }
 
-    
-    // @for $i from 2 through 6  {
-    //     .typeFilter__option:nth-child( #{$i} ) {
-    //         transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
-    //         z-index:  calc( 3000 - #{ $i } ) !important;
-    //     }
-    // }
-
-    
-    // @for $i from 2 through 3 {
-    //     .alreadySentFilter__option:nth-child( #{$i} ) {
-    //         transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
-    //         z-index:  calc( 3000 - #{ $i } ) !important;
-    //     }
-    // }
 
 }
 

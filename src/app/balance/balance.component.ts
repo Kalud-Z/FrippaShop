@@ -24,7 +24,6 @@ export class BalanceComponent implements OnInit { //############################
   adminName : string;
 
   @HostBinding('@routeSlideState') routeAnimation = true;
-  // @HostBinding('@routeSlideState') 
 
 
   inFilterMode = false;

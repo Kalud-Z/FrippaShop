@@ -107,7 +107,6 @@ tbody {
 
     &:last-child tr {
         border-bottom:1px solid transparent;
-        // border-bottom:0px solid black;
 
         & > *:not(:last-child) {
             border-bottom:1px solid black !important;
@@ -205,11 +204,8 @@ tr:hover .editLogoCell__editTask-logo {
     z-index: -23;
     border-right: none;
     width: 0.2rem;
-    // width: fit-content;
     &__editTask-logo {
         transition: all 1s;
-        // transition-property: transform, opacity;
-        // transition-duration: 1.4s, 1.5s;
         opacity: 0;
         visibility: hidden;
         transform: translateX(-151%) ;
@@ -304,21 +300,14 @@ $filterOptionHeight : 4rem;
         display: flex;
         align-items: stretch;
         & > *:not(:last-child) { margin-right: 3rem; }
-        // width: 76rem;
             
         .filterCatWrapper {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: stretch;
-
-           /*  &:hover {
-                // height: auto;
-            } */
             
             &__trashBinLogo {
-                // fill: currentColor;
-                // color: currentColor;
                 height:2rem;
                 width:2rem;
                 position: absolute;
@@ -387,21 +376,6 @@ $filterOptionHeight : 4rem;
         }
     }
 
-    
-    @for $i from 2 through 6  {
-        .typeFilter__option:nth-child( #{$i} ) {
-            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
-            z-index:  calc( 3000 - #{ $i } ) !important;
-        }
-    }
-
-    
-    @for $i from 2 through 3 {
-        .alreadySentFilter__option:nth-child( #{$i} ) {
-            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
-            z-index:  calc( 3000 - #{ $i } ) !important;
-        }
-    }
 
 }
 

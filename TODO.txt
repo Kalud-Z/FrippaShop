@@ -1,6 +1,5 @@
 
 
-
 *Address Book  module.
 quick search box.
 
@@ -8,7 +7,10 @@ quick search box.
 *read recent work
 
 
-*Take Animation course
+*salary - component
+
+
+*transactions module
 
 _____________________________________________________
 
@@ -23,9 +25,6 @@ when you click the navbar , to change routes. the loading spinner takes forever 
 
 
 lazy loading aint working !
-
-
-on popup window . U exit , when you click on the dark background
 
 
 _____________________________________________________

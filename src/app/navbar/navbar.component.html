@@ -13,11 +13,11 @@
       <svg class="balance__logo" routerLinkActive='activeLogoAndText' [ngClass]="{'hidden' : isLoading && module === 'balance' }"> <use xlink:href="/assets/symbol-defs.svg#icon-money-bag"></use> </svg>
     </div>
 
-    <div class="nav__item transactions" routerLinkActive='activeItem' (click)="showLoadingSpinner('transactions')"  routerLink="/transactions">
+   <!--  <div class="nav__item transactions" routerLinkActive='activeItem' (click)="showLoadingSpinner('transactions')"  routerLink="/transactions">
       <span class="nav__item__text" routerLinkActive='activeLogoAndText'> Transactions </span>
       <app-loading-spinner-login [ngClass]="{show : isLoading && module === 'transactions'}" class="nav__item__spinner navbarView" ></app-loading-spinner-login>
       <svg class="transactions__logo" routerLinkActive='activeLogoAndText' [ngClass]="{'hidden' : isLoading && module === 'transactions' }" > <use xlink:href="/assets/symbol-defs.svg#icon-credit-card"></use> </svg>
-    </div>
+    </div> -->
 
     <div class="nav__item addresses" routerLinkActive='activeItem'  routerLink="/address-book" (click)="showLoadingSpinner('address-book')">
       <span class="nav__item__text"> Address Book</span>

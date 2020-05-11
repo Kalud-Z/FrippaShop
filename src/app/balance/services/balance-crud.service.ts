@@ -75,15 +75,11 @@ export class BalanceCrudService { //############################################
 
   getBalanceItemsList() {
     if(this.balanceItemsList.length === 0) {
-      console.log('we tryin to fecht balance , the array is empty')
       const localStorageData = JSON.parse(localStorage.getItem('balanceItemsList'));
-      console.log('localstoragedata : ' , localStorageData);
       if(localStorageData && localStorageData.length !== 0) {
-        console.log('we just loaded from localstorage')
         this.pushToList(localStorageData , 'fromLocalStorage');
       }
       else {
-          console.log('we just loaded from API')
           this.dataStorageService.fetchBalanceItemsList().subscribe(data => {
           this.pushToList(data , 'fromAPI');
           localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
@@ -92,7 +88,6 @@ export class BalanceCrudService { //############################################
       }
     }//the outer if
     else if(this.balanceItemsList.length > 0) {
-      console.log('we tryin to fecht balance , it is already saved in the service. we got it from there')
         this.BalanceItemsListUpdatedNotify();
     }
   }//getBalanceItemsList

@@ -25,10 +25,8 @@ when you click the navbar , to change routes. the loading spinner takes forever 
 lazy loading aint working !
 
 
+on popup window . U exit , when you click on the dark background
 
-
-
-add tasks items to the table . is broken !
 
 _____________________________________________________
 

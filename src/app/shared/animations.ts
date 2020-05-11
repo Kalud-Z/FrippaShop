@@ -3,15 +3,23 @@ import { trigger, style, transition, animate, query, group, stagger, keyframes }
 
 export const routeSlideStateTrigger = trigger('routeSlideState', [
     transition(':enter' , [
-        style({
-            opacity : 0
-        }),
-        animate('.5s .5s')
-      ]),
+        query('.table' , [
+            style({
+                opacity : 0
+            }),
+            animate('2.25s 2.25s' , style({
+                opacity : 1
+            }))
+        ])//query
+    ]), //transition
   
-      transition(':leave' , animate('.5s', style({
-          opacity : 0
-      })))
+    transition(':leave' , [
+        query('.table' , [
+            animate('2.25s' , style({
+                opacity : 0
+            }))
+        ])//query
+    ])
 ])
 
 

@@ -36,8 +36,7 @@ export class crudService { //###################################################
       })
       this.tasksChangedNotify();
       this.dataStorageService.storeTasksList(this.tasksList).subscribe(data => {
-        // console.log('data sotred success...');
-        localStorage.removeItem("tasksList");
+        localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
       });
   }
 
@@ -55,7 +54,7 @@ export class crudService { //###################################################
 
     if(state && state === 'store') {
       this.dataStorageService.storeTasksList(this.tasksList).subscribe(data => {
-        localStorage.removeItem("tasksList");
+        localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
       });
     }
 
@@ -64,9 +63,8 @@ export class crudService { //###################################################
 
   updateTask(id : number , type: string, alreadySent: boolean , details: string) {
     const task = this.createNewTask(type , alreadySent , details , id)
-    this.tasksList.forEach( (el , index) => {
+    this.tasksList.forEach(el => {
       if(el.id === task.id) {
-        // Object.assign(el , task); 
         el.type = task.type;
         el.isItemAlreadySent = task.isItemAlreadySent;
         el.details = task.details;  
@@ -74,8 +72,8 @@ export class crudService { //###################################################
     })
     this.tasksChangedNotify();
     this.dataStorageService.storeTasksList(this.tasksList).subscribe(data => {
-      // console.log('data sotred success...');
-      localStorage.removeItem("tasksList");
+      // localStorage.removeItem("tasksList");
+      localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
     });
   } //updateTask()
 

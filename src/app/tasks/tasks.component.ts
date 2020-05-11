@@ -113,13 +113,15 @@ export class TasksComponent implements OnInit  { //#############################
 
   onModifyTask(id : number) {
     if(this.currentUser === this.adminName ) {
-      this.router.navigate(['new-task/' + id ] , { relativeTo :  this.route } );
+      setTimeout(() => {
+        this.router.navigate(['new-task/' + id ] , { relativeTo :  this.route } );
+      }, 10);
     }
   }
 
 
   hostClciked() {
-    console.log('sdsgsgsgsggs')
+    console.log('host clicked')
   }
 
 

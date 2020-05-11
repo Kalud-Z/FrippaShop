@@ -5,6 +5,7 @@ import { FilterByMonthPipe } from './filter-by-month.pipe';
 import { FilterByYearPipe } from './filter-by-year.pipe';
 import { FilterByTypePipe } from './filter-by-type.pipe';
 import { LoadingSpinnerLoginComponent } from './loading-spinner-login/loading-spinner-login.component';
+import { ClickOutsideDirective } from './click-outside.directive';
 
 
 
@@ -14,7 +15,8 @@ import { LoadingSpinnerLoginComponent } from './loading-spinner-login/loading-sp
     FilterByMonthPipe,
     FilterByYearPipe,
     FilterByTypePipe,
-    LoadingSpinnerLoginComponent
+    LoadingSpinnerLoginComponent,
+    ClickOutsideDirective
   ],
   imports: [
     CommonModule
@@ -24,7 +26,8 @@ import { LoadingSpinnerLoginComponent } from './loading-spinner-login/loading-sp
     FilterByMonthPipe,
     FilterByYearPipe,
     FilterByTypePipe,
-    LoadingSpinnerLoginComponent
+    LoadingSpinnerLoginComponent,
+    ClickOutsideDirective
   ]
 })
 

@@ -68,7 +68,9 @@ export class BalanceComponent implements OnInit { //############################
 
   onModifyBalanceItem(id : number) {
     if(this.currentUser === this.adminName ) {
-      this.router.navigate(['new-balanceItem/' + id ] , { relativeTo :  this.route } );
+      setTimeout(() => {
+        this.router.navigate(['new-balanceItem/' + id ] , { relativeTo :  this.route } );
+      }, 10);
     }
   }
 

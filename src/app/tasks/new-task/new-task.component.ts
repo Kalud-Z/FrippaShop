@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostBinding } from "@angular/core";
+import { Component, OnInit, ViewChild, HostBinding, HostListener, ElementRef } from "@angular/core";
 import { crudService } from "../services/crud.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Task } from "../task.model";
@@ -30,11 +30,12 @@ export class NewTaskComponent implements OnInit {
 
   @HostBinding('@createNewState') routeAnimation = true;
 
+
   constructor(
     private authService: AuthService,
     private crudService: crudService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -83,10 +84,13 @@ export class NewTaskComponent implements OnInit {
   }
 
   ExitPopup(event) {
-    if (
+    console.log('we closing');
+    // console.log('we are in , and this is the event : ' , event)
+    if(
       event.target.className === "container" ||
       event.target.nodeName === "svg" ||
-      event.target.nodeName === "use"
+      event.target.nodeName === "use" ||
+      event.target.localName === 'app-new-task'
     ) {
       this.popupView = true;
     }

@@ -26,18 +26,18 @@ export const routeSlideStateTrigger = trigger('routeSlideState', [
 
 
 export const createNewTrigger = trigger('createNewState', [
-    transition(':enter' , [
-            query('.form' , [
-                style({
-                    transform : 'scale(0.85)'
-                    // opacity : 0
-                }),
-                animate(300 , style({
-                    transform : 'scale(1.05)'
-                })),
-                animate(100)
-            ]), //query
-      ]), //transition
+      transition(':enter' , [
+        query('.form' , [
+            style({
+                transform : 'scale(0.85)'
+                // opacity : 0
+            }),
+            animate(300 , style({
+                transform : 'scale(1.05)'
+            })),
+            animate(100)
+        ]), //query
+  ]), //transition
   
     //   #############################################################################
 

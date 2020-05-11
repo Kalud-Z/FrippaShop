@@ -78,7 +78,8 @@ export class NewAddressComponent implements OnInit { //#########################
     if (
       event.target.className === "container" ||
       event.target.nodeName === "svg" ||
-      event.target.nodeName === "use"
+      event.target.nodeName === "use" ||
+      event.target.localName === "app-new-address"
     ) {
       this.popupView = true;
     }
@@ -89,7 +90,6 @@ export class NewAddressComponent implements OnInit { //#########################
     if(this.modifyAddressView) {
       this.router.navigate(['../../'] , { relativeTo :  this.route });
     } else {
-
       this.router.navigate(['../'] , { relativeTo :  this.route } );
     }
 

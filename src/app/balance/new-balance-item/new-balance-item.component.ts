@@ -83,7 +83,8 @@ export class NewBalanceItemComponent implements OnInit { //#####################
     if (
       event.target.className === "container" ||
       event.target.nodeName === "svg" ||
-      event.target.nodeName === "use"
+      event.target.nodeName === "use" ||
+      event.target.localName === 'app-new-balance-item'
     ) {
       this.popupView = true;
     }

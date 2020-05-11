@@ -5,7 +5,7 @@
 
     <!-- Form   ########################################################################################################################################### -->
     <!-- ################################################################################################################################################## -->
-        <form  #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)" class="form">
+        <form  #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)" class="form"  (clickOutside)='ExitPopup($event)'>
             <div class="form__ExitLogo-container">
                 <svg class="form__ExitLogo" (click)='ExitPopup($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
             </div>

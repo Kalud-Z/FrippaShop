@@ -2,7 +2,8 @@
 
 <!-- <div class="container" (click)='ExitPopup($event)' > -->
 
-    <form class="form">
+    <form class="form"  (clickOutside)='ExitPopup($event)'>
+        <!-- <form class="form"  clickOutside> -->
 
         <div class="form__ExitLogo-container">
             <svg class="form__ExitLogo" (click)='ExitPopup($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 

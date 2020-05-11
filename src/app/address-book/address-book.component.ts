@@ -129,12 +129,13 @@ export class AddressBookComponent implements OnInit { //########################
   onModifyAddress(id : number) {
     console.log('modify noww')
     if(this.currentUser === this.adminName ) {
-      this.router.navigate(['new-address/' + id ] , { relativeTo :  this.route } );
+      setTimeout(() => {
+        this.router.navigate(['new-address/' + id ] , { relativeTo :  this.route } );
+      }, 20);
     }
   }
 
 
-  
   resetAllFilters() {
     this.filterByCountryInput = [];
     this.filterByCityInput = [];

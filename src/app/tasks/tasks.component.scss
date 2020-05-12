@@ -104,7 +104,6 @@
     border-right: none !important;
     z-index: 80;
     font-size: 1.4rem;
-
 }
 
 tbody {
@@ -148,8 +147,8 @@ tbody {
     height: 3rem;
     width:22rem;
     background-color: red;
-    position: sticky;
-    top: 0rem ;
+        // position: sticky;
+        // top: 0rem ;
 }
 
 .table thead {
@@ -172,8 +171,8 @@ tbody {
     text-align: center;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    position: sticky;
-    top: -.5rem ;
+    // position: sticky;
+    // top: -.5rem ;
 
     &:not(:last-child)::after {
         content: '';

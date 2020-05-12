@@ -6,6 +6,7 @@ import { AuthService } from '../login/auth.service';
 import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { routeSlideStateTrigger } from '../shared/animations';
+import { ScrollTopBottomDirective } from '../shared/scroll-top-bottom.directive';
 
 @Component({
   selector: 'app-tasks',
@@ -25,6 +26,8 @@ export class TasksComponent implements OnInit  { //#############################
   tableMarginOffset : string;
 
   @HostBinding('@routeSlideState') routeAnimation = true;
+
+
 
 
   currentUser : string;
@@ -124,6 +127,17 @@ export class TasksComponent implements OnInit  { //#############################
     console.log('host clicked')
   }
 
+
+  onScroll() {
+  //  window.scrollTo(55 , 0)
+    // console.log('we are sgsgs')
+    // window.scrollTo({
+    //   // top  : windowHeight,
+    //   top  : 100,
+    //   left : 0,
+    //   behavior : 'smooth'
+    // })
+  }
 
 
 

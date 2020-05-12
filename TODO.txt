@@ -10,21 +10,27 @@ quick search box.
 *salary - component
 
 
-*transactions module
+*transactions module (optional)
+
+
 
 _____________________________________________________
 
 issues :
 
 
-in firefox , border in the table header , is not showing. its been covered by the background color !
-==> you can fix it with directive that insert a div shaped like a border to each cell.
-
-
 when you click the navbar , to change routes. the loading spinner takes forever to start loading !
 
 
 lazy loading aint working !
+
+
+router animation from , address-book to other routes is fucked up.
+
+
+* go to bottom of page button
+*go to top of page button.
+==> didnt work. even though they worked in other projects !!!!!!!
 
 
 _____________________________________________________

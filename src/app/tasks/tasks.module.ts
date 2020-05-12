@@ -13,6 +13,7 @@ import { AuthGuard } from '../login/auth.guard';
 import { NewTaskGuard } from './new-task/new-task.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SalaryComponent } from './salary/salary.component';
+import { ScrollToTopComponent } from '../shared/scroll-to-top/scroll-to-top.component';
 
 
 
@@ -31,7 +32,8 @@ const tasksRoutes: Routes = [
     TasksComponent,
     FilterByAlreadySentPipe,
     TableStyleDirective,
-    SalaryComponent
+    SalaryComponent,
+    ScrollToTopComponent
    ],
   imports: [
     CommonModule,
@@ -40,6 +42,7 @@ const tasksRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     FileSaverModule,
+
     // BrowserAnimationsModule
   ]
 })

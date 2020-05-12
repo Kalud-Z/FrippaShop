@@ -1,0 +1,18 @@
+.scroll-to-top {
+    position: fixed;
+    bottom: 0px;
+    left: 90px;
+    opacity: 1;
+    transition: all .2s ease-in-out;
+    z-index: 7870864;
+}
+
+.show-scrollTop {
+    opacity: 1;
+    transition: all .2s ease-in-out;
+}
+
+.btn {
+    padding : 5rem;
+    background-color: red;
+}

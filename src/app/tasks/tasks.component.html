@@ -1,9 +1,10 @@
 <div class="container">
 
+    <!-- <app-scroll-top></app-scroll-top> -->
 
 <!-- ############################################################################################################################################# -->
     <!-- Header ################################################################################################################################## -->
-    <div class="header">
+    <div   class="header">
         
         <button class="Tasks-default-btn headerButtons storeDataButton" [ngClass]="{ 'hideElement' : currentUser !== adminName }" > Save Changes 
            <div class="header__saveLogo"> <svg [ngClass]="{ 'hideElement' : currentUser !== adminName}">  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> </div>
@@ -23,7 +24,7 @@
 
 <!-- ############################################################################################################################################# -->
 <!-- Filter ######################################################################################################################################## -->
-    <div class="filterWrapper" [ngClass]="{'showFilter' : showFilterCrl === true}">
+    <div    class="filterWrapper" [ngClass]="{'showFilter' : showFilterCrl === true}">
 
          <div class="filterHeader"> &nbsp;
             <button type="button" class="filterHeader__resetAllButton" (click)='resetAllFilters()' > Reset All </button>
@@ -78,11 +79,11 @@
     </div>  <!-- filterWrapper -->
     
 
-<!-- <div class="test">sfsfsgs</div> -->
+<!-- <button type="button" appScrollTopBottom  (click)='onScroll()' style="z-index: 150;"> go to bottom </button> -->
     
 <!-- ############################################################################################################################################# -->
 <!-- Table ##################################################################################################################################### -->
-    <table class="table"> 
+    <table class="table"  > 
 
     <thead>
         <tr>
@@ -129,9 +130,11 @@
     </table>
 
 
-<router-outlet (click)='hostClciked()' ></router-outlet>
+<router-outlet></router-outlet>
 
 </div>  <!-- container -->
+
+
 
 
 

@@ -34,6 +34,7 @@ const AppRoutes: Routes = [
 
 @NgModule({
   imports: [ RouterModule.forRoot(AppRoutes , { preloadingStrategy : LoadAfterDelayService })],
+  // imports: [RouterModule.forRoot(AppRoutes)],
   exports : [RouterModule]
 })
 

@@ -157,19 +157,15 @@ tbody {
     font-style: italic;
     // background: $darkColor-darker;
    
-   
-    
-
     & tr {
         border-bottom:1px solid transparent;
     }
-
 
 }
 
 .table thead th {
     background: $darkColor-darker;
-
+    // background: yellow;
     font-size : 1.5rem;
     font-weight: bold;
     color: #000000;
@@ -179,8 +175,26 @@ tbody {
     position: sticky;
     top: -.5rem ;
 
+    &:not(:last-child)::after {
+        content: '';
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top:0;
+        right:0;
+        box-shadow: 3px 0px 0px 0px rgba(0,0,0,0.75); //border-right
+    }
 
-    
+
+    &:not(:last-child)::before {
+        content: '';
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top:0;
+        right:0;
+        box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.75); //border-bottom
+    }
 
     &:last-child {
         border:none;
@@ -455,9 +469,6 @@ $filterOptionHeight : 4rem;
 
 
 
-
-
-
 .optionSelected {
     background-color: #852d3c !important;
 }
@@ -473,4 +484,22 @@ $filterOptionHeight : 4rem;
     opacity: 0.5 !important;
     cursor: not-allowed !important;
 }
+
+
+
+.rightBorder {
+    width: 1px;
+    position: absolute;
+    top:0;
+    right:-0.85px;
+    background-color: black;
+
+}
+
+
+
+
+
+
+
 

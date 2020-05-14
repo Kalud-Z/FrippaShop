@@ -3,19 +3,22 @@ import { trigger, style, transition, animate, query, group, stagger, keyframes }
 
 export const routeSlideStateTrigger = trigger('routeSlideState', [
     transition(':enter' , [
-        query('.table' , [
-            style({
-                opacity : 0
-            }),
-            animate('.25s .25s' , style({
-                opacity : 1
-            }))
-        ])//query
+        group([
+            query('.table , .filterWrapper , .header' , [
+                style({
+                    opacity : 0
+                }),
+                animate('1.25s 1.25s' , style({
+                    opacity : 1
+                }))
+            ])//query
+        ])
+       
     ]), //transition
   
     transition(':leave' , [
-        query('.table' , [
-            animate('.25s' , style({
+        query('.table , .filterWrapper , .header' , [
+            animate('1.25s' , style({
                 opacity : 0
             }))
         ])//query

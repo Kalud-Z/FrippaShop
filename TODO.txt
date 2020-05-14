@@ -1,17 +1,13 @@
 
 
-*Address Book  module.
-quick search box.
 
-
-*read recent work
-
-
-*salary - component
+*salary - component  (inside tasks module)
 
 
 *transactions module (optional)
 
+
+* make it responsive.
 
 
 _____________________________________________________
@@ -29,7 +25,7 @@ router animation from , address-book to other routes is fucked up.
 
 
 * go to bottom of page button
-*go to top of page button.
+* go to top of page button.
 ==> didnt work. even though they worked in other projects !!!!!!!
 
 

@@ -25,6 +25,8 @@ export class BalanceComponent implements OnInit { //############################
 
   @HostBinding('@routeSlideState') routeAnimation = true;
 
+  clickInsideHeader = false;
+
 
   inFilterMode = false;
   showFilterCrl : boolean;
@@ -59,9 +61,26 @@ export class BalanceComponent implements OnInit { //############################
     else { this.inFilterMode = true  }
   }
 
+  clickedOutsideHeader() {
+    // console.log('clickedOutsideHeader is called')
+    this.clickInsideHeader = false;
+  }
+
+  mouseEnterHeader() {
+    // console.log('mouseEnterHeader is called')
+    setTimeout(() => {
+      this.clickInsideHeader = true;
+    }, 20);
+  }
+
+  mouseLeaveHeader() {
+    // console.log('mouseLEaverHeader is called')
+    this.clickedOutsideHeader();
+  }
+
 
   onAddBalanceItem() {
-    if(this.currentUser === this.adminName ) {
+    if(this.currentUser === this.adminName && this.clickInsideHeader ) {
       this.router.navigate(['new-balanceItem'] , { relativeTo :  this.route } );
     }
   }
@@ -106,6 +125,13 @@ export class BalanceComponent implements OnInit { //############################
 
 
 // filter Methods ########################################################################################################################
+
+
+  showFilter() {
+    if(this.clickInsideHeader) {
+      this.showFilterCrl = true
+    }
+  }
 
  
   resetAllFilters() {

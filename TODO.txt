@@ -1,5 +1,5 @@
 
-
+* deploy the site. update portfolio
 
 *salary - component  (inside tasks module)
 
@@ -19,9 +19,6 @@ when you click the navbar , to change routes. the loading spinner takes forever 
 
 
 lazy loading aint working !
-
-
-router animation from , address-book to other routes is fucked up.
 
 
 * go to bottom of page button

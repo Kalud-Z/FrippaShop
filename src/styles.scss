@@ -100,7 +100,13 @@ table : 80;
 
 
 
+// global utility classes
 
+
+.element-Unclickable {
+    pointer-events: none !important; //we remove this 
+    border: 4px solid yellow !important;
+}
 
 
 

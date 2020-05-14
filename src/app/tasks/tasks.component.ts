@@ -27,8 +27,7 @@ export class TasksComponent implements OnInit  { //#############################
 
   @HostBinding('@routeSlideState') routeAnimation = true;
 
-
-
+  clickInsideHeader = false;
 
   currentUser : string;
   adminName : string;
@@ -71,6 +70,24 @@ export class TasksComponent implements OnInit  { //#############################
     else { this.inFilterMode = true  }
   }
 
+  clickedOutsideHeader() {
+    // console.log('clickedOutsideHeader is called')
+    this.clickInsideHeader = false;
+  }
+
+  mouseEnterHeader() {
+    // console.log('mouseEnterHeader is called')
+    setTimeout(() => {
+      this.clickInsideHeader = true;
+    }, 20);
+  }
+
+  mouseLeaveHeader() {
+    // console.log('mouseLEaverHeader is called')
+    this.clickedOutsideHeader();
+  }
+
+
   addOrRemoveMonth(month : string) {
     let indexOfTarget =  this.filterByMonthInput.indexOf(month);
     if(indexOfTarget === -1) {
@@ -100,6 +117,12 @@ export class TasksComponent implements OnInit  { //#############################
     if(boolVar === false ) { this.filterByAlreadySent = false }
   }
 
+  showFilter() {
+    if(this.clickInsideHeader) {
+      this.showFilterCrl = true
+    }
+  }
+
   resetAllFilters() {
     this.filterByYearInput = 0;
     this.filterByMonthInput = [];
@@ -108,11 +131,12 @@ export class TasksComponent implements OnInit  { //#############################
   }
 
   onAddNewTask() {
-    if(this.currentUser === this.adminName ) {
+    if(this.currentUser === this.adminName && this.clickInsideHeader ) {
       console.log('we are now going to new task')
       this.router.navigate(['new-task'] , { relativeTo :  this.route } );
     }
   }
+
 
   onModifyTask(id : number) {
     if(this.currentUser === this.adminName ) {

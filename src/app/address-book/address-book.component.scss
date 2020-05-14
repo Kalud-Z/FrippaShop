@@ -23,24 +23,24 @@
     z-index: 100;
     background:linear-gradient(to bottom, #e5bab200 5%, #e5bab2 100%);
     box-shadow: 2px 2px 2px 0px rgba(189,134,189,1);
-    white-space: nowrap;
+
     border-radius: 7px;
     transition: all .5s;
-    transform: translateY(-95%);
-    // transform: translateY(0%);
-    &:hover { transform: translateY(0%); }
+    // transform: translateY(-95%);
+    transform: translateY(-85%);
+    &:hover , &:active { transform: translateY(0); }
     width:fit-content;
     align-self: flex-start;
     margin-left: -3rem;
     @include flexCenter;
     margin-bottom: -2.5rem;
     padding: 2rem 3rem;
-    & > *:not(:last-child) { margin-right: 3rem; }
+    & > *:not(:last-child) { margin-right: 3rem }
 
-    &:hover div { transform: translate(0px, 0px) scale(1); }
-    &:hover svg { fill : currentColor !important; }
+    &:hover div , &:active div { transform: translate(0px, 0px) scale(1) }
+    &:hover svg , &:active svg { fill : currentColor !important }
 
-    & button div {
+    &__logoWrapper {
         margin-left: auto;
         padding:0.5rem .5rem;
         transition: 0.5s;
@@ -59,12 +59,14 @@
             margin-left: auto;
         }
 
-        &:hover .header { transform: translateY(0%); }
+        &:hover .header , &:active .header { transform: translateY(0); }
     }
 
     &__saveLogo    { transform: translate(-22rem, 6rem) scale(1.5); }
     &__addLogo     { transform: translate(-46rem, 6rem) scale(1.5); }
     &__filterLogo  { transform: translate(-70rem, 6rem) scale(1.5); }
+
+
 }
 
 

@@ -4,18 +4,18 @@
 
 <!-- ############################################################################################################################################# -->
     <!-- Header ################################################################################################################################## -->
-    <div   class="header">
+    <div  class="header" (clickOutside)='clickedOutsideHeader()'  (mouseenter)="mouseEnterHeader()"  (mouseleave)="mouseLeaveHeader()" >
         
-        <button class="Tasks-default-btn headerButtons storeDataButton" [ngClass]="{ 'hideElement' : currentUser !== adminName }" > Save Changes 
-           <div class="header__saveLogo"> <svg [ngClass]="{ 'hideElement' : currentUser !== adminName}">  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> </div>
+        <button class="Tasks-default-btn headerButtons storeDataButton" [ngClass]="{'hideElement' : currentUser !== adminName}"  > Save Changes 
+           <div class="header__logoWrapper header__saveLogo"> <svg [ngClass]="{ 'hideElement' : currentUser !== adminName}">  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> </div>
         </button>
 
-        <button class="Tasks-default-btn headerButtons addNewTaskButton" [ngClass]="{ 'hideElement' : currentUser !== adminName}" (click)='onAddNewTask()'> Add New Task
-            <div class="header__addLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-folder-add"></use> </svg>  </div>
+        <button class="Tasks-default-btn headerButtons addNewTaskButton" [ngClass]="{'hideElement' : currentUser !== adminName}" (click)='onAddNewTask()'> Add New Task
+            <div class="header__logoWrapper header__addLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-folder-add"></use> </svg>  </div>
         </button>
 
-        <button class="Tasks-default-btn headerButtons filterButton" (click)='showFilterCrl = true' > Filter
-            <div class="header__filterLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> </div>
+        <button class="Tasks-default-btn headerButtons filterButton"  (click)='showFilter()' > Filter
+            <div class="header__logoWrapper header__filterLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> </div>
         </button>
     </div>
     

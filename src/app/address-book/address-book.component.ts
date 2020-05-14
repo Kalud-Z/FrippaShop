@@ -32,9 +32,9 @@ export class AddressBookComponent implements OnInit { //########################
   filterByCountryInput: string[] = [];
   filterByCityInput:    string[] = [];
 
+  clickInsideHeader = false;
 
   
-
   // ########################################################################################################
 
   constructor(private addressCrudService : AddressCrudService,
@@ -63,8 +63,24 @@ export class AddressBookComponent implements OnInit { //########################
 
   }
 
+  clickedOutsideHeader() {
+    // console.log('clickedOutsideHeader is called')
+    this.clickInsideHeader = false;
+  }
 
+  mouseEnterHeader() {
+    // console.log('mouseEnterHeader is called')
+    setTimeout(() => {
+      this.clickInsideHeader = true;
+    }, 20);
+  }
 
+  mouseLeaveHeader() {
+    // console.log('mouseLEaverHeader is called')
+    this.clickedOutsideHeader();
+  }
+
+  
   addOrRemoveCountry(country : string) {
     let indexOfTarget =  this.filterByCountryInput.indexOf(country);
     if(indexOfTarget === -1) {
@@ -120,7 +136,7 @@ export class AddressBookComponent implements OnInit { //########################
 
 
   onAddAddress() {
-    if(this.currentUser === this.adminName ) {
+    if(this.currentUser === this.adminName && this.clickInsideHeader) {
       this.router.navigate(['new-address'] , { relativeTo :  this.route } );
     }
   }
@@ -135,6 +151,13 @@ export class AddressBookComponent implements OnInit { //########################
     }
   }
 
+  
+  showFilter() {
+    if(this.clickInsideHeader) {
+      this.showFilterCrl = true
+    }
+  }
+  
 
   resetAllFilters() {
     this.filterByCountryInput = [];

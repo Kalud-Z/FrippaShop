@@ -31,9 +31,10 @@
     transition: .45s all ease-out;
     position: relative;
 
-    &:hover {
+    &:hover , &:active {
         transform: translateX(75%);
         background-color: $darkColor-main;
+        // background-color: yellow;
     }
 
     &:hover  &__item { opacity: 1; } 
@@ -51,6 +52,7 @@
         font-family: 'Merriweather Sans', sans-serif;
         opacity: 0.4;
         &:hover  &__text { opacity: 1;}
+
 
         &__text , & svg { opacity: 0.4;}
         &__text {  margin-right: 2rem; }
@@ -168,7 +170,6 @@ app-loading-spinner-login {
     right:0%;
     transform: translate(-30%, -43%);
 }
-
 
 
 

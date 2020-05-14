@@ -16,6 +16,8 @@ export class NavbarComponent implements OnInit { //#############################
   isLoadingTemp : boolean;
   module : string;
 
+  clickInsideNav = false;
+  // clickInsideNav = false;
 
   constructor(private router : Router ,
               private authService : AuthService,
@@ -58,6 +60,27 @@ export class NavbarComponent implements OnInit { //#############################
 
   }
 
+  clickedOutsideNav() {
+    // console.log('clickedOutsideNav is called')
+    this.clickInsideNav = false;
+  }
 
-} //class###############################################################################################
+  // navClicked() {
+  //   // console.log('navClicked is called')
+  //   // this.clickInsideNav = true;
+  // }
 
+  mouseEnterNav() {
+    setTimeout(() => {
+      this.clickInsideNav = true;
+    }, 10);
+  }
+
+  mouseLeaveNav() {
+    // console.log('mouseLeave is called')
+    this.clickedOutsideNav();
+  }
+
+
+} //class####################################################################################################################################################
+// /##########################################################################################################################################################

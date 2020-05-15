@@ -46,7 +46,16 @@
     justify-content: center;
     // flex:0 0 66%;
 
-    & > *:not(:last-child) { margin-bottom: 3rem; }
+    @include respond(phone) {
+        width : fit-content;
+    }
+
+    & > *:not(:last-child) { 
+        margin-bottom: 3rem;
+        @include respond(phone) {
+            margin-bottom: 0rem;
+        }
+     }
 
     &__ExitLogo-container {
         position: relative;
@@ -63,6 +72,10 @@
         width: 2rem;
         align-self: flex-end;
         cursor: pointer;
+        @include respond(phone) {
+            top: -60%;
+            right: -8%;
+        }
     }
 
     &__vertical-line {
@@ -70,6 +83,9 @@
         width: 20rem;
         align-self: center;
         margin-bottom: 1.5rem;
+        @include respond(phone) {
+            margin-bottom: 2rem;
+        }
     }
 
     &__body {
@@ -77,6 +93,11 @@
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+        @include respond(phone) {
+            flex-wrap: nowrap;
+            flex-direction: column;
+            align-items: stretch;
+        }
     }
 
   
@@ -87,16 +108,23 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        // background-color: rgba(255, 255, 0, 0.479);
 
         &__body {
             @include flexCenter;
             margin-bottom: 1.5rem;
+            @include respond(phone) {
+                margin-bottom: 2rem;
+            }
         }
 
         & label {
             width: 10rem;
             margin-right: 2rem;
             white-space: nowrap;
+            @include respond(phone) {
+                // margin-right: 10rem;
+            }
         }
 
         & input {
@@ -105,7 +133,10 @@
             padding: .5rem 1rem;
         }
 
-        &:not(:nth-child(2n))  {margin-right: 3rem;}
+        &:not(:nth-child(2n))  {
+            margin-right: 3rem;
+            @include respond(phone) { margin-right: 0 }
+        }
         &:last-child form__vertical-line { 
                 width:50rem;
         }
@@ -114,16 +145,20 @@
 
     
     &__footer {
-        // margin-top: 2rem;
-        // margin-bottom: 3rem;
         width: 100%;
         @include flexCenter;
         position: relative;
+        @include respond(phone) { margin-bottom: 3rem }
 
         &__deleteButton{
            position: absolute;
            right:-3%;
            top: 85%;
+           @include respond(tab-port) { top : 80% }
+           @include respond(phone) {
+                top : 147%;
+                right:-9%;
+            }
         }
     }
 
@@ -145,13 +180,19 @@
     text-shadow: none;
     box-shadow: none;
     font-size: 1rem;
-	padding:4px 20px;
+    padding:4px 20px;
+    letter-spacing: 1px;
+    @include respond(phone) {
+        font-size: 1.3rem;
+        padding:2px 10px;
+    }
 
-    
     &:not(.disable-button):hover {
         border:2px solid pink;
         // fons-size : 
     }
+
+
 }
 
 .saveButton[disabled] {
@@ -212,9 +253,13 @@
 
 
 
-.hidden {
+.hidden-form__group {
     opacity: 0;
     visibility: hidden;
+    @include respond(phone) {
+        display : none !important;
+    }
+
 }
 
 

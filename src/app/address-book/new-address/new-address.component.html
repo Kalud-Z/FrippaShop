@@ -1,14 +1,12 @@
 
 
-<!-- <div class="container"  (click)='ExitPopup($event)' > -->
-
 
     <!-- Form   ########################################################################################################################################### -->
     <!-- ################################################################################################################################################## -->
         <form  #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)" class="form"  (clickOutside)='ExitPopup($event)'>
-            <div class="form__ExitLogo-container">
-                <svg class="form__ExitLogo" (click)='ExitPopup($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
-            </div>
+        <div class="form__ExitLogo-container">
+            <svg class="form__ExitLogo" (click)='ExitPopup($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+        </div>
     
         <div class="form__body">
 
@@ -71,7 +69,7 @@
                     <label for="houseNr"> House Nr° </label>
                     <input type="houseNr" name="houseNr" id="houseNr" [(ngModel)]='houseNr' required>
                 </div>
-                <!-- <div class="form__vertical-line" ></div> -->
+                <div class="form__vertical-line" ></div>
             </div>
 
             
@@ -86,7 +84,7 @@
             </div>
 
 
-            <div class="form__group hidden">
+            <div class="form__group hidden-form__group">
                 <div class="form__group__body">
                     <label for="phone"> Phone </label>
                     <input type="phone" name="phone" id="phone" [(ngModel)]='phone' required>
@@ -97,16 +95,13 @@
 
         </div> <!-- form__body -->
         
-
-    
     
         <div class="form__footer">
             <button type="submit" class="Tasks-default-btn saveButton" [disabled]="saveForm.invalid"> {{ modifyAddressView ? 'Update' : 'Save' }}  </button>
             <button class="Tasks-default-btn removeTaskButton form__footer__deleteButton" (click)='onDeleteTask()' *ngIf='modifyAddressView; else temp'>  Delete Permanently </button>
             <ng-template #temp></ng-template>
         </div>
-          
-          
+           
         </form>
     
     

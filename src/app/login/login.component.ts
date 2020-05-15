@@ -1,30 +1,35 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostBinding } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { DataStorageService } from '../tasks/services/data-storage.service';
 import { environment } from 'src/environments/environment';
+import { routeSlideStateTrigger } from '../shared/animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [
+    routeSlideStateTrigger
+  ]
 })
-export class LoginComponent implements OnInit { //#####################################################################
+// #############################################################################################################################################################
+export class LoginComponent implements OnInit { //##############################################################################################################
 // AIzaSyDIVA6P44Okinr0qT4z9XzJCpzX1qRDuwo
-  // @ViewChild('emailInput' , { static : true }) emailInput;
   userSub : Subscription;
   token : string;
   id : string;
+
+  @HostBinding('@routeSlideState') routeAnimation = true;
+
 
   currentUserName : string;
   currentUserEmail : string;
   initialEmail : string;
 
   isLoading = false;
-
-
 
   constructor(private authService: AuthService,
               private router : Router,
@@ -87,5 +92,4 @@ export class LoginComponent implements OnInit { //##############################
   }
 
 
-
-}  //class ########################################################################################################
+}  //class #################################################################################################################################################

@@ -1,4 +1,5 @@
 @import 'src/variables.scss' ;
+@import 'src/mixins.scss' ;
 
 
 :host {
@@ -183,30 +184,32 @@ tr td {
 }
 
 
-
 tr:hover .editLogoCell__editTask-logo {
-    transform: translateX(0%) ;
-    opacity: 1;
-    visibility: visible;
+    fill : rgba(255, 0, 0, 1);
 }
+
 
 .editLogoCell {
     border: none !important;
     background-color: $lightColor-main;
-    z-index: -23;
     border-right: none;
-    width: 0.2rem;
-    &__editTask-logo {
-        transition: all 1s;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateX(-151%) ;
-        cursor: pointer;
-        height: 2rem;
-        width: 2rem;
 
+    &__editTask-logo {
+        // opacity: 0.5;
+        // transform: scale(0.7);   // opacity && transform.scale : they make the logo appear on top of the sticky header !
+        transition: all .2s;
+        margin-left: -.5rem;
+        cursor: pointer;
+        height: 1.8rem;
+        width: 1.8rem;
+        fill : rgba(255, 0, 0, 0.26);
+
+        @include respond(tab-land) {
+            fill : rgba(255, 0, 0, 1);
+        }
     }
 }
+
 
 
 

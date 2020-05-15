@@ -34,6 +34,9 @@ html {
     font-family: 'Roboto Mono', monospace;
     font-size: 58%;  /* this is the root font-size ! | and = 62.5% of the default browser font-size which is usually 16px ==> final value 10px */ 
     // this is the font size for normal text. ==> 1rem
+    // 58% ==>    1rem    =  9.2px
+    //            3.4 rem   = 32px
+    // 
 
     @include respond(tab-port) { font-size: 50% }
     @include respond(phone) { font-size: 40% }

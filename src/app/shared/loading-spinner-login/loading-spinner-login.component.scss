@@ -1,11 +1,6 @@
 
-
-
 @import 'src/variables.scss' ;
 
-* {
-  // border : 1px solid black;
-}
 
 :host(.loginView) {
     z-index: 210;
@@ -21,54 +16,28 @@
 :host(.navbarView) {
     z-index: 210;
     pointer-events: none;
-    // @include flexCenter;
-    // position: absolute;
-    // top:50%;
-    // right:0%;
-    // transform: translate(-30%, -50%);
 }
 
-
-
-// .container {
-//     pointer-events: none;
-//     @include flexCenter;
-//     position: absolute;
-//     top:50%;
-//     right:0%;
-//     transform: translate(30%, -50%);
-// }
 
 // ##################################################################################################
 
 
-
 .lds-hourglass {
-    // transform: scale(0.35);
     transform: scale(1);
     display: inline-block;
     position: relative;
-    width: 32px;
-    height: 32px;
+    width: 3.4rem;
+    height: 3.4rem;
   }
 
   .lds-hourglass:after {
     content: " ";
     display: block;
-
-    // position: absolute;
-    // top:50%;
-    // right:50%;
-    // transform: translate(-50%, -50%);
-
     border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    // background-color: yellow;
-    // margin: 8px;
+    width: 1.7rem;
+    height: 1.7rem;
     box-sizing: border-box;
-    border: 16px solid #fff;
-    // border: 11% solid #fff;
+    border: 1.7rem solid #fff;
     border-color: #fff transparent #fff transparent;
     animation: lds-hourglass 1.2s infinite;
   }

@@ -11,6 +11,7 @@
 .container {
     padding: 2rem 3rem;
     padding-top: 0rem;
+    width: 100%;
     position: relative;
     // background-color: yellow;
     display: flex;
@@ -88,9 +89,6 @@
     &__filterLogo  { @include respond(phone) { transform: translate(-12.5rem, 6.3rem)  scale(1.5) } }
     &__saveLogo    { @include respond(phone) { transform: translate(-16.4rem, 20.3rem) scale(1.5) } }
     &__addLogo     { @include respond(phone) { transform: translate(-20.7rem, 13.2rem) scale(1.5) } }
-
-
-
 }
 
 .headerButtons {
@@ -118,11 +116,13 @@
     border: 1px solid $mediumColor-darker;
     width: 100%;
     text-align: left;
+    align-self: center;
     border-collapse: collapse;
     position : relative;
     border-right: none !important;
     z-index: 80;
     width: 80%;
+    @include respond(phone) { width: 100%}
 }
 
 tbody {
@@ -205,10 +205,11 @@ tbody {
     }
 
 
-    &:last-child {
+    &:last-child  {
         border:none;
         border-top:1px solid transparent;
         background-color: #c6ffec;
+        @include respond(phone) { padding-right: 5rem }
     }
 }
 
@@ -252,15 +253,13 @@ tr:hover .editLogoCell__editTask-logo {
         // opacity: 0.5;
         // transform: scale(0.7);   // opacity && transform.scale : they make the logo appear on top of the sticky header !
         transition: all .2s;
-        margin-left: -.5rem;
         cursor: pointer;
         height: 1.8rem;
         width: 1.8rem;
+        margin-left: -.5rem;
+        @include respond(phone) { margin-left: -2.5rem }
         fill : rgba(255, 0, 0, 0.26);
-
-        @include respond(tab-land) {
-            fill : rgba(255, 0, 0, 1);
-        }
+        @include respond(tab-land) { fill : rgba(255, 0, 0, 1)}
     }
 }
 

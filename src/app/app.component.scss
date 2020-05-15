@@ -4,6 +4,8 @@
 .container {
     height: 100vh;
     background-color: $lightColor-main;
-    overflow-x: auto;
+    // overflow-x: auto;
+    overflow-x: scroll;
+
 }
 

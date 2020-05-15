@@ -180,11 +180,11 @@ tbody {
     padding-top: 2rem;
     padding-bottom: 2rem;
 
-    &:last-child {
+    &:last-child  {
         border:none;
         border-top:1px solid transparent;
         background-color: #c6ffec;
-
+        @include respond(phone) { padding-right: 5rem }
     }
 }
 
@@ -214,19 +214,18 @@ tr:hover .editLogoCell__editTask-logo {
     background-color: $lightColor-main;
     border-right: none;
 
+    
     &__editTask-logo {
         // opacity: 0.5;
         // transform: scale(0.7);   // opacity && transform.scale : they make the logo appear on top of the sticky header !
         transition: all .2s;
-        margin-left: -.5rem;
         cursor: pointer;
         height: 1.8rem;
         width: 1.8rem;
+        margin-left: -.5rem;
+        @include respond(phone) { margin-left: -2.5rem }
         fill : rgba(255, 0, 0, 0.26);
-
-        @include respond(tab-land) {
-            fill : rgba(255, 0, 0, 1);
-        }
+        @include respond(tab-land) { fill : rgba(255, 0, 0, 1)}
     }
 }
 

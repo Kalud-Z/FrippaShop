@@ -3,7 +3,6 @@
 <!-- <div class="container" (click)='ExitPopup($event)' > -->
 
     <form class="form"  (clickOutside)='ExitPopup($event)'>
-        <!-- <form class="form"  clickOutside> -->
 
         <div class="form__ExitLogo-container">
             <svg class="form__ExitLogo" (click)='ExitPopup($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
@@ -13,7 +12,7 @@
         <div class="form__body">
 
             <div class="SelectType">
-                <p class="SelectType__text"> Select Type : </p>
+                <p class="SelectType__text label"> Select Type : </p>
                 <div class="SelectType__optionsWrapper">
                     <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'transaction' }" (click)="taskType ='transaction'">  Transaction</div>
                     <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'shoes' }"       (click)="taskType ='shoes'" >       Shoes Collected</div>
@@ -28,7 +27,7 @@
     
 
             <div class="formGroup textareaFormGroup">
-                <label for="details"> Details : </label>
+                <label class="label" for="details"> Details : </label>
                 <textarea id="details" rows="2" cols="30" [(ngModel)]='details' name="detailsInput" placeholder="describe the task">
                 </textarea>
             </div>
@@ -38,7 +37,7 @@
 
 
             <div class="alreadySent">
-                <p class="alreadySent__text"> Already Sent ? </p>
+                <p class="alreadySent__text label"> Already Sent ? </p>
                 <div class="alreadySent__option" [ngClass]="{'option-selected' : alreadySent }"        (click)="alreadySent = true" > Yes </div>
                 <div class="alreadySent__option" [ngClass]="{'option-selected' : !this.alreadySent }"  (click)="alreadySent = false" > Not Yet </div>
             </div>

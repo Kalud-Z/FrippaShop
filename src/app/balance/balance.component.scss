@@ -65,9 +65,10 @@
         &:hover .header , &:active .header { transform: translateY(0); }
     }
 
-    &__saveLogo    { transform: translate(-22rem, 6rem) scale(1.5); }
-    &__addLogo     { transform: translate(-46rem, 6rem) scale(1.5); }
-    &__filterLogo  { transform: translate(-70rem, 6rem) scale(1.5); }
+   
+    &__saveLogo    { transform: translate(-22rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-20rem, 6rem) scale(1.5) } }
+    &__addLogo     { transform: translate(-46rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-44rem, 6rem) scale(1.5) } }
+    &__filterLogo  { transform: translate(-70rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-68rem, 6rem) scale(1.5) } }
 
 
 }

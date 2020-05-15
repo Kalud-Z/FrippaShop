@@ -1,4 +1,6 @@
 @import 'src/variables.scss' ;
+@import 'src/mixins.scss' ;
+
 
 :host {
     transform: scale(1);
@@ -16,18 +18,6 @@
     // border: 1px solid black;
 }
 
-.container {
-    // z-index: 99999;
-    // // position: absolute;
-    // position: fixed;
-    // top:0;
-    // right: 0;
-    // height: 100vh;
-    // width: 100vw;
-    // background-color: rgba(255, 0, 0, 0.479);
-    // @include flexCenter;
-}
-
 
 
 .form {
@@ -38,33 +28,50 @@
     padding: 2rem 3rem;
     display: flex;
     flex-direction: column;
-    flex:0 0 66%;
+    // flex-direction: column;
+    
 
     &__ExitLogo-container {
         position: relative;
         height: 3rem;
+        // background-color: red;
+        @include respond(phone) {
+            height: 1rem;
+        }
     }
 
     &__ExitLogo {
         position: absolute;
         top: -50%;
-        right: -3%;
+        right: -7%;
         height: 2rem;
         width: 2rem;
         align-self: flex-end;
         cursor: pointer;
+        @include respond(phone) {
+            top: -174%;
+            right: -8%;
+        }
     }
 
 
     &__body {
+        // background-color: yellow;
         white-space: nowrap;
         @include flexCenter;
         align-items: stretch;
-        & > *:not(:last-child) { margin-right: 3rem; }
-
-        & > *:not(.form__vertical-line) {
-            flex: 1 0 25%;
+        & > *:not(:last-child) { 
+            margin-right: 3rem;
+            @include respond(phone) {
+                margin-right: 0;
+                margin-bottom: 1.8rem;
+                // background-color: red;
+            }
         }
+        // & > *:not(:last-child) { margin-right: 0rem; }
+        @include respond(phone) { flex-direction: column }
+
+      
     }
 
     &__select {
@@ -79,6 +86,12 @@
         border-right: 1px solid rgba(128, 128, 128, 0.24);
         height: 20rem;
         align-self: center;
+        @include respond(phone) {
+            border-top: 1px solid rgba(128, 128, 128, 0.493);
+            border-right: 1px solid transparent;
+            width: 20rem;
+            height: 0rem;
+        }
     }
 
     &__radioButton {
@@ -95,6 +108,12 @@
            position: absolute;
            right:-3%;
            top: 140%;
+           @include respond(tab-port) { top : 127% }
+           @include respond(phone) {
+               top : 124%;
+               right:-7%;
+            //    font-siz
+            }
         }
     }
 
@@ -125,7 +144,9 @@
     }
 }
 
-
+.label {
+    font-size: 1.6rem;
+}
 
 .SelectType {
     display: flex;
@@ -207,7 +228,12 @@
     text-shadow: none;
     box-shadow: none;
     font-size: 1rem;
-	padding:4px 20px;
+    padding:4px 20px;
+    letter-spacing: 1px;
+    @include respond(phone) {
+        font-size: 1.3rem;
+        padding:2px 10px;
+    }
 
     
     &:not(.disable-button):hover {
@@ -232,7 +258,6 @@
 }
 
 .popup__body {
-    margin-bottom: 33rem;
     border-radius: 7px;
     font-size: 1.5rem;
     background-color:pink;
@@ -241,6 +266,8 @@
     align-items: center;
     justify-content: center;
     padding: 2rem 3rem;
+    margin-bottom: 33rem;
+    @include respond(tab-land) { margin-bottom: 0rem }
 
     &__question {
         margin-bottom: 2rem;

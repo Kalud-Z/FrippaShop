@@ -26,8 +26,8 @@
 
     border-radius: 7px;
     transition: all .5s;
-    // transform: translateY(-95%);
-    transform: translateY(-85%);
+    transform: translateY(-95%);
+    // transform: translateY(-85%);
     &:hover , &:active { transform: translateY(0); }
     width:fit-content;
     align-self: flex-start;
@@ -35,7 +35,22 @@
     @include flexCenter;
     margin-bottom: -2.5rem;
     padding: 2rem 3rem;
-    & > *:not(:last-child) { margin-right: 3rem }
+    & > *:not(:last-child) {
+        margin-right: 3rem;
+        @include respond(phone) {
+            margin-right: 0rem;
+            margin-bottom: 3rem;
+        }
+    }
+
+    @include respond(phone) {
+        transform: translateY(-105%);
+        // transform: translateY(-90%);
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: -15rem;
+    }
 
     &:hover div , &:active div { transform: translate(0px, 0px) scale(1) }
     &:hover svg , &:active svg { fill : currentColor !important }
@@ -48,6 +63,7 @@
         display: flex;
         justify-content:center ;
         align-items: center;
+        // border:1px solid yellow;
 
         & svg { 
             cursor: pointer;
@@ -65,6 +81,11 @@
     &__saveLogo    { transform: translate(-22rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-20rem, 6rem) scale(1.5) } }
     &__addLogo     { transform: translate(-46rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-44rem, 6rem) scale(1.5) } }
     &__filterLogo  { transform: translate(-70rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-68rem, 6rem) scale(1.5) } }
+
+    &__filterLogo  { @include respond(phone) { transform: translate(-12.5rem, 6.3rem)  scale(1.5) } }
+    &__saveLogo    { @include respond(phone) { transform: translate(-16.4rem, 20.3rem) scale(1.5) } }
+    &__addLogo     { @include respond(phone) { transform: translate(-20.7rem, 13.2rem) scale(1.5) } }
+
 
 
 }
@@ -219,19 +240,9 @@ $filterOptionHeight : 4rem;
 .filterWrapper {
     background:linear-gradient(to bottom, #e5bab244 5%, #bb8c83 100%);
     box-shadow: 2px 2px 2px 0px rgba(189,134,189,1);
-    // margin-bottom: 3rem;
     z-index: 90;
-    
     transition: .5s ease-out;
-    // // margin-bottom: -12rem;
-    // margin-bottom: 4rem; //final positino of the table
-    // margin-bottom: -10rem; // start pos of the table.
-    // // final margin bottom between filer and table : 2rem | starts : -12rem
-
     margin-bottom: -12rem;
-    // final margin bottom between filer and table : 2rem | starts : -12rem
-    
-    
     border-radius: 5px;
     font-size: 1.3rem;
     padding: 2rem 5rem;
@@ -242,13 +253,22 @@ $filterOptionHeight : 4rem;
     position: relative;
     width: fit-content;
     transform: translateY(-156%);
-    // transform: translateY(6%);
+    @include respond(phone) {
+        margin-bottom: -9rem;
+        transform: translateY(-160%);
+        font-size: 1.2rem;
+        padding: 1rem 1.25rem;
+        height: 9.5rem;
+        align-self: flex-start;
+    }
 
 
     .filterHeader {
         position: relative;
         margin-bottom: 4rem;
-        // height:2rem;
+        @include respond(phone) {
+            margin-bottom: 2rem;
+        }
 
         &__ExitLogo {
             position: absolute;
@@ -256,8 +276,11 @@ $filterOptionHeight : 4rem;
             right: -10%;
             height: 2rem;
             width: 2rem;
-            // align-self: flex-end;
             cursor: pointer;
+            @include respond(phone) {
+                top: -40%;
+                right: -1.5%;
+            }
         }
     
         &__resetAllButton {
@@ -274,14 +297,16 @@ $filterOptionHeight : 4rem;
             top:28%;
             left: -5%;
             cursor: pointer;
-            // border:2px solid #BC8F87;
             border:2px solid red;
-            // transition: all 1s;
             outline:none;
             &:active {
                 animation: resetAllButtonOnClick 2s;
                 animation-timing-function: ease-out; /* or: ease, ease-in, ease-in-out, linear, cubic-bezier(x1, y1, x2, y2) */
-
+            }
+            @include respond(phone) {
+                left: 0%;
+                padding:.25rem .5rem;
+                font-size: 0.8rem;
             }
 
         }
@@ -293,7 +318,10 @@ $filterOptionHeight : 4rem;
         white-space: nowrap;
         display: flex;
         align-items: stretch;
-        & > *:not(:last-child) { margin-right: 3rem; }
+        & > *:not(:last-child) { 
+            margin-right: 3rem;
+            @include respond(phone) { margin-right: 1.5rem } 
+        }
             
         .filterCatWrapper {
             display: flex;

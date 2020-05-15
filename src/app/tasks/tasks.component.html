@@ -112,14 +112,14 @@
             <td class="tbodyRow__date">           {{ task.date | filterDate }} </td>
             <td class="tbodyRow__details">        {{ task.details }} </td>
             <td class="tbodyRow__alreadySent">    <svg class="tbodyRow__checkmarkLogo" *ngIf="task.isItemAlreadySent">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg> </td>
-            <td class="editLogoCell" #logoCell  appTableStyle  >
-                <svg class="editLogoCell__editTask-logo"  (click)='onModifyTask(task.id)'  [ngClass]="{ 'hideElement' : currentUser !== adminName}" >
+            <td class="editLogoCell" #logoCell  appTableStyle> 
+                <svg class="editLogoCell__editTask-logo"  (click)='onModifyTask(task.id)'  [ngClass]="{'hideElement' : currentUser !== adminName}" >
                     <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use>
                 </svg> 
+                <!-- <img src="/assets/edit.png" class='editLogoCell__editTask-logo'> -->
             </td>
         </tr>
         
-        <!-- <tr class="rowWrapper__month" *ngIf="displayDateRow(i , tasks[i].date | filterDate , tasks[i+1].date | filterDate  , tasks |  filterByYear: filterByYearInput  | filterByMonth: filterByMonthInput | filterByType:filterByTypeInput | filterByAlreadySent:filterByAlreadySent )" >   -->
         <tr class="rowWrapper__month" *ngIf="displayDateRow(i , filteredTasks)" >  
             <td colspan="9"> {{  filteredTasks[i + 1].date | filterDate  }} </td>
         </tr>

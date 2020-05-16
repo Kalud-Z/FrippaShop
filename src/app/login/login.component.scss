@@ -88,6 +88,10 @@ $darkColor-darker :   #E5B2D4;
             height:25rem;
             transform: translateX(0) translateY(0) scale(1);
             transition: all .4s;
+            @include respond(phone) { 
+                height:20rem;
+            }
+
 
             &:hover {
                 transform: translateX(0) translateY(0) scale(1.2);
@@ -101,19 +105,19 @@ $darkColor-darker :   #E5B2D4;
 
             &-ahmed {
                 transform: translateX(-100%) translateY(0) scale(1);
-                @include respond(phone) { transform: translateX(-20%) translateY(86%) scale(1); }
+                @include respond(phone) { transform: translateX(-12%) translateY(76%) scale(1); }
                 &:hover {
                     transform: translateX(-100%) translateY(0) scale(1.2);
-                    @include respond(phone) { transform: translateX(-20%) translateY(86%) scale(1.2); }
+                    @include respond(phone) { transform: translateX(-12%) translateY(76%) scale(1.2); }
                 }
             }
 
             &-khaled {
                 transform: translateX(100%) translateY(0) scale(1);
-                @include respond(phone) { transform: translateX(20%) translateY(86%) scale(1); }
+                @include respond(phone) { transform: translateX(12%) translateY(76%) scale(1); }
                 &:hover {
                     transform: translateX(100%) translateY(0) scale(1.2);
-                    @include respond(phone) { transform: translateX(20%) translateY(86%) scale(1.2); }
+                    @include respond(phone) { transform: translateX(12%) translateY(76%) scale(1.2); }
                 }   
             }
 
@@ -127,7 +131,7 @@ $darkColor-darker :   #E5B2D4;
 .showForm-wrapper {
     top:50% !important;
     @include respond(phone) {
-        top:40% !important;
+        top:30% !important;
     }
 }
 

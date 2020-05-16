@@ -2,12 +2,9 @@
 @import 'src/mixins.scss' ;
 
 
-
-
 :host {
     display : block;
 }
-
 
 
 
@@ -31,6 +28,8 @@
     transition: all .5s;
     transform: translateY(-95%);
     &:hover , &:active { transform: translateY(0); }
+    width:-webkit-fit-content;
+    width:-moz-fit-content;
     width:fit-content;
     align-self: flex-start;
     margin-left: -3rem;
@@ -185,6 +184,7 @@ tbody {
     text-align: center;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    position: -webkit-sticky;
     position: sticky;
     top: -.5rem ;
     // nth-last-child(2)
@@ -322,6 +322,8 @@ $filterOptionHeight : 4rem;
     display: flex;
     flex-direction: column;
     position: relative;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     transform: translateY(-156%);
     @include respond(phone) {
@@ -329,10 +331,8 @@ $filterOptionHeight : 4rem;
         transform: translateY(-160%);
         font-size: 1.2rem;
         padding: 1rem 1.25rem;
-        height: 9.5rem;
+        height: 13.5rem;   //added
         align-self: flex-start;
-        // margin-left: 8rem;
-        // margin-right: 2rem;
     }
 
 
@@ -340,8 +340,8 @@ $filterOptionHeight : 4rem;
         position: relative;
         margin-bottom: 4rem;
         // background-color: red;
-        @include respond(phone) {
-            margin-bottom: 2rem;
+        @include respond(phone) {  //added
+            margin-bottom: 6rem;
         }
 
         &__ExitLogo {
@@ -354,6 +354,8 @@ $filterOptionHeight : 4rem;
             @include respond(phone) {
                 top: -40%;
                 right: -1.5%;
+                height: 4rem;
+                width: 4rem;
             }
 
         }
@@ -375,14 +377,16 @@ $filterOptionHeight : 4rem;
             border:2px solid red;
             outline:none;
             &:active {
-                animation: resetAllButtonOnClick 2s;
-                animation-timing-function: ease-out; /* or: ease, ease-in, ease-in-out, linear, cubic-bezier(x1, y1, x2, y2) */
+                -webkit-animation: resetAllButtonOnClick 2s;
+                        animation: resetAllButtonOnClick 2s;
+                -webkit-animation-timing-function: ease-out;
+                        animation-timing-function: ease-out; /* or: ease, ease-in, ease-in-out, linear, cubic-bezier(x1, y1, x2, y2) */
             }
             
-            @include respond(phone) {
+            @include respond(phone) {  //added
                 left: 0%;
-                padding:.25rem .5rem;
-                font-size: 0.8rem;
+                padding:.65rem .9rem;
+                font-size: 1.2rem;
             }
 
         }
@@ -404,14 +408,8 @@ $filterOptionHeight : 4rem;
             flex-direction: column;
             justify-content: flex-start;
             align-items: stretch;
-
-           /*  &:hover {
-                // height: auto;
-            } */
             
             &__trashBinLogo {
-                // fill: currentColor;
-                // color: currentColor;
                 height:2rem;
                 width:2rem;
                 position: absolute;
@@ -431,8 +429,9 @@ $filterOptionHeight : 4rem;
                 flex-direction: column;
                 position: relative;
                 transition: all 1s;
-                clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
-                &:hover {clip-path:none}
+                -webkit-clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
+                        clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
+                &:hover {-webkit-clip-path:none;clip-path:none}
     
                 &:hover > * {
                     transform: translateY(0);  //add a directive for . onmouse leave , to wait a lil bit before closing the dropdown on mouseleave 
@@ -506,6 +505,7 @@ $filterOptionHeight : 4rem;
 .showFilter {
     transform: translateY(0%);
     margin-bottom: 2rem;
+    @include respond(phone) { margin-top: 2rem }  
 }
 
 

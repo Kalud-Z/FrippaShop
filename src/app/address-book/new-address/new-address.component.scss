@@ -47,6 +47,8 @@
     // flex:0 0 66%;
 
     @include respond(phone) {
+        width : -webkit-fit-content;
+        width : -moz-fit-content;
         width : fit-content;
     }
 

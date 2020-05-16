@@ -33,6 +33,8 @@
     transform: translateY(-95%);
     // transform: translateY(-85%);
     &:hover , &:active { transform: translateY(0); }
+    width:-webkit-fit-content;
+    width:-moz-fit-content;
     width:fit-content;
     align-self: flex-start;
     margin-left: -3rem;
@@ -180,6 +182,7 @@ tbody {
     padding-top: 2rem;
     padding-bottom: 2rem;
     background-color: #d4e5b2;
+    position: -webkit-sticky;
     position: sticky;
     top: -.5rem ;
 
@@ -284,6 +287,8 @@ $filterOptionHeight : 4rem;
     display: flex;
     flex-direction: column;
     position: relative;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     transform: translateY(-156%);
     @include respond(phone) {
@@ -291,7 +296,8 @@ $filterOptionHeight : 4rem;
         transform: translateY(-160%);
         font-size: 1.2rem;
         padding: 1rem 1.25rem;
-        height: 9.5rem;
+        // height: 9.5rem;
+        height: 13.5rem;   //added
         align-self: flex-start;
     }
 
@@ -299,21 +305,24 @@ $filterOptionHeight : 4rem;
     .filterHeader {
         position: relative;
         margin-bottom: 4rem;
-        @include respond(phone) {
-            margin-bottom: 2rem;
+        @include respond(phone) {  //added
+            margin-bottom: 6rem;
         }
 
         &__ExitLogo {
             position: absolute;
             top: 0%;
-            right: -12%;
+            right: -6%;
             height: 2rem;
             width: 2rem;
             cursor: pointer;
             @include respond(phone) {
                 top: -40%;
                 right: -1.5%;
+                height: 4rem;
+                width: 4rem;
             }
+
         }
     
         &__resetAllButton {
@@ -333,14 +342,16 @@ $filterOptionHeight : 4rem;
             border:2px solid red;
             outline:none;
             &:active {
-                animation: resetAllButtonOnClick 2s;
-                animation-timing-function: ease-out; /* or: ease, ease-in, ease-in-out, linear, cubic-bezier(x1, y1, x2, y2) */
+                -webkit-animation: resetAllButtonOnClick 2s;
+                        animation: resetAllButtonOnClick 2s;
+                -webkit-animation-timing-function: ease-out;
+                        animation-timing-function: ease-out; /* or: ease, ease-in, ease-in-out, linear, cubic-bezier(x1, y1, x2, y2) */
             }
 
-            @include respond(phone) {
+            @include respond(phone) {  //added
                 left: 0%;
-                padding:.25rem .5rem;
-                font-size: 0.8rem;
+                padding:.65rem .9rem;
+                font-size: 1.2rem;
             }
 
         }
@@ -383,8 +394,9 @@ $filterOptionHeight : 4rem;
                 flex-direction: column;
                 position: relative;
                 transition: all 1s;
-                clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
-                &:hover {clip-path:none}
+                -webkit-clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
+                        clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
+                &:hover {-webkit-clip-path:none;clip-path:none}
     
                 &:hover > * {
                     transform: translateY(0);  //add a directive for . onmouse leave , to wait a lil bit before closing the dropdown on mouseleave 

@@ -213,7 +213,8 @@
 
 
 .disable-button {
-    filter:opacity(60%);
+    -webkit-filter:opacity(60%);
+            filter:opacity(60%);
     cursor: not-allowed;
 
     &:hover {

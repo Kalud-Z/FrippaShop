@@ -1,13 +1,38 @@
 
-* deploy the site. update portfolio
 
 *salary - component  (inside tasks module)
-
-
 *transactions module (optional)
 
 
-* make it responsive.
+
+---------------------------------------------------
+
+issues after running the app on your mobile device :
+
+****** run auto prefixer on all .
+
+***** reset all button .too small
+
+**** nav bar . button too small. make them bigger. and add border-bottom , for clear seperation.
+
+**** logout button : => horrible position !!!!
+
+
+** login page : images . make them smaller. lil bit.
+get them closer to each other when form goes down.
+form and images. position them a bit higher.
+
+
+
+** when U exit the form with field values , them
+ same as when U opened them.
+ dont ask me if Im sure. just get out.
+
+
+* page under construction : make it responsive.
+
+
+* on firefox mobile : all tables are missing id column , and half of the second column !
 
 
 _____________________________________________________

@@ -11,7 +11,6 @@ export const environment = {
 
   ahmedName : 'ahmed',
   khaledName : 'khaled'
-
 };
 
 /*

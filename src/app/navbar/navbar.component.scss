@@ -1,4 +1,5 @@
 @import 'src/variables.scss' ;
+@import 'src/mixins.scss' ;
 
 
 * {
@@ -15,7 +16,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
 }
 
 .nav {
@@ -30,11 +30,19 @@
     align-items: center;
     transition: .45s all ease-out;
     position: relative;
+    @include respond(phone) {
+        font-size: 3rem;
+    }
+
+    & > *:not(:last-child) {
+        @include respond(phone) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+        }
+    }
 
     &:hover , &:active {
         transform: translateX(75%);
         background-color: $darkColor-main;
-        // background-color: yellow;
     }
 
     &:hover  &__item { opacity: 1; } 
@@ -42,7 +50,7 @@
     &__item {
         background-color: $darkColor-main;
         &:first-child {  border-top-right-radius: 1rem; }
-        &:last-child  {  border-bottom-right-radius: 1rem; }
+        &:nth-last-child(2)  {  border-bottom-right-radius: 1rem; }
         padding: 1rem 2rem ;
         transition: all .3s;
         outline: none;
@@ -52,7 +60,7 @@
         font-family: 'Merriweather Sans', sans-serif;
         opacity: 0.4;
         &:hover  &__text { opacity: 1;}
-
+        @include respond(phone) { padding: 1.5rem 3rem }
 
         &__text , & svg { opacity: 0.4;}
         &__text {  margin-right: 2rem; }
@@ -62,6 +70,10 @@
             width:2rem;
             margin-left: auto;
             fill: currentColor;
+            @include respond(phone) {
+                height:3rem;
+                width:3rem;
+            }
         }
 
         &__logoPlaceHolder {
@@ -123,6 +135,13 @@
     @include flexCenter;
     &:hover { background-color: rgba(99, 80, 80, 0.705); }
 
+    @include respond(phone) {
+        width: 20rem;
+        bottom: -22.5%;
+        right: 5%;
+        border-top-right-radius: 1rem;
+    }
+
     &__text {
         margin:0;
         opacity: 1 !important;
@@ -166,6 +185,10 @@ app-loading-spinner-login {
     top:50%;
     right:0%;
     transform: translate(-30%, -43%);
+    @include respond(phone) {
+        transform: translate(-83%, -43%);
+    }
+
 }
 
 

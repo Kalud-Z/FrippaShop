@@ -1,4 +1,5 @@
 <div class="container" [ngClass]="{ 'hideNavBar' : hideNavBar === true}"  >
+  
   <div class="nav" (clickOutside)='clickedOutsideNav()'  (mouseenter)="mouseEnterNav()"  (mouseleave)="mouseLeaveNav()">
 
     <div class="nav__item tasks" [ngClass]="{'element-Unclickable' : !clickInsideNav}"  routerLinkActive='activeItem'   (click)="showLoadingSpinner('tasks')"   routerLink="/tasks">

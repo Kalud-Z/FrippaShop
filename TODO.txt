@@ -11,9 +11,7 @@ issues after running the app on your mobile device :
 
 **** Local storage . dilemma !  (very important ! before final delivery !)
 
-**** nav bar . button too small. make them bigger. and add border-bottom , for clear seperation.
 
-**** logout button : => horrible position !!!!
 
 
 ** login page : images . make them smaller. lil bit.

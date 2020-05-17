@@ -12,8 +12,7 @@ export const environment = {
   ahmedName : 'ahmed',
   khaledName : 'khaled',
 
-  useLocalStorage : false
-
+  useLocalStorage : true
 };
 
 /*

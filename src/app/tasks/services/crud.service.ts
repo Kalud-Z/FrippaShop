@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Task } from '../task.model';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { DataStorageService } from './data-storage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -89,23 +90,42 @@ export class crudService { //###################################################
   
 
   getTasksList() {
-    if(this.tasksList.length === 0) {
+
+    if(this.tasksList.length === 0 && environment.useLocalStorage) { // memory still empty . we fetch from localStorage (if we are allowed)
       const localStorageData = JSON.parse(localStorage.getItem('tasksList'));
+      console.log('we just fetched from localStorage and this the list : ' , localStorageData)
       if(localStorageData && localStorageData.length !== 0) { 
         this.pushToList(localStorageData)
       }
-      else {
-          this.dataStorageService.fetchTasksList().subscribe(data => {
-            console.log('we just fetched from API')
-            this.pushToList(data);
-            localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
-        })
-      }
-    }//the outer if
-    else if(this.tasksList.length > 0) { this.tasksChangedNotify() }
-    // this.repairData();
-  }
-  
+    }
+
+    if(this.tasksList.length > 0) {console.log('we just fetched from Memory') ;  this.tasksChangedNotify() }
+    else {  // fetch stuff from dataBase
+        this.dataStorageService.fetchTasksList().subscribe(data => {
+          console.log('we just fetched from Database')
+          this.pushToList(data);
+          localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
+      })
+    }
+
+
+    // if(this.tasksList.length === 0) {
+    //   const localStorageData = JSON.parse(localStorage.getItem('tasksList'));
+    //   if(localStorageData && localStorageData.length !== 0) { 
+    //     this.pushToList(localStorageData)
+    //   }
+    //   else {
+    //       this.dataStorageService.fetchTasksList().subscribe(data => {
+    //         console.log('we just fetched from API')
+    //         this.pushToList(data);
+    //         localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
+    //     })
+    //   }
+    // }//the outer if
+    // else if(this.tasksList.length > 0) { this.tasksChangedNotify() }
+    // // this.repairData();
+
+  } //getTasksList
 
 
   fixingListDates() {

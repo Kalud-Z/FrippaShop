@@ -1,26 +1,15 @@
 
 
-*salary - component  (inside tasks module)
+** salary - component  (inside tasks module)
 *transactions module (optional)
 
 
-
----------------------------------------------------
-
-issues after running the app on your mobile device :
-
 **** Local storage . dilemma !  (very important ! before final delivery !)
 
+after each update of files in database. a function should sent a notification to all connected devices to update their local storage !
 
 
-
-** login page : images . make them smaller. lil bit.
-get them closer to each other when form goes down.
-form and images. position them a bit higher.
-
-
-
-** when U exit the form with field values , them
+* when U exit the form with field values , them
  same as when U opened them.
  dont ask me if Im sure. just get out.
 

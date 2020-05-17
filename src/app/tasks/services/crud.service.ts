@@ -90,7 +90,6 @@ export class crudService { //###################################################
   
 
   getTasksList() {
-
     if(this.tasksList.length === 0 && environment.useLocalStorage) { // memory still empty . we fetch from localStorage (if we are allowed)
       const localStorageData = JSON.parse(localStorage.getItem('tasksList'));
       console.log('we just fetched from localStorage and this the list : ' , localStorageData)

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BalanceItem } from '../balanceItem.model';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { DataStorageService } from 'src/app/tasks/services/data-storage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -74,22 +75,40 @@ export class BalanceCrudService { //############################################
 
 
   getBalanceItemsList() {
-    if(this.balanceItemsList.length === 0) {
+    if(this.balanceItemsList.length === 0 && environment.useLocalStorage) { // memory still empty . we fetch from localStorage (if we are allowed)
       const localStorageData = JSON.parse(localStorage.getItem('balanceItemsList'));
-      if(localStorageData && localStorageData.length !== 0) {
-        this.pushToList(localStorageData , 'fromLocalStorage');
+      console.log('we just fetched from localStorage and this the list : ' , localStorageData)
+      if(localStorageData && localStorageData.length !== 0) { 
+        this.pushToList(localStorageData)
       }
-      else {
-          this.dataStorageService.fetchBalanceItemsList().subscribe(data => {
-          this.pushToList(data , 'fromAPI');
-          localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
-          // this.BalanceItemsListUpdatedNotify();
-        })
-      }
-    }//the outer if
-    else if(this.balanceItemsList.length > 0) {
-        this.BalanceItemsListUpdatedNotify();
     }
+
+    if(this.balanceItemsList.length > 0) {console.log('we just fetched from Memory') ;  this.BalanceItemsListUpdatedNotify() }
+    else {  // fetch stuff from dataBase
+        this.dataStorageService.fetchBalanceItemsList().subscribe(data => {
+          console.log('we just fetched from Database')
+          this.pushToList(data);
+          localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
+      })
+    }
+
+    // if(this.balanceItemsList.length === 0) {
+    //   const localStorageData = JSON.parse(localStorage.getItem('balanceItemsList'));
+    //   if(localStorageData && localStorageData.length !== 0) {
+    //     this.pushToList(localStorageData , 'fromLocalStorage');
+    //   }
+    //   else {
+    //       this.dataStorageService.fetchBalanceItemsList().subscribe(data => {
+    //       this.pushToList(data , 'fromAPI');
+    //       localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
+    //       // this.BalanceItemsListUpdatedNotify();
+    //     })
+    //   }
+    // }//the outer if
+    // else if(this.balanceItemsList.length > 0) {
+    //     this.BalanceItemsListUpdatedNotify();
+    // }
+
   }//getBalanceItemsList
 
   
@@ -140,7 +159,7 @@ export class BalanceCrudService { //############################################
 
 
 
-  private pushToList (data: any[] , type : string) {
+  private pushToList (data: any[] , type? : string) {
     const arrayLength = data.length;
     data.forEach((el, index ) => {
 

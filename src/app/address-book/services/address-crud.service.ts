@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Address } from '../address.model';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { DataStorageService } from 'src/app/tasks/services/data-storage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -94,25 +95,43 @@ export class AddressCrudService { //############################################
 
 
   getAddressList() {
-    if(this.addressList.length === 0) {
+    if(this.addressList.length === 0 && environment.useLocalStorage) { // memory still empty . we fetch from localStorage (if we are allowed)
       const localStorageData = JSON.parse(localStorage.getItem('addressList'));
-      if(localStorageData && localStorageData.length !== 0) {
-        this.pushToList(localStorageData , 'fromLocalStorage');
-        console.log('we just loaded from localsotrage');
+      console.log('we just fetched from localStorage and this the list : ' , localStorageData)
+      if(localStorageData && localStorageData.length !== 0) { 
+        this.pushToList(localStorageData)
       }
-      else {
-        console.log('we just loaded from API')
-          this.dataStorageService.fetchAddressList().subscribe(data => {
-          this.pushToList(data , 'fromAPI');
-          localStorage.setItem('addressList', JSON.stringify(this.addressList));
-          this.addressListUpdatedNotify();
-        })
-      }
-    }//outer if
-    else if(this.addressList.length > 0) { this.addressListUpdatedNotify();
-      console.log('we just loaded from service array')
     }
-  }
+
+    if(this.addressList.length > 0) {console.log('we just fetched from Memory') ;  this.addressListUpdatedNotify() }
+    else {  // fetch stuff from dataBase
+        this.dataStorageService.fetchAddressList().subscribe(data => {
+          console.log('we just fetched from Database')
+          this.pushToList(data);
+          localStorage.setItem('addressList', JSON.stringify(this.addressList));
+      })
+    }
+
+    // if(this.addressList.length === 0) {
+    //   const localStorageData = JSON.parse(localStorage.getItem('addressList'));
+    //   if(localStorageData && localStorageData.length !== 0) {
+    //     this.pushToList(localStorageData , 'fromLocalStorage');
+    //     console.log('we just loaded from localsotrage');
+    //   }
+    //   else {
+    //     console.log('we just loaded from API')
+    //       this.dataStorageService.fetchAddressList().subscribe(data => {
+    //       this.pushToList(data , 'fromAPI');
+    //       localStorage.setItem('addressList', JSON.stringify(this.addressList));
+    //       this.addressListUpdatedNotify();
+    //     })
+    //   }
+    // }//outer if
+    // else if(this.addressList.length > 0) { this.addressListUpdatedNotify();
+    //   console.log('we just loaded from service array')
+    // }
+
+  } //getAddressList
 
 
 
@@ -151,7 +170,7 @@ export class AddressCrudService { //############################################
 
 
 
-  private pushToList(data: any[] , type : string) {
+  private pushToList(data: any[] , type? : string) {
     console.log('we in pushToList');
     console.log(data);
 

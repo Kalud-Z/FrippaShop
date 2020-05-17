@@ -6,6 +6,8 @@ export const environment = {
   khaledEmail : 'khaled.fhm@live.fr',
 
   ahmedName : 'ahmed',
-  khaledName : 'khaled'
+  khaledName : 'khaled',
+
+  useLocalStorage : false
 
 };

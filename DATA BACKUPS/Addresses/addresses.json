@@ -1,0 +1,64 @@
+"AddressList" : [ {
+    "city" : "Bagneux",
+    "country" : "France",
+    "houseNr" : 27,
+    "id" : 1,
+    "name" : "Ghaylen Bouachir",
+    "phone" : "0755366969",
+    "postalCode" : 92220,
+    "street" : "villa des iris"
+  }, {
+    "city" : "Versailles",
+    "country" : "France",
+    "houseNr" : 3,
+    "id" : 2,
+    "name" : "Hichem Ouertani",
+    "phone" : "0033638184027",
+    "postalCode" : 78000,
+    "street" : "Chemin de Fausses Reposes"
+  }, {
+    "city" : "Cergy, Ile-de-France",
+    "country" : "France",
+    "houseNr" : 37,
+    "id" : 3,
+    "name" : "Fairouz Barket",
+    "phone" : "0695069681",
+    "postalCode" : 95000,
+    "street" : " les cerclades tour bleue"
+  }, {
+    "city" : "Aix en provence",
+    "country" : "France",
+    "houseNr" : 135,
+    "id" : 4,
+    "name" : "Mohamed Feki",
+    "phone" : "000000000",
+    "postalCode" : 13290,
+    "street" : "rue albert Einstein"
+  }, {
+    "city" : "Antibes",
+    "country" : "France",
+    "houseNr" : 51,
+    "id" : 5,
+    "name" : "Seif Ferjéni",
+    "phone" : "0612952846",
+    "postalCode" : 3184,
+    "street" : "avenue de cannes, Villa Pablo"
+  }, {
+    "city" : "Köln",
+    "country" : "Germany",
+    "houseNr" : 217,
+    "id" : 6,
+    "name" : "Mohamed Zahi",
+    "phone" : "000000000",
+    "postalCode" : 51103,
+    "street" : "Kalker Hauptstr"
+  }, {
+    "city" : "Meudon",
+    "country" : "France",
+    "houseNr" : 11,
+    "id" : 7,
+    "name" : "Lassaad Mnif",
+    "phone" : "000000000test",
+    "postalCode" : 92190,
+    "street" : "Rue des Vignes"
+  } ]

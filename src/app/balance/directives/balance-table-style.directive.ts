@@ -5,10 +5,7 @@ import { Directive, Renderer2, ElementRef } from '@angular/core';
 })
 export class BalanceTableStyleDirective {
 
-  
-  constructor(private renderer: Renderer2 ,
-    private el : ElementRef,
-    ) { }
+  constructor(private renderer: Renderer2 , private el : ElementRef) { }
 
 
     ngOnInit() {

@@ -6,9 +6,7 @@ import { Directive, ElementRef, Renderer2 } from '@angular/core';
 
 export class TableStyleDirective { //#######################################################################################################
 
-  constructor(private renderer: Renderer2 ,
-              private el : ElementRef,
-              ) { }
+  constructor(private renderer: Renderer2 , private el : ElementRef) { }
 
 
   ngOnInit() {

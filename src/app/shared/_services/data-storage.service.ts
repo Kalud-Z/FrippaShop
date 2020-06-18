@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Task } from "../task.model";
+import { Task } from "../../tasks/task.model";
 import { FileSaverService } from "ngx-filesaver";
-import { AuthService } from 'src/app/login/auth.service';
+import { AuthService } from 'src/app/login/_services/auth.service';
 import { take , exhaustMap } from "rxjs/operators";
 import { BalanceItem } from 'src/app/balance/balanceItem.model';
 import { Address } from 'src/app/address-book/address.model';

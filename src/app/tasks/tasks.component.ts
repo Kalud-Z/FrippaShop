@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, HostBinding } from '@angular/core';
-import { tasksCrudService } from './services/tasks-crud.service';
+import { tasksCrudService } from './_services/tasks-crud.service';
 import { Task } from './task.model';
-import { DataStorageService } from './services/data-storage.service';
-import { AuthService } from '../login/auth.service';
+import { DataStorageService } from '../shared/_services/data-storage.service';
+import { AuthService } from '../login/_services/auth.service';
 import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
-import { routeSlideStateTrigger } from '../shared/animations';
-import { ScrollTopBottomDirective } from '../shared/scroll-top-bottom.directive';
+import { routeSlideStateTrigger } from '../shared/_animations/animations';
+import { ScrollTopBottomDirective } from '../shared/_directives/scroll-top-bottom.directive';
 
 @Component({
   selector: 'app-tasks',

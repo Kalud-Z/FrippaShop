@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Task } from '../tasks/task.model';
-import { BalanceItem } from '../balance/balanceItem.model';
+import { Task } from '../../tasks/task.model';
+import { BalanceItem } from '../../balance/balanceItem.model';
 
 @Pipe({
   name: 'filterByYear'

@@ -1,8 +1,8 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Address } from '../address.model';
-import { AddressCrudService } from '../services/address-crud.service';
-import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/animations';
+import { AddressCrudService } from '../_services/address-crud.service';
+import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations/animations';
 
 @Component({
   selector: 'app-new-address',

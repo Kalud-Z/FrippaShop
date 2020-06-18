@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../login/auth.service';
-import { tasksCrudService } from '../tasks/services/tasks-crud.service';
+import { AuthService } from '../login/_services/auth.service';
+import { tasksCrudService } from '../tasks/_services/tasks-crud.service';
 
 @Component({
   selector: 'app-navbar',

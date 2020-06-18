@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { TasksComponent } from './tasks.component';
 import { SharedModule } from '../shared/shared.module';
-import { FilterByAlreadySentPipe } from './pipes/filter-by-already-sent.pipe';
+import { FilterByAlreadySentPipe } from './_pipes/filter-by-already-sent.pipe';
 import { RouterModule, Routes } from '@angular/router';
-import { TableStyleDirective } from './directives/table-style.directive';
+import { TableStyleDirective } from './_directives/table-style.directive';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FileSaverModule } from 'ngx-filesaver';
-import { AuthGuard } from '../login/auth.guard';
+import { AuthGuard } from '../login/_guards/auth.guard';
 import { NewTaskGuard } from './new-task/new-task.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SalaryComponent } from './salary/salary.component';
-import { ScrollToTopComponent } from '../shared/scroll-to-top/scroll-to-top.component';
+// import { ScrollToTopComponent } from '../shared/scroll-to-top/scroll-to-top.component';
 
 
 
@@ -32,8 +32,7 @@ const tasksRoutes: Routes = [
     TasksComponent,
     FilterByAlreadySentPipe,
     TableStyleDirective,
-    SalaryComponent,
-    ScrollToTopComponent
+    SalaryComponent
    ],
   imports: [
     CommonModule,

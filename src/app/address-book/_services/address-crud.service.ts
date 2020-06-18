@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Address } from '../address.model';
 import { Subject } from 'rxjs';
-import { DataStorageService } from 'src/app/tasks/services/data-storage.service';
+import { DataStorageService } from 'src/app/shared/_services/data-storage.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

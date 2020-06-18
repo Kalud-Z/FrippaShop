@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TransactionsComponent } from './transactions/transactions.component';
-import { AuthGuard } from './login/auth.guard';
-import { LoadAfterDelayService } from './load-after-delay.service';
+import { AuthGuard } from './login/_guards/auth.guard';
+import { LoadAfterDelayService } from './_services/load-after-delay.service';
 
 
 const AppRoutes: Routes = [ 

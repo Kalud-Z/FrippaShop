@@ -1,12 +1,12 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Address } from './address.model';
-import { AuthService } from '../login/auth.service';
+import { AuthService } from '../login/_services/auth.service';
 import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AddressCrudService } from './services/address-crud.service';
-import { DataStorageService } from '../tasks/services/data-storage.service';
-import { routeSlideStateTrigger } from '../shared/animations';
-import { tasksCrudService } from '../tasks/services/tasks-crud.service';
+import { AddressCrudService } from './_services/address-crud.service';
+import { DataStorageService } from '../shared/_services/data-storage.service';
+import { routeSlideStateTrigger } from '../shared/_animations/animations';
+import { tasksCrudService } from '../tasks/_services/tasks-crud.service';
 
 @Component({
   selector: 'app-address-book',

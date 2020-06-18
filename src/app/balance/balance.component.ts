@@ -1,12 +1,12 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { BalanceItem } from './balanceItem.model';
-import { BalanceCrudService } from './services/balance-crud.service';
-import { DataStorageService } from '../tasks/services/data-storage.service';
-import { AuthService } from '../login/auth.service';
+import { BalanceCrudService } from './_services/balance-crud.service';
+import { DataStorageService } from '../shared/_services/data-storage.service';
+import { AuthService } from '../login/_services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { routeSlideStateTrigger } from '../shared/animations';
-import { tasksCrudService } from '../tasks/services/tasks-crud.service';
+import { routeSlideStateTrigger } from '../shared/_animations/animations';
+import { tasksCrudService } from '../tasks/_services/tasks-crud.service';
 
 @Component({
   selector: 'app-balance',

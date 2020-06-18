@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, HostBinding } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AuthService } from './auth.service';
+import { AuthService } from './_services/auth.service';
 import { Router } from '@angular/router';
-import { DataStorageService } from '../tasks/services/data-storage.service';
+import { DataStorageService } from '../shared/_services/data-storage.service';
 import { environment } from 'src/environments/environment';
-import { routeSlideStateTrigger } from '../shared/animations';
+import { routeSlideStateTrigger } from '../shared/_animations/animations';
 
 @Component({
   selector: 'app-login',

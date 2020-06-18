@@ -4,10 +4,10 @@ import { BalanceComponent } from './balance.component';
 import { NewBalanceItemComponent } from './new-balance-item/new-balance-item.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { DisplayInEuroPipe } from './pipes/display-in-euro.pipe';
-import { BalanceTableStyleDirective } from './directives/balance-table-style.directive';
+import { DisplayInEuroPipe } from './_pipes/display-in-euro.pipe';
+import { BalanceTableStyleDirective } from './_directives/balance-table-style.directive';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../login/auth.guard';
+import { AuthGuard } from '../login/_guards/auth.guard';
 import { NewTaskGuard } from '../tasks/new-task/new-task.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 

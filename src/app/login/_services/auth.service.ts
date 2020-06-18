@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 
-import { UserSubject } from './userSubject.model';
+import { UserSubject } from '../userSubject.model';
 import { environment } from 'src/environments/environment';
 
 

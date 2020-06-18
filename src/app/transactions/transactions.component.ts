@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { routeSlideStateTrigger } from '../shared/animations';
+import { routeSlideStateTrigger } from '../shared/_animations/animations';
 
 @Component({
   selector: 'app-transactions',

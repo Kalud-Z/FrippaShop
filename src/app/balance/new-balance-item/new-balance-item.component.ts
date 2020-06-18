@@ -1,8 +1,8 @@
 import { Component, OnInit, HostBinding,  } from '@angular/core';
-import { BalanceCrudService } from '../services/balance-crud.service';
+import { BalanceCrudService } from '../_services/balance-crud.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BalanceItem } from '../balanceItem.model';
-import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/animations';
+import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations/animations';
 
 
 @Component({

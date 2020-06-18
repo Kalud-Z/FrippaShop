@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, HostBinding, HostListener, ElementRef } from "@angular/core";
-import { tasksCrudService } from "../services/tasks-crud.service";
+import { tasksCrudService } from "../_services/tasks-crud.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Task } from "../task.model";
-import { AuthService } from 'src/app/login/auth.service';
-import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/animations';
+import { AuthService } from 'src/app/login/_services/auth.service';
+import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations/animations';
 
 @Component({
   selector: "app-new-task",

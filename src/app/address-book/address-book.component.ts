@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AddressCrudService } from './services/address-crud.service';
 import { DataStorageService } from '../tasks/services/data-storage.service';
 import { routeSlideStateTrigger } from '../shared/animations';
-import { crudService } from '../tasks/services/crud.service';
+import { tasksCrudService } from '../tasks/services/tasks-crud.service';
 
 @Component({
   selector: 'app-address-book',
@@ -19,7 +19,6 @@ import { crudService } from '../tasks/services/crud.service';
 // ##########################################################################################################################################################
 export class AddressBookComponent implements OnInit { //#####################################################################################################
   addressList : Address[] = [];
-
 
   currentUser : string;
   adminName : string;
@@ -42,13 +41,13 @@ export class AddressBookComponent implements OnInit { //########################
               private router : Router,
               private route : ActivatedRoute,
               private ds : DataStorageService,
-              private crudService : crudService
+              private tasksCrudService : tasksCrudService
               ) { }
 
   ngOnInit(): void {
     this.addressCrudService.addressSubject.subscribe(data => { 
       this.addressList = data;
-      this.crudService.isLoadingSubject.next(false);
+      this.tasksCrudService.isLoadingSubject.next(false);
       console.log('we just got data back for address ts')
       if(data !== null) {
         this.countries = this.buildCountriesArray();

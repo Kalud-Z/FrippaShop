@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, HostBinding } from '@angular/core';
-import { crudService } from './services/crud.service';
+import { tasksCrudService } from './services/tasks-crud.service';
 import { Task } from './task.model';
 import { DataStorageService } from './services/data-storage.service';
 import { AuthService } from '../login/auth.service';
@@ -47,7 +47,7 @@ export class TasksComponent implements OnInit  { //#############################
 
 
   constructor(private authService : AuthService,
-              private crudService : crudService,
+              private tasksCrudService : tasksCrudService,
               private dataStorageService: DataStorageService,
               private router : Router,
               private route : ActivatedRoute
@@ -55,12 +55,12 @@ export class TasksComponent implements OnInit  { //#############################
 
 
   ngOnInit(): void {
-    this.crudService.tasksListChangedSubject.subscribe(data => {
+    this.tasksCrudService.tasksListChangedSubject.subscribe(data => {
       this.tasks = data;
       // now , hopefully , template is fully rendered , so now we stop the loading spinner
-      this.crudService.isLoadingSubject.next(false);
+      this.tasksCrudService.isLoadingSubject.next(false);
     })
-    this.crudService.getTasksList();
+    this.tasksCrudService.getTasksList();
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;
   } //ngOnInit()
@@ -217,9 +217,9 @@ export class TasksComponent implements OnInit  { //#############################
 // converting data from excel  ###############################################################################################################################################
 
 
-fixData() {
-  this.crudService.fixingListDates();
-}
+// fixData() {
+//   this.tasksCrudService.fixingListDates();
+// }
 
 
 adjustUI() {
@@ -236,7 +236,7 @@ adjustUI() {
 } //adjustUI()
 
 onStore() {
-  this.dataStorageService.storeTasksList(this.crudService.tasksList);
+  this.dataStorageService.storeTasksList(this.tasksCrudService.tasksList);
 }
 
 extraction() {
@@ -283,7 +283,7 @@ extraction() {
 
 
 
-    this.crudService.createNewTaskAndPush(type , alreadySent , detail , id , date);
+    this.tasksCrudService.createNewTaskAndPush(type , alreadySent , detail , id , date);
 
   }) //end of first loop
 

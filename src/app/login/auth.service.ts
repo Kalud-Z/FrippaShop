@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { tap, catchError } from 'rxjs/operators';
 
-import { throwError, observable, Subject, BehaviorSubject } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { throwError, BehaviorSubject } from 'rxjs';
+
 import { UserSubject } from './userSubject.model';
 import { environment } from 'src/environments/environment';
 
@@ -24,8 +25,8 @@ interface loginReturnObj {
 @Injectable({
   providedIn: 'root'
 })
-// ########################################################################################################################
-export class AuthService { //##############################################################################################
+// ###########################################################################################################################################################
+export class AuthService { //#################################################################################################################################
   token : string;
   currentUserName : string;  
   userSubject = new BehaviorSubject<UserSubject>(null);
@@ -45,6 +46,7 @@ export class AuthService { //###################################################
   
   } //login()#############
 
+
   logout() {
     // console.log('we re on logout')
     localStorage.removeItem('userData');
@@ -53,22 +55,16 @@ export class AuthService { //###################################################
  
 
 
-autoLogin() {
-  const userData = JSON.parse(localStorage.getItem('userData'));  //this is how you retrieve data from the local storage
-  if(!userData) { return }
-  const loadedUser = new UserSubject(userData.email, userData.id , userData._token , new Date(userData._tokenExpDate));
-  if(loadedUser.token) {
-      this.userSubject.next(loadedUser);
-
-      if(loadedUser.email === environment.ahmedEmail) {
-        this.currentUserName = environment.ahmedName;
-      } 
-      
-      if(loadedUser.email === environment.khaledEmail) {
-        this.currentUserName = environment.khaledName;
-      } 
+  autoLogin() {
+    const userData = JSON.parse(localStorage.getItem('userData'));  //this is how you retrieve data from the local storage
+    if(!userData) { return }
+    const loadedUser = new UserSubject(userData.email, userData.id , userData._token , new Date(userData._tokenExpDate));
+    if(loadedUser.token) {
+        this.userSubject.next(loadedUser);
+        if(loadedUser.email === environment.ahmedEmail) { this.currentUserName = environment.ahmedName } 
+        if(loadedUser.email === environment.khaledEmail) { this.currentUserName = environment.khaledName } 
+    } 
   } 
-} 
 
 
 
@@ -89,15 +85,10 @@ private handleError(errorResponse : HttpErrorResponse) {
 
 private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
   const expirationDate = new Date(new Date().getTime() + expiresIn*1000); // new Date(X milliseconds)
-
   const user = new UserSubject(email, userId , token , expirationDate);
   this.userSubject.next(user);
-  // console.log(expirationDate);
-
   localStorage.setItem('userData', JSON.stringify(user)) //converts a js object into a string.
 }
-
-
 
 
 

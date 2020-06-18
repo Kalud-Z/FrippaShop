@@ -6,7 +6,7 @@ import { FilterByYearPipe } from './filter-by-year.pipe';
 import { FilterByTypePipe } from './filter-by-type.pipe';
 import { LoadingSpinnerLoginComponent } from './loading-spinner-login/loading-spinner-login.component';
 import { ClickOutsideDirective } from './click-outside.directive';
-import { TheadBorderDirective } from './thead-border.directive';
+// import { TheadBorderDirective } from './thead-border.directive';
 import { ScrollTopBottomDirective } from './scroll-top-bottom.directive';
 
 
@@ -19,7 +19,6 @@ import { ScrollTopBottomDirective } from './scroll-top-bottom.directive';
     FilterByTypePipe,
     LoadingSpinnerLoginComponent,
     ClickOutsideDirective,
-    TheadBorderDirective,
     ScrollTopBottomDirective,
   ],
   imports: [
@@ -32,7 +31,6 @@ import { ScrollTopBottomDirective } from './scroll-top-bottom.directive';
     FilterByTypePipe,
     LoadingSpinnerLoginComponent,
     ClickOutsideDirective,
-    TheadBorderDirective,
     ScrollTopBottomDirective,
   
   ]

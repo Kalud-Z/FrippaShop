@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../login/auth.service';
-import { crudService } from '../tasks/services/crud.service';
+import { tasksCrudService } from '../tasks/services/tasks-crud.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit { //#############################
 
   constructor(private router : Router ,
               private authService : AuthService,
-              private tasksCrudService : crudService
+              private tasksCrudService : tasksCrudService
               ) { }
 
   ngOnInit(){

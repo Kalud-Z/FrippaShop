@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BalanceItem } from '../balanceItem.model';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { DataStorageService } from 'src/app/tasks/services/data-storage.service';
 import { environment } from 'src/environments/environment';
 
@@ -11,17 +11,11 @@ import { environment } from 'src/environments/environment';
 // #######################################################################################################################################################
 export class BalanceCrudService { //######################################################################################################################
   balanceItemsList: BalanceItem[] = [];
-
   sentDataToTBalanceNow = false;
-
-  // balanceItemSubject = new BehaviorSubject<BalanceItem[]>(null);
   balanceItemSubject = new Subject<BalanceItem[]>();
 
   constructor(private dataStorageService: DataStorageService) { }
 
-  private BalanceItemsListUpdatedNotify()  {
-    this.balanceItemSubject.next(this.balanceItemsList.slice());
-  }
 
   addBalanceItem(spent: number , received : number , details : string) {
     let newLeft : number;
@@ -30,10 +24,9 @@ export class BalanceCrudService { //############################################
 
     newLeft = lastestLeft - spent + received;
     this.createNewItemAndPush(spent , received , newLeft , details);
-    this.dataStorageService.storeBalanceItemsList(this.balanceItemsList).subscribe(data => {
+    this.dataStorageService.storeBalanceItemsList(this.balanceItemsList).subscribe(() => {
       localStorage.removeItem("balanceItemsList");
       localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
-
     })
   }
 
@@ -53,20 +46,19 @@ export class BalanceCrudService { //############################################
     }
 
     this.BalanceItemsListUpdatedNotify();
-    this.dataStorageService.storeBalanceItemsList(this.balanceItemsList).subscribe( data => {
+    this.dataStorageService.storeBalanceItemsList(this.balanceItemsList).subscribe( () => {
       localStorage.removeItem("balanceItemsList");
       localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
     });
   }
 
+
   deleteBalanceItem(id : number) {
     this.balanceItemsList.forEach( (el, index) => {
-      if(el.id === id) {
-        if(el.id === id) { this.balanceItemsList.splice(index, 1) }
-      }
+      if(el.id === id) { if(el.id === id) { this.balanceItemsList.splice(index, 1) } }
     })
     this.BalanceItemsListUpdatedNotify();
-    this.dataStorageService.storeBalanceItemsList(this.balanceItemsList).subscribe(data => {
+    this.dataStorageService.storeBalanceItemsList(this.balanceItemsList).subscribe(() => {
       localStorage.removeItem("balanceItemsList");
       localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
     });
@@ -77,56 +69,26 @@ export class BalanceCrudService { //############################################
   getBalanceItemsList() {
     if(this.balanceItemsList.length === 0 && environment.useLocalStorage) { // memory still empty . we fetch from localStorage (if we are allowed)
       const localStorageData = JSON.parse(localStorage.getItem('balanceItemsList'));
-      console.log('we just fetched from localStorage and this the list : ' , localStorageData)
-      if(localStorageData && localStorageData.length !== 0) { 
-        this.pushToList(localStorageData)
-      }
+      if(localStorageData && localStorageData.length !== 0) {  this.pushToList(localStorageData) }
     }
 
     if(this.balanceItemsList.length > 0) {console.log('we just fetched from Memory') ;  this.BalanceItemsListUpdatedNotify() }
     else {  // fetch stuff from dataBase
         this.dataStorageService.fetchBalanceItemsList().subscribe(data => {
-          console.log('we just fetched from Database')
           this.pushToList(data);
           localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
       })
     }
-
-    // if(this.balanceItemsList.length === 0) {
-    //   const localStorageData = JSON.parse(localStorage.getItem('balanceItemsList'));
-    //   if(localStorageData && localStorageData.length !== 0) {
-    //     this.pushToList(localStorageData , 'fromLocalStorage');
-    //   }
-    //   else {
-    //       this.dataStorageService.fetchBalanceItemsList().subscribe(data => {
-    //       this.pushToList(data , 'fromAPI');
-    //       localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));
-    //       // this.BalanceItemsListUpdatedNotify();
-    //     })
-    //   }
-    // }//the outer if
-    // else if(this.balanceItemsList.length > 0) {
-    //     this.BalanceItemsListUpdatedNotify();
-    // }
 
   }//getBalanceItemsList
 
   
   getBalanceItem(id : number): BalanceItem {
     let correctItem : BalanceItem;
-    this.balanceItemsList.forEach(el => {
-      if(el.id === id) correctItem = el;
-    })
+    this.balanceItemsList.forEach(el => { if(el.id === id) correctItem = el  })
     return correctItem;
-}
+  }
 
-
-  adjustIDs() {
-    this.balanceItemsList.forEach( (el,index) => {
-      el.id = index+1;
-    })
-    this.BalanceItemsListUpdatedNotify();
-  } 
 
 
   createNewBalanceItem(spent : number , received : number , left: number , details : string , id?: number , date? : Date) {
@@ -137,51 +99,35 @@ export class BalanceCrudService { //############################################
       return balanceItem;
   }
 
-   createNewItemAndPush(spent : number , received : number , left: number , details : string , id?: number , date? : Date, state?: string) {
+
+   createNewItemAndPush(spent : number , received : number , left: number , details : string , id?: number , date? : Date) {
     let correctDate : Date;
     let correctId : number;
     if(!date) { correctDate = new Date() }
     else { correctDate = date }
 
-    if(!id) {
-      correctId = this.balanceItemsList[this.balanceItemsList.length - 1].id + 1;
-    } else {
-      correctId = id;
-    }
+    if(!id) { correctId = this.balanceItemsList[this.balanceItemsList.length - 1].id + 1 }
+    else    { correctId = id }
 
     const balanceItem = this.createNewBalanceItem(spent, received , left , details , correctId , correctDate);
     this.balanceItemsList.push(balanceItem);
-    if(this.sentDataToTBalanceNow) {
-      this.BalanceItemsListUpdatedNotify();
-    }
-
+    if(this.sentDataToTBalanceNow) { this.BalanceItemsListUpdatedNotify() }
   }
 
 
+  // ####################################################################  PRIVATE ###################################################################
 
-  private pushToList (data: any[] , type? : string) {
+  private BalanceItemsListUpdatedNotify()  { this.balanceItemSubject.next(this.balanceItemsList.slice()) }
+
+
+  private pushToList (data: any[]) {
     const arrayLength = data.length;
     data.forEach((el, index ) => {
-
       let id : number
       let left :number;
       let spent  : number;
       let received : number;
       let details : string;
-
-    // if(type === 'fromAPI') {
-    //    id         = el.id;
-    //    left       = el.left;
-    //    spent      = el.spent;
-    //    received   = el.received;
-    //    details    = el.details;
-    // } else {
-    //     id         = el.id;
-    //     left       = el.left;
-    //     spent      = el.spent;
-    //     received   = el.received;
-    //     details    = el.details;
-    // }
 
       id         = el.id;
       left       = el.left;
@@ -189,7 +135,6 @@ export class BalanceCrudService { //############################################
       received   = el.received;
       details    = el.details;
    
-  
       const dateStr = el.date.substr(0 ,10);   // 2019-11-01
       const dateStrArray = dateStr.split('-');
 
@@ -200,17 +145,14 @@ export class BalanceCrudService { //############################################
       var dateObj : Date = new Date();
       dateObj.setFullYear(year, month-1, day);
 
-      if(index === arrayLength-1) {
-        this.sentDataToTBalanceNow = true;
-      } 
+      if(index === arrayLength-1) { this.sentDataToTBalanceNow = true } 
       this.createNewItemAndPush(spent , received , left , details , id , dateObj);
     })
-
   }
 
 
 
 }  //class ##############################################################################################################################################
-
+// ##########################################################################################################################################################
 
 

@@ -1,0 +1,41 @@
+
+
+addressbook
+
+
+balance
+
+
+login
+
+
+navbar
+
+
+shared
+
+
+tasks
+
+
+app
+
+
+
+
+
+services:
+auth -done-
+tasks crud -done-
+data storage service -done-
+balance crud service -done-
+address crud  -done-
+
+
+##########################################
+
+
+
+
+
+

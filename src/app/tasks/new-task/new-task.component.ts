@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, HostBinding, HostListener, ElementRef } from "@angular/core";
-import { crudService } from "../services/crud.service";
+import { tasksCrudService } from "../services/tasks-crud.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Task } from "../task.model";
 import { AuthService } from 'src/app/login/auth.service';
@@ -33,7 +33,7 @@ export class NewTaskComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private crudService: crudService,
+    private tasksCrudService: tasksCrudService,
     private router: Router,
     private route: ActivatedRoute,
   ) { }
@@ -43,7 +43,7 @@ export class NewTaskComponent implements OnInit {
       if (params["id"]) {
         this.modifyTaskView = true;
         this.currentID = +params["id"];
-        let currentTask: Task = this.crudService.getTask(this.currentID);
+        let currentTask: Task = this.tasksCrudService.getTask(this.currentID);
         this.formInit(
           currentTask.type,
           currentTask.details,
@@ -68,8 +68,8 @@ export class NewTaskComponent implements OnInit {
   onAddTask() {
     if (this.authService.currentUserName === 'khaled') {
       if (this.formValid) {
-        if(this.modifyTaskView) { this.crudService.updateTask(this.currentID, this.taskType, this.alreadySent, this.details) }
-        else { this.crudService.createNewTaskAndPush(this.taskType, this.alreadySent, this.details , null , null , 'store') }
+        if(this.modifyTaskView) { this.tasksCrudService.updateTask(this.currentID, this.taskType, this.alreadySent, this.details) }
+        else { this.tasksCrudService.createNewTaskAndPush(this.taskType, this.alreadySent, this.details , null , null , 'store') }
         this.router.navigate(["../"]);
       }
     }
@@ -78,7 +78,7 @@ export class NewTaskComponent implements OnInit {
 
   onDeleteTask() {
     if (this.authService.currentUserName === 'khaled') {
-      this.crudService.deleteTask(this.currentID);
+      this.tasksCrudService.deleteTask(this.currentID);
       this.router.navigate(["../../"]);
     }
   }

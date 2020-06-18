@@ -6,7 +6,6 @@ import { AuthService } from '../login/_services/auth.service';
 import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { routeSlideStateTrigger } from '../shared/_animations/animations';
-import { ScrollTopBottomDirective } from '../shared/_directives/scroll-top-bottom.directive';
 import { SynchUIService } from '../_services/synch-ui.service';
 
 @Component({
@@ -59,12 +58,15 @@ export class TasksComponent implements OnInit  { //#############################
   ngOnInit(): void {
     this.tasksCrudService.tasksListChangedSubject.subscribe(data => {
       this.tasks = data;
-      // now , hopefully , template is fully rendered , so now we stop the loading spinner
-      this.synchUIService.isComponentLoadingSubject.next(false);
+      this.synchUIService.isComponentLoadingSubject.next(false);  // now , hopefully , template is fully rendered , so now we stop the loading spinner
     })
     this.tasksCrudService.getTasksList();
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;
+
+    this.synchUIService.clickInsideHeaderSubject.subscribe(data =>  this.clickInsideHeader = data )
+    this.synchUIService.onAddNewRowSubject.subscribe(() =>  this.onAddNewTask() )
+    this.synchUIService.showFilterSubject.subscribe(() => this.showFilter() )
   } //ngOnInit()
 
   ngDoCheck() {
@@ -73,19 +75,16 @@ export class TasksComponent implements OnInit  { //#############################
   }
 
   clickedOutsideHeader() {
-    // console.log('clickedOutsideHeader is called')
     this.clickInsideHeader = false;
   }
 
   mouseEnterHeader() {
-    // console.log('mouseEnterHeader is called')
     setTimeout(() => {
       this.clickInsideHeader = true;
     }, 20);
   }
 
   mouseLeaveHeader() {
-    // console.log('mouseLEaverHeader is called')
     this.clickedOutsideHeader();
   }
 
@@ -134,7 +133,6 @@ export class TasksComponent implements OnInit  { //#############################
 
   onAddNewTask() {
     if(this.currentUser === this.adminName && this.clickInsideHeader ) {
-      console.log('we are now going to new task')
       this.router.navigate(['new-task'] , { relativeTo :  this.route } );
     }
   }

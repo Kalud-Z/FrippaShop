@@ -236,191 +236,29 @@ tr:hover .editLogoCell__editTask-logo {
 
 
 // filter stuff ###############################################################################################################################
-$filterOptionHeight : 4rem;
-
-.filterWrapper {
-    background:linear-gradient(to bottom, #e5bab244 5%, #bb8c83 100%);
-    box-shadow: 2px 2px 2px 0px rgba(189,134,189,1);
-    z-index: 90;
-    transition: .5s ease-out;
-    margin-bottom: -12rem;
-    border-radius: 5px;
-    font-size: 1.3rem;
-    padding: 2rem 5rem;
-    padding-top:0;
-    height:11rem;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    transform: translateY(-156%);
-    @include respond(phone) {
-        margin-bottom: -9rem;
-        transform: translateY(-160%);
-        font-size: 1.2rem;
-        padding: 1rem 1.25rem;
-        height: 13.5rem;  
-        align-self: flex-start;
+@for $i from 2 through 3 {
+    .countryFilter__option:nth-child( #{$i} ) {
+        transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1})  + 4rem ));
+        z-index: calc( 3000 - #{ $i } ) !important;
     }
-
-
-    .filterHeader {
-        position: relative;
-        margin-bottom: 4rem;
-        @include respond(phone) {  //added
-            margin-bottom: 6rem;
-        }
-
-        &__ExitLogo {
-            position: absolute;
-            top: 0%;
-            right: -6%;
-            height: 2rem;
-            width: 2rem;
-            cursor: pointer;
-            @include respond(phone) {
-                top: -40%;
-                right: -1.5%;
-                height: 4rem;
-                width: 4rem;
-            }
-
-        }
-    
-        &__resetAllButton {
-            padding:.5rem 1rem;
-            background-color: transparent;
-            border:1px solid black;
-            color: red;
-            font-family: inherit;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 3px;
-            position: absolute;
-            top:28%;
-            left: -5%;
-            cursor: pointer;
-            border:2px solid red;
-            outline:none;
-            &:active {
-                -webkit-animation: resetAllButtonOnClick 2s;
-                        animation: resetAllButtonOnClick 2s;
-                -webkit-animation-timing-function: ease-out;
-                        animation-timing-function: ease-out; /* or: ease, ease-in, ease-in-out, linear, cubic-bezier(x1, y1, x2, y2) */
-            }
-           
-            @include respond(phone) {  //added
-                left: 0%;
-                padding:.65rem .9rem;
-                font-size: 1.2rem;
-            }
-
-        }
-    }
-
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
-    .filterBody {
-        white-space: nowrap;
-        display: flex;
-        align-items: stretch;
-        & > *:not(:last-child) { 
-            margin-right: 3rem;
-            @include respond(phone) { margin-right: 1.5rem } 
-        }
-            
-        .filterCatWrapper {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: stretch;
-
-            &__trashBinLogo {
-                height:2rem;
-                width:2rem;
-                position: absolute;
-                fill: darken(white , 8%);
-                top:0;
-                right:0;
-                transition: all 0.2s;
-
-                &:hover { fill:rgb(214, 54, 54) }
-            }
-
-                    
-            .filterOptionsWrapper {
-                display: flex;
-                flex-direction: column;
-                position: relative;
-                -webkit-clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
-                        clip-path: polygon(0 0, 100% 0, 100% $filterOptionHeight, 0 $filterOptionHeight);
-                &:hover {-webkit-clip-path:none;clip-path:none}
-                transition: all 1s;
-
-    
-                &:hover > * {
-                    transform: translateY(0);  //add a directive for . onmouse leave , to wait a lil bit before closing the dropdown on mouseleave 
-                    border-bottom:1px solid #114d05;
-                }
-            
-                &__filterOption {
-                    height: $filterOptionHeight;
-                    z-index:  3000 ;
-                    transition: all .2s ease-out;
-                    cursor: pointer;
-                    padding: 1rem 4rem;
-                    border-radius: 3px;
-                    color:white;
-                    background-color: #2d8568;
-                    border:1px solid transparent;
-                    text-align: center;
-                    @include flexCenter;
-                    border-bottom:1px solid transparent;
-                    position: relative;
-
-                }
-
-            }
-
-        }
-
-
-    }
-
-
-        
-    @for $i from 2 through 3 {
-        .countryFilter__option:nth-child( #{$i} ) {
-            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1})  + 4rem ));
-            z-index: calc( 3000 - #{ $i } ) !important;
-        }
-    }
-
-    
-    @for $i from 2 through 8 {
-        .cityFilter__option:nth-child( #{$i} ) {
-            transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
-            z-index:  calc( 3000 - #{ $i } ) !important;
-        }
-    }
-
-
 }
 
- 
+
+@for $i from 2 through 8 {
+    .cityFilter__option:nth-child( #{$i} ) {
+        transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1}) + 4rem ));
+        z-index:  calc( 3000 - #{ $i } ) !important;
+    }
+}
+
+
+
 
 .optionSelected {
     background-color: #852d3c !important;
 }
 
 
-.showFilter {
-    transform: translateY(0%);
-    margin-bottom: 2rem;
-}
 
 
 .hideElement {

@@ -1,0 +1,104 @@
+@import 'src/variables.scss' ;
+@import 'src/mixins.scss' ;
+
+
+:host {
+    background-color: red;
+}
+
+
+.header {
+    // background-color: yellow;
+    z-index: 1000;
+    background:linear-gradient(to bottom, #e5bab200 5%, #e5bab2 100%);
+    box-shadow: 2px 2px 2px 0px rgba(189,134,189,1);
+    // transform: translateY(-95%);
+    position:  fixed;
+    top: -11%;
+    left : 1%;
+    &:hover , &:active { 
+        top: 0%;
+    }
+    border-radius: 7px;
+    // margin-bottom: -2.5rem;
+    // margin-left: -3rem;
+    width:-webkit-fit-content;
+    width:-moz-fit-content;
+    width:fit-content;
+    // align-self: flex-start;
+
+    @include flexCenter;
+    padding: 2rem 3rem;
+    transition: all .5s;
+    & > *:not(:last-child) {
+        margin-right: 3rem;
+        @include respond(phone) { margin-right: 0rem; margin-bottom: 3rem }
+    }
+
+    @include respond(phone) {
+        transform: translateY(-105%);
+        // transform: translateY(-90%);
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: -15rem;
+    }
+
+    &:hover div , &:active div { transform: translate(0px, 0px) scale(1) }
+    &:hover svg , &:active svg { fill : currentColor !important }
+
+    &__logoWrapper {
+        margin-left: auto;
+        padding:0.5rem .5rem;
+        transition: 0.5s;
+        transition-delay: 0.18s;
+        display: flex;
+        justify-content:center ;
+        align-items: center;
+
+        & svg { 
+            cursor: pointer;
+            transition: all 0.45s;
+            margin-left: 1rem;
+            height:2rem;
+            width:2rem;
+            fill:rgba(255, 0, 0, 0.5);
+            margin-left: auto;
+        }
+
+        &:hover .header , &:active .header { 
+            top: 0%;
+        }
+    }
+
+    &__saveLogo    { transform: translate(-22rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-20rem, 6rem) scale(1.5) } }
+    &__addLogo     { transform: translate(-46rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-44rem, 6rem) scale(1.5) } }
+    &__filterLogo  { transform: translate(-70rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-68rem, 6rem) scale(1.5) } }
+
+    &__filterLogo  { @include respond(phone) { transform: translate(-12.5rem, 6.3rem)  scale(1.5) } }
+    &__saveLogo    { @include respond(phone) { transform: translate(-16.4rem, 20.3rem) scale(1.5) } }
+    &__addLogo     { @include respond(phone) { transform: translate(-20.7rem, 13.2rem) scale(1.5) } }
+
+}
+
+
+.headerButtons {
+    font-family: inherit;
+	background:linear-gradient(to bottom, #2d8568 5%, #4caf8e 100%);
+    // padding:1rem;
+    color: white;
+    text-shadow: none;
+    border:none;
+    transform: translate(0px , 0px);
+    // box-shadow: 1px 1px 2px 1px rgba(179,127,179,1) !important;
+    box-shadow: 1px 1px 2px 1px rgb(148, 96, 148) !important;
+    @include flexCenter;
+    width:25rem;
+
+    &:active {
+        transform: translate(1px , 1px);
+        box-shadow: none;
+    }
+}
+
+

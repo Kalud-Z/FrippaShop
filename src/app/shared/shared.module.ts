@@ -8,6 +8,7 @@ import { LoadingSpinnerLoginComponent } from './loading-spinner-login/loading-sp
 import { ClickOutsideDirective } from './_directives/click-outside.directive';
 // import { TheadBorderDirective } from './thead-border.directive';
 import { ScrollTopBottomDirective } from './_directives/scroll-top-bottom.directive';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -20,6 +21,7 @@ import { ScrollTopBottomDirective } from './_directives/scroll-top-bottom.direct
     LoadingSpinnerLoginComponent,
     ClickOutsideDirective,
     ScrollTopBottomDirective,
+    HeaderComponent,
   ],
   imports: [
     CommonModule
@@ -32,7 +34,7 @@ import { ScrollTopBottomDirective } from './_directives/scroll-top-bottom.direct
     LoadingSpinnerLoginComponent,
     ClickOutsideDirective,
     ScrollTopBottomDirective,
-  
+    HeaderComponent,
   ]
 })
 

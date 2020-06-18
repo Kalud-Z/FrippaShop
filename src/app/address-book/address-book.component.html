@@ -1,30 +1,9 @@
 
 <div class="container">
 
-    <div class="header" (clickOutside)='clickedOutsideHeader()'  (mouseenter)="mouseEnterHeader()"  (mouseleave)="mouseLeaveHeader()">
-        <button class="Tasks-default-btn headerButtons storeDataButton" 
-            [ngClass]="{ 'hideElement' : currentUser !== adminName }"> Save Changes 
-            <div class="header__logoWrapper header__saveLogo"> 
-                <svg [ngClass]="{ 'hideElement' : currentUser !== adminName}">  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> 
-            </div>
-        </button>
-
-        <button class="Tasks-default-btn headerButtons addNewTaskButton" 
-            [ngClass]="{ 'hideElement' : currentUser !== adminName}" (click)='onAddAddress()'> Add Address
-            <div class="header__logoWrapper header__addLogo"> 
-                <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-folder-add" (click)='onAddAddress()' ></use> </svg>  
-            </div>
-        </button>
-
-        <button class="Tasks-default-btn headerButtons filterButton"  (click)='showFilter()'> Filter
-            <div class="header__logoWrapper header__filterLogo"> 
-                <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> 
-            </div>
-        </button>
-    </div> 
-
+    <app-header></app-header>
         
-    <div class="filterWrapper" [ngClass]="{'showFilter' : showFilterCrl === true}">
+    <div class="filterContainer" [ngClass]="{'filterContainer-showFilter' : showFilterCrl }">
 
         <div class="filterHeader"> &nbsp;
         <button type="button" class="filterHeader__resetAllButton" (click)='resetAllFilters()' > Reset All </button>
@@ -39,7 +18,8 @@
                 <div class="countryFilter__option  filterOptionsWrapper__filterOption"> Filter By Country 
                     <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByCountryInput = []" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                 </div>
-                <div class="countryFilter__option  filterOptionsWrapper__filterOption" *ngFor='let country of countries' [ngClass]="{'optionSelected' : filterByCountryInput.indexOf(country) !== -1 }"  (click)='addOrRemoveCountry(country)'  > {{ country }} </div>
+                <div class="countryFilter__option  filterOptionsWrapper__filterOption" *ngFor='let country of countries' 
+                [ngClass]="{ filterOptionSelected : filterByCountryInput.indexOf(country) !== -1 }"  (click)='addOrRemoveCountry(country)'  > {{ country }} </div>
             </div>
             </div>
 
@@ -49,7 +29,8 @@
                 <div class="cityFilter__option  filterOptionsWrapper__filterOption"> Filter By City
                     <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByCityInput = []">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                 </div>
-                <div class="cityFilter__option  filterOptionsWrapper__filterOption" *ngFor='let city of cities'   [ngClass]="{'optionSelected' : filterByCityInput.indexOf(city) !== -1 }" (click)='addOrRemoveCity(city)'> {{ city }} </div>
+                <div class="cityFilter__option  filterOptionsWrapper__filterOption" *ngFor='let city of cities'   
+                [ngClass]="{ filterOptionSelected : filterByCityInput.indexOf(city) !== -1 }" (click)='addOrRemoveCity(city)'> {{ city }} </div>
             </div>
             </div>
 

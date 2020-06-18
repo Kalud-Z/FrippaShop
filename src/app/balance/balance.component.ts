@@ -20,11 +20,10 @@ import { SynchUIService } from '../_services/synch-ui.service';
 
 // #######################################################################################################################################################
 export class BalanceComponent implements OnInit { //########################################################################################################
+  @HostBinding('@routeSlideState') routeAnimation = true;
   balanceItemsList: BalanceItem[];
   currentUser : string;
   adminName : string;
-
-  @HostBinding('@routeSlideState') routeAnimation = true;
 
   clickInsideHeader = false;
 
@@ -52,6 +51,10 @@ export class BalanceComponent implements OnInit { //############################
     this.balanceCrudService.getBalanceItemsList();
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;
+    
+    this.synchUIService.clickInsideHeaderSubject.subscribe(data =>  this.clickInsideHeader = data )
+    this.synchUIService.onAddNewRowSubject.subscribe(() =>  this.onAddBalanceItem() )
+    this.synchUIService.showFilterSubject.subscribe(() => this.showFilter() )
   } //ngOninit
 
 
@@ -61,19 +64,16 @@ export class BalanceComponent implements OnInit { //############################
   }
 
   clickedOutsideHeader() {
-    // console.log('clickedOutsideHeader is called')
     this.clickInsideHeader = false;
   }
 
   mouseEnterHeader() {
-    // console.log('mouseEnterHeader is called')
     setTimeout(() => {
       this.clickInsideHeader = true;
     }, 20);
   }
 
   mouseLeaveHeader() {
-    // console.log('mouseLEaverHeader is called')
     this.clickedOutsideHeader();
   }
 

@@ -11,8 +11,15 @@ export class SynchUIService {  //###############################################
 
   isComponentLoadingSubject = new Subject<boolean>();
 
+  clickInsideHeaderSubject = new Subject<boolean>();
+
+  onAddNewRowSubject = new Subject<boolean>();
+
+  showFilterSubject = new Subject<boolean>();
 
 
+
+  
 
 }  //#######################################################################################################################################################
 // #########################################################################################################################################################

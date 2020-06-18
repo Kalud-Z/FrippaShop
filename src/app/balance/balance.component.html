@@ -2,7 +2,7 @@
 
 
 
-    <div class="header" (clickOutside)='clickedOutsideHeader()'  (mouseenter)="mouseEnterHeader()"  (mouseleave)="mouseLeaveHeader()" >
+    <!-- <div class="header" (clickOutside)='clickedOutsideHeader()'  (mouseenter)="mouseEnterHeader()"  (mouseleave)="mouseLeaveHeader()" >
         <button class="Tasks-default-btn headerButtons storeDataButton" 
             [ngClass]="{'hideElement' : currentUser !== adminName }" > Save Changes 
            <div class="header__logoWrapper header__saveLogo"> <svg [ngClass]="{ 'hideElement' : currentUser !== adminName}">  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> </div>
@@ -17,12 +17,13 @@
             (click)='showFilter()' > Filter
             <div class="header__logoWrapper header__filterLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> </div>
         </button>
-    </div>
+    </div> -->
+
+    <app-header></app-header>
 
     
-<!-- ############################################################################################################################################# -->
-<!-- Filter ####################################################################################################################################### -->
-    <div class="filterWrapper" [ngClass]="{'showFilter' : showFilterCrl === true}">
+<!-- Filter ############################################################################################################################################### -->
+    <div class="filterContainer" [ngClass]="{ 'filterContainer-showFilter' : showFilterCrl }">
 
         <div class="filterHeader"> &nbsp;
            <button type="button" class="filterHeader__resetAllButton" (click)='resetAllFilters()' > Reset All </button>
@@ -37,7 +38,8 @@
                    <div class="monthFilter__option  filterOptionsWrapper__filterOption"> Filter By Month 
                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByMonthInput = []" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                    </div>
-                   <div class="monthFilter__option  filterOptionsWrapper__filterOption" *ngFor='let month of monthsArray' [ngClass]="{'optionSelected' : filterByMonthInput.indexOf(month) !== -1 }"  (click)='addOrRemoveMonth(month)'  > {{ month }} </div>
+                   <div class="monthFilter__option  filterOptionsWrapper__filterOption" *ngFor='let month of monthsArray' 
+                   [ngClass]="{ filterOptionSelected : filterByMonthInput.indexOf(month) !== -1 }"  (click)='addOrRemoveMonth(month)'  > {{ month }} </div>
                </div>
             </div>
 
@@ -47,7 +49,8 @@
                    <div class="yearFilter__option  filterOptionsWrapper__filterOption"> Filter By Year
                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByYearInput = 0">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                    </div>
-                   <div class="yearFilter__option  filterOptionsWrapper__filterOption" *ngFor='let year of yearsArray'   [ngClass]="{'optionSelected' : filterByYearInput === year }" (click)='setYear(year)'  > {{ year }} </div>
+                   <div class="yearFilter__option  filterOptionsWrapper__filterOption" *ngFor='let year of yearsArray'   
+                   [ngClass]="{ filterOptionSelected : filterByYearInput === year }" (click)='setYear(year)'  > {{ year }} </div>
                </div>
             </div>
    
@@ -57,9 +60,7 @@
 
 
 
-
-   <!-- Table ######################################################################################################################################## -->
-<!-- ####################################################################################################################################################### -->
+   <!-- Table ############################################################################################################################################## -->
     <table class="table">
 
         <thead>
@@ -85,7 +86,8 @@
                 <td class="tbodyRow__details">   {{ item.details }}</td>
                 <!-- <td class="editLogoCell" #logoCell  appBalanceTableStyle> -->
                     <td class="editLogoCell" #logoCell  >
-                    <svg class="editLogoCell__editTask-logo"  (click)='onModifyBalanceItem(item.id)' [ngClass]="{ 'hideElement' : currentUser !== adminName}" >
+                    <svg class="editLogoCell__editTask-logo"  (click)='onModifyBalanceItem(item.id)' 
+                    [ngClass]="{ hideElementFromGuestUser : currentUser !== adminName}" >
                         <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use>
                     </svg> 
                 </td> 

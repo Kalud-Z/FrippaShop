@@ -6,7 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AddressCrudService } from './_services/address-crud.service';
 import { DataStorageService } from '../shared/_services/data-storage.service';
 import { routeSlideStateTrigger } from '../shared/_animations/animations';
-import { tasksCrudService } from '../tasks/_services/tasks-crud.service';
 import { SynchUIService } from '../_services/synch-ui.service';
 
 @Component({
@@ -61,6 +60,10 @@ export class AddressBookComponent implements OnInit { //########################
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;
 
+    
+    this.synchUIService.clickInsideHeaderSubject.subscribe(data =>  this.clickInsideHeader = data )
+    this.synchUIService.onAddNewRowSubject.subscribe(() =>  this.onAddAddress() )
+    this.synchUIService.showFilterSubject.subscribe(() => this.showFilter() )
   }
 
   clickedOutsideHeader() {

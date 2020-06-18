@@ -18,12 +18,12 @@ export class BalanceCrudService { //############################################
 
 
   addBalanceItem(spent: number , received : number , details : string) {
-    let newLeft : number;
+    let newMoneyLeft : number;
     const latestIndex = this.balanceItemsList.length-1;
-    let lastestLeft = this.balanceItemsList[latestIndex].left;
+    let lastestMoneyLeft = this.balanceItemsList[latestIndex].left;
 
-    newLeft = lastestLeft - spent + received;
-    this.createNewItemAndPush(spent , received , newLeft , details);
+    newMoneyLeft = lastestMoneyLeft - spent + received;
+    this.createNewItemAndPush(spent , received , newMoneyLeft , details);
     this.dataStorageService.storeBalanceItemsList(this.balanceItemsList).subscribe(() => {
       localStorage.removeItem("balanceItemsList");
       localStorage.setItem('balanceItemsList', JSON.stringify(this.balanceItemsList));

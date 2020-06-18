@@ -18,9 +18,8 @@ export class CutLayerDirective implements OnInit { //###########################
     }
 
     if(targetElement.className.includes('layer-1')) {
-      const  layer1LeftWidth     = (height - desiredWidth);
-      const layer1BottomWidth    = (width - desiredWidth);
-      
+      const  layer1LeftWidth      = (height - desiredWidth);
+      const  layer1BottomWidth    = (width - desiredWidth);
       this.renderer.setStyle(targetElement, 'clip-path', `polygon(100% ${layer1LeftWidth}px, ${layer1BottomWidth}px 100%, 100% 100%)`);
     }
 

@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { routeSlideStateTrigger } from '../shared/_animations/animations';
 import { ScrollTopBottomDirective } from '../shared/_directives/scroll-top-bottom.directive';
+import { SynchUIService } from '../_services/synch-ui.service';
 
 @Component({
   selector: 'app-tasks',
@@ -50,7 +51,8 @@ export class TasksComponent implements OnInit  { //#############################
               private tasksCrudService : tasksCrudService,
               private dataStorageService: DataStorageService,
               private router : Router,
-              private route : ActivatedRoute
+              private route : ActivatedRoute,
+              private synchUIService : SynchUIService
               ) { }
 
 
@@ -58,7 +60,7 @@ export class TasksComponent implements OnInit  { //#############################
     this.tasksCrudService.tasksListChangedSubject.subscribe(data => {
       this.tasks = data;
       // now , hopefully , template is fully rendered , so now we stop the loading spinner
-      this.tasksCrudService.isLoadingSubject.next(false);
+      this.synchUIService.isComponentLoadingSubject.next(false);
     })
     this.tasksCrudService.getTasksList();
     this.currentUser = this.authService.currentUserName;

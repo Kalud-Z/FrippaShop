@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../login/_services/auth.service';
 import { tasksCrudService } from '../tasks/_services/tasks-crud.service';
+import { SynchUIService } from '../_services/synch-ui.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,11 +22,11 @@ export class NavbarComponent implements OnInit { //#############################
 
   constructor(private router : Router ,
               private authService : AuthService,
-              private tasksCrudService : tasksCrudService
+              private synchUIService : SynchUIService
               ) { }
 
   ngOnInit(){
-    this.tasksCrudService.isLoadingSubject.subscribe(data => {
+    this.synchUIService.isComponentLoadingSubject.subscribe(data => {
       this.isLoadingTemp = data;
     })
   }

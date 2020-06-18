@@ -13,7 +13,6 @@ export class tasksCrudService { //##############################################
   tasksList: Task[] = [];
 
   tasksListChangedSubject = new Subject<Task[]>();
-  isLoadingSubject = new Subject<boolean>();
 
   sentDataToTasksNow = false;
   

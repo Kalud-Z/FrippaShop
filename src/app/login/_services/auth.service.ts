@@ -54,7 +54,6 @@ export class AuthService { //###################################################
   }
  
 
-
   autoLogin() {
     const userData = JSON.parse(localStorage.getItem('userData'));  //this is how you retrieve data from the local storage
     if(!userData) { return }
@@ -67,28 +66,27 @@ export class AuthService { //###################################################
   } 
 
 
-
 // #########################################################   PRIVATE METHODS #########################################################################
 
-private handleError(errorResponse : HttpErrorResponse) {
-  let errorMessage = 'An unknown error occured !';
-  if(!errorResponse.error || !errorResponse.error.error) { return throwError(errorMessage) }
-  switch(errorResponse.error.error.message) {
-      case 'EMAIL_EXISTS'  : errorMessage = 'Error : Email already in use by another account !!'; break;
-      case 'EMAIL_NOT_FOUND'  : errorMessage = 'Error : Email is not registered' ; break;
-      case 'INVALID_PASSWORD'  : errorMessage = 'Error : Password is incorrect !!' ; break;
-      case 'USER_DISABLED'  : errorMessage = 'Error : Account is disabled!!' ; break;
-  } 
-  return throwError(errorMessage);   //RxJS throwError operato
-}  //handleError
+  private handleError(errorResponse : HttpErrorResponse) {
+    let errorMessage = 'An unknown error occured !';
+    if(!errorResponse.error || !errorResponse.error.error) { return throwError(errorMessage) }
+    switch(errorResponse.error.error.message) {
+        case 'EMAIL_EXISTS'  : errorMessage = 'Error : Email already in use by another account !!'; break;
+        case 'EMAIL_NOT_FOUND'  : errorMessage = 'Error : Email is not registered' ; break;
+        case 'INVALID_PASSWORD'  : errorMessage = 'Error : Password is incorrect !!' ; break;
+        case 'USER_DISABLED'  : errorMessage = 'Error : Account is disabled!!' ; break;
+    } 
+    return throwError(errorMessage);   //RxJS throwError operato
+  }  //handleError
 
 
-private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
-  const expirationDate = new Date(new Date().getTime() + expiresIn*1000); // new Date(X milliseconds)
-  const user = new UserSubject(email, userId , token , expirationDate);
-  this.userSubject.next(user);
-  localStorage.setItem('userData', JSON.stringify(user)) //converts a js object into a string.
-}
+  private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn*1000); // new Date(X milliseconds)
+    const user = new UserSubject(email, userId , token , expirationDate);
+    this.userSubject.next(user);
+    localStorage.setItem('userData', JSON.stringify(user)) //converts a js object into a string.
+  }
 
 
 

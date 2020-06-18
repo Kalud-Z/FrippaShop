@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { routeSlideStateTrigger } from '../shared/_animations/animations';
 import { tasksCrudService } from '../tasks/_services/tasks-crud.service';
+import { SynchUIService } from '../_services/synch-ui.service';
 
 @Component({
   selector: 'app-balance',
@@ -40,14 +41,13 @@ export class BalanceComponent implements OnInit { //############################
               private authService : AuthService,
               private router : Router,
               private route : ActivatedRoute,
-              private tasksCrudService : tasksCrudService
+              private synchUIService : SynchUIService
               ) { }
 
   ngOnInit(): void {
     this.balanceCrudService.balanceItemSubject.subscribe(data => {
       this.balanceItemsList = data 
-      // console.log('balance items subject just returned. this is the data :  ' , data); //ISSUE : its been called twice ! I wanted to be called only once.
-      this.tasksCrudService.isLoadingSubject.next(false);
+      this.synchUIService.isComponentLoadingSubject.next(false);
     })
     this.balanceCrudService.getBalanceItemsList();
     this.currentUser = this.authService.currentUserName;

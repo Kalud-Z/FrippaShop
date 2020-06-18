@@ -7,6 +7,7 @@ import { AddressCrudService } from './_services/address-crud.service';
 import { DataStorageService } from '../shared/_services/data-storage.service';
 import { routeSlideStateTrigger } from '../shared/_animations/animations';
 import { tasksCrudService } from '../tasks/_services/tasks-crud.service';
+import { SynchUIService } from '../_services/synch-ui.service';
 
 @Component({
   selector: 'app-address-book',
@@ -41,13 +42,13 @@ export class AddressBookComponent implements OnInit { //########################
               private router : Router,
               private route : ActivatedRoute,
               private ds : DataStorageService,
-              private tasksCrudService : tasksCrudService
+              private synchUIService : SynchUIService
               ) { }
 
   ngOnInit(): void {
     this.addressCrudService.addressSubject.subscribe(data => { 
       this.addressList = data;
-      this.tasksCrudService.isLoadingSubject.next(false);
+      this.synchUIService.isComponentLoadingSubject.next(false);
       console.log('we just got data back for address ts')
       if(data !== null) {
         this.countries = this.buildCountriesArray();

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+
 import { Subject, BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +21,6 @@ export class SynchUIService {  //###############################################
   
   showPopupViewSubject = new BehaviorSubject<boolean>(false);
 
-  // modifyEntryViewSubject = new Subject<boolean>();
-  // modifyEntryViewSubject = new BehaviorSubject<boolean>(false);
-  
   modifyEntryView : boolean ;
 
 

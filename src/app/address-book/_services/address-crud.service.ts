@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Address } from '../address.model';
+
 import { Subject } from 'rxjs';
+
 import { DataStorageService } from 'src/app/shared/_services/data-storage.service';
+import { Address } from '../address.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AddressCrudService { //#########################################################################################################
+
+// ######################################################################################################################################################
+export class AddressCrudService { //####################################################################################################################
   addressList: Address[] = [];
   addressSubject = new Subject<Address[]>();
   sentDataToAddressNow = false;
@@ -20,7 +24,7 @@ export class AddressCrudService { //############################################
   addAddress(name: string , city : string , country : string , postalCode : number , street : string , houseNr : number , phone : string) {
     this.createNewAddressAndPush(name , city, country , postalCode, street, houseNr, phone);
 
-    this.dataStorageService.storeAddressList(this.addressList).subscribe(data => {
+    this.dataStorageService.storeAddressList(this.addressList).subscribe(() => {
       localStorage.removeItem("addressList");
       localStorage.setItem('addressList', JSON.stringify(this.addressList));
     })

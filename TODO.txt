@@ -1,5 +1,19 @@
 
 
+
+move mixin flexCenter , to mixins file ...
+
+
+another cleanup step : remove as many !important as possible
+
+new address css . acting weird. work on it some other time.
+
+###############################################################
+
+
+
+
+
 ** salary - component  (inside tasks module)
 *transactions module (optional)
 
@@ -19,6 +33,7 @@ after each update of files in database. a function should sent a notification to
 
 * on firefox mobile : all tables are missing id column , and half of the second column !
 
+* scoll top and bottom functionality
 
 _____________________________________________________
 

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Task } from "../task.model";
 import { AuthService } from 'src/app/login/_services/auth.service';
 import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations/animations';
+import { SynchUIService } from 'src/app/_services/synch-ui.service';
 
 @Component({
   selector: "app-new-task",
@@ -15,16 +16,16 @@ import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations
   ]
 })
 
-// ############################################################################################################################################
-export class NewTaskComponent implements OnInit {
+// ###################################################################################################################################################
+export class NewTaskComponent implements OnInit {  //###################################################################################################
   taskType: string;
   details: string;
   alreadySent: boolean;
   currentID: number;
 
-  newTaskView: boolean;
-  modifyTaskView: boolean;
-  popupView: boolean;
+
+  // modifyTaskView: boolean;
+  modifyEntryView: boolean;
 
   formValid: boolean = false;
 
@@ -36,24 +37,26 @@ export class NewTaskComponent implements OnInit {
     private tasksCrudService: tasksCrudService,
     private router: Router,
     private route: ActivatedRoute,
+    private synchUIService : SynchUIService
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      if (params["id"]) {
-        this.modifyTaskView = true;
+      if(params["id"]) {
+        this.weAreInModifyEntryView();
+        this.modifyEntryView = this.synchUIService.modifyEntryView;
+
         this.currentID = +params["id"];
         let currentTask: Task = this.tasksCrudService.getTask(this.currentID);
-        this.formInit(
-          currentTask.type,
-          currentTask.details,
-          currentTask.isItemAlreadySent
-        );
+        this.formInit( currentTask.type, currentTask.details, currentTask.isItemAlreadySent);
       } else {
         this.alreadySent = false; //start condition
+        this.weAreNotInModifyEntryView();
       }
     });
   } //ngOnInit()
+
+
 
   ngDoCheck() {
     if (!this.taskType || !this.details || this.alreadySent === undefined) {
@@ -68,13 +71,14 @@ export class NewTaskComponent implements OnInit {
   onAddTask() {
     if (this.authService.currentUserName === 'khaled') {
       if (this.formValid) {
-        if(this.modifyTaskView) { this.tasksCrudService.updateTask(this.currentID, this.taskType, this.alreadySent, this.details) }
+        if(this.synchUIService.modifyEntryView) { this.tasksCrudService.updateTask(this.currentID, this.taskType, this.alreadySent, this.details) }
         else { this.tasksCrudService.createNewTaskAndPush(this.taskType, this.alreadySent, this.details , null , null , 'store') }
         this.router.navigate(["../"]);
       }
     }
 
   }
+  
 
   onDeleteTask() {
     if (this.authService.currentUserName === 'khaled') {
@@ -83,25 +87,24 @@ export class NewTaskComponent implements OnInit {
     }
   }
 
-  ExitPopup(event) {
+  onExitEntryView(event) {
     console.log('we closing');
-    // console.log('we are in , and this is the event : ' , event)
     if(
       event.target.className === "container" ||
       event.target.nodeName === "svg" ||
       event.target.nodeName === "use" ||
       event.target.localName === 'app-new-task'
     ) {
-      this.popupView = true;
+      this.showPopupView();
     }
   }
 
-  onPopupYes() {
-    this.router.navigate(["../"]);
-  }
-  onPopupNo() {
-    this.popupView = false;
-  }
+  // onPopupYes() {
+  //   this.router.navigate(["../"]);
+  // }
+  // onPopupNo() {
+  //   this.popupView = false;
+  // }
 
 
   // ########################################  PRIVATE METHODS ###############################################################################
@@ -115,5 +118,25 @@ export class NewTaskComponent implements OnInit {
   private hasNumber(myString) {
     return /\d/.test(myString);
   }
+
+
+  private weAreNotInModifyEntryView() {
+    this.synchUIService.modifyEntryView = false;
+  }
+
+  private weAreInModifyEntryView() {
+    this.synchUIService.modifyEntryView = true;
+  }
+
+  private showPopupView() {
+    this.synchUIService.showPopupViewSubject.next(true);
+  }
+
+
+
+
+
+
+
 } //class ########################################################################################################################################
 // ###############################################################################################################################################

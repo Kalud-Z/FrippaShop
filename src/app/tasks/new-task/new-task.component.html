@@ -1,86 +1,59 @@
 
 
-<!-- <div class="container" (click)='ExitPopup($event)' > -->
+<form class="form"  (clickOutside)='onExitEntryView($event)'>
 
-    <form class="form"  (clickOutside)='ExitPopup($event)'>
-
-        <div class="form__ExitLogo-container">
-            <svg class="form__ExitLogo" (click)='ExitPopup($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
-        </div>
+    <div class="form__ExitLogo-container">
+        <svg class="form__ExitLogo" (click)='onExitEntryView($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+    </div>
 
 
-        <div class="form__body">
+    <div class="form__body">
 
-            <div class="SelectType">
-                <p class="SelectType__text label"> Select Type : </p>
-                <div class="SelectType__optionsWrapper">
-                    <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'transaction' }" (click)="taskType ='transaction'">  Transaction</div>
-                    <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'shoes' }"       (click)="taskType ='shoes'" >       Shoes Collected</div>
-                    <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'watch' }"       (click)="taskType ='watch'" >       Watch Collected</div>
-                    <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'other' }"       (click)="taskType ='other'" >       Other Item Collected</div>
-                    <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'shipment' }"    (click)="taskType ='shipment'" >    Shipment</div>
-                </div>
+        <div class="SelectType">
+            <p class="SelectType__text label"> Select Type : </p>
+            <div class="SelectType__optionsWrapper">
+                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'transaction' }" (click)="taskType ='transaction'">  Transaction</div>
+                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'shoes' }"       (click)="taskType ='shoes'" >       Shoes Collected</div>
+                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'watch' }"       (click)="taskType ='watch'" >       Watch Collected</div>
+                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'other' }"       (click)="taskType ='other'" >       Other Item Collected</div>
+                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'shipment' }"    (click)="taskType ='shipment'" >    Shipment</div>
             </div>
-    
-
-            <div class="form__vertical-line"></div>
-    
-
-            <div class="formGroup textareaFormGroup">
-                <label class="label" for="details"> Details : </label>
-                <textarea id="details" rows="2" cols="30" [(ngModel)]='details' name="detailsInput" placeholder="describe the task">
-                </textarea>
-            </div>
-
-
-            <div class="form__vertical-line"></div>
-
-
-            <div class="alreadySent">
-                <p class="alreadySent__text label"> Already Sent ? </p>
-                <div class="alreadySent__option" [ngClass]="{'option-selected' : alreadySent }"        (click)="alreadySent = true" > Yes </div>
-                <div class="alreadySent__option" [ngClass]="{'option-selected' : !this.alreadySent }"  (click)="alreadySent = false" > Not Yet </div>
-            </div>
-
         </div>
-                
-        <div class="form__footer">
-            <button type="button" class="Tasks-default-btn form__footer__addButton" (click)='onAddTask()'  [ngClass]="{'disable-button' : !formValid}">   {{ modifyTaskView ? 'Update Task' : 'Add New Task' }} </button>
-            <button type="button" class="Tasks-default-btn removeTaskButton form__footer__deleteButton" (click)='onDeleteTask()' *ngIf='modifyTaskView; else temp'>  Delete Task Permanently </button>
-            <ng-template #temp></ng-template>
+
+
+        <div class="form__vertical-line"></div>
+
+
+        <div class="formGroup textareaFormGroup">
+            <label class="label" for="details"> Details : </label>
+            <textarea id="details" rows="2" cols="30" [(ngModel)]='details' name="detailsInput" placeholder="describe the task">
+            </textarea>
         </div>
-      
-    </form>
 
 
+        <div class="form__vertical-line"></div>
+
+
+        <div class="alreadySent">
+            <p class="alreadySent__text label"> Already Sent ? </p>
+            <div class="alreadySent__option" [ngClass]="{'option-selected' : alreadySent }"        (click)="alreadySent = true" > Yes </div>
+            <div class="alreadySent__option" [ngClass]="{'option-selected' : !this.alreadySent }"  (click)="alreadySent = false" > Not Yet </div>
+        </div>
+
+    </div>
+            
+    <div class="form__footer">
+        <button type="button" class="defaultButton form__footer__addButton" (click)='onAddTask()'  [ngClass]="{'disable-button' : !formValid}">   {{ modifyEntryView ? 'Update Task' : 'Add New Task' }} </button>
+        <button type="button" class="defaultButton removeEntryButton form__footer__deleteButton" (click)='onDeleteTask()' *ngIf='modifyEntryView; else temp'>  Delete Task Permanently </button>
+        <ng-template #temp></ng-template>
+    </div>
     
-
-
-<div class="popupContainer" *ngIf='popupView' @popupWindowState>
-
-     <div class="popup__body">
-        <p  class="popup__body__question"> Are you sure U wanna exit ? </p>
-
-        <div class="popup__body__optionsContainer">
-            <button type="button" class="Tasks-default-btn popup__body__button" (click)='onPopupYes()'> Yes    </button>
-            <button type="button" class="Tasks-default-btn popup__body__button" (click)='onPopupNo()' > Continue Editing</button>
-        </div>
-    </div> 
-</div>
+</form>
 
 
 
 
-<!-- </div> -->
-
-
-
-
-
-
-
-
-
+<app-are-you-sure-you-wanna-exit></app-are-you-sure-you-wanna-exit>
 
 
 

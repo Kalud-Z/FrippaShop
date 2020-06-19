@@ -1,28 +1,8 @@
 <div class="container">
 
-
-
-    <!-- <div class="header" (clickOutside)='clickedOutsideHeader()'  (mouseenter)="mouseEnterHeader()"  (mouseleave)="mouseLeaveHeader()" >
-        <button class="Tasks-default-btn headerButtons storeDataButton" 
-            [ngClass]="{'hideElement' : currentUser !== adminName }" > Save Changes 
-           <div class="header__logoWrapper header__saveLogo"> <svg [ngClass]="{ 'hideElement' : currentUser !== adminName}">  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> </div>
-        </button>
-
-        <button class="Tasks-default-btn headerButtons addNewTaskButton" 
-            [ngClass]="{ 'hideElement' : currentUser !== adminName}" (click)='onAddBalanceItem()'> Update Balance
-            <div class="header__logoWrapper header__addLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-folder-add"></use> </svg>  </div>
-        </button>
-
-        <button class="Tasks-default-btn headerButtons filterButton" 
-            (click)='showFilter()' > Filter
-            <div class="header__logoWrapper header__filterLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> </div>
-        </button>
-    </div> -->
-
     <app-header></app-header>
 
     
-<!-- Filter ############################################################################################################################################### -->
     <div class="filterContainer" [ngClass]="{ 'filterContainer-showFilter' : showFilterCrl }">
 
         <div class="filterHeader"> &nbsp;
@@ -39,7 +19,7 @@
                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByMonthInput = []" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                    </div>
                    <div class="monthFilter__option  filterOptionsWrapper__filterOption" *ngFor='let month of monthsArray' 
-                   [ngClass]="{ filterOptionSelected : filterByMonthInput.indexOf(month) !== -1 }"  (click)='addOrRemoveMonth(month)'  > {{ month }} </div>
+                   [ngClass]="{ filterOptionSelected : filterByMonthInput.indexOf(month) !== -1 }"  (click)='addOrRemoveMonth(month)' > {{ month }} </div>
                </div>
             </div>
 
@@ -50,7 +30,7 @@
                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByYearInput = 0">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                    </div>
                    <div class="yearFilter__option  filterOptionsWrapper__filterOption" *ngFor='let year of yearsArray'   
-                   [ngClass]="{ filterOptionSelected : filterByYearInput === year }" (click)='setYear(year)'  > {{ year }} </div>
+                   [ngClass]="{ filterOptionSelected : filterByYearInput === year }" (click)='setYear(year)' > {{ year }} </div>
                </div>
             </div>
    
@@ -59,8 +39,6 @@
    
 
 
-
-   <!-- Table ############################################################################################################################################## -->
     <table class="table">
 
         <thead>
@@ -75,7 +53,8 @@
             </tr>
         </thead>
 
-        <tbody *ngFor='let item of balanceItemsList | filterByYear:filterByYearInput | filterByMonth: filterByMonthInput as filteredbalanceItemsList ; let i = index'>
+        <tbody *ngFor='let item of balanceItemsList | filterByYear:filterByYearInput 
+        | filterByMonth: filterByMonthInput as filteredbalanceItemsList ; let i = index'>
 
             <tr class="tbodyRow">
                 <td class="tbodyRow__id">        {{ item.id }} </td>
@@ -84,16 +63,15 @@
                 <td class="tbodyRow__received">  {{ item.received | displayInEuro }} </td>
                 <td class="tbodyRow__left">      {{ item.left | displayInEuro }}  </td>
                 <td class="tbodyRow__details">   {{ item.details }}</td>
-                <!-- <td class="editLogoCell" #logoCell  appBalanceTableStyle> -->
-                    <td class="editLogoCell" #logoCell  >
-                    <svg class="editLogoCell__editTask-logo"  (click)='onModifyBalanceItem(item.id)' 
+                    <td class="editIconCell" >
+                    <svg class="editIconCell__editTaskIcon"  (click)='onModifyBalanceItem(item.id)' 
                     [ngClass]="{ hideElementFromGuestUser : currentUser !== adminName}" >
                         <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use>
                     </svg> 
                 </td> 
             </tr>
         
-        <tr class="rowWrapper__month" *ngIf="displayDateRow(i , filteredbalanceItemsList)" >
+        <tr class="monthRowWrapper" *ngIf="displayDateRow(i , filteredbalanceItemsList)" >
             <td colspan="6"> {{  filteredbalanceItemsList[i + 1].date | filterDate  }} </td>
         </tr> 
 

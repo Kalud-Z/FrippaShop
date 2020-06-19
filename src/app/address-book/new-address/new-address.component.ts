@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Address } from '../address.model';
 import { AddressCrudService } from '../_services/address-crud.service';
 import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations/animations';
+import { SynchUIService } from 'src/app/_services/synch-ui.service';
 
 @Component({
   selector: 'app-new-address',
@@ -13,7 +14,11 @@ import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations
     popupWindowTrigger
   ]
 })
+
+// 
 export class NewAddressComponent implements OnInit { //############################################################################################
+  @HostBinding('@createNewState') routeAnimation = true;
+
   name : string 
   city: string 
   phone : string 
@@ -22,25 +27,24 @@ export class NewAddressComponent implements OnInit { //#########################
   postalCode : number
   houseNr : number
 
-
-  modifyAddressView: boolean;
   currentID : number;
   currentAddress : Address;
-  popupView = false;
 
-  @HostBinding('@createNewState') routeAnimation = true;
+  modifyEntryView: boolean;
 
-  
 
   constructor(private route : ActivatedRoute,
               private router : Router,
-              private addressCrudService : AddressCrudService
+              private addressCrudService : AddressCrudService,
+              private synchUIService : SynchUIService
               ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       if (params["id"]) {
-        this.modifyAddressView = true;
+        this.weAreInModifyEntryView();
+        this.modifyEntryView = this.synchUIService.modifyEntryView;
+
         this.currentID = +params["id"];
         this.currentAddress = this.addressCrudService.getAddress(this.currentID);
         this.name = this.currentAddress.name;
@@ -51,51 +55,33 @@ export class NewAddressComponent implements OnInit { //#########################
         this.phone = this.currentAddress.phone;
         this.street = this.currentAddress.street;
       }  
+      else { this.weAreNotInModifyEntryView() }
     }) //subscribe()
-  }
+  }  //ngOnInit
 
 
   onSubmit(saveForm) {
-    console.log(saveForm)
-
-    if(this.modifyAddressView) {
+    if(this.synchUIService.modifyEntryView) {
       console.log('we are in modify')
       this.addressCrudService.updateAddress(this.currentID , this.name , this.city , this.country , this.postalCode , this.street , this.houseNr , this.phone)
-      this.modifyAddressView = false;
       this.router.navigate(['../../'] , { relativeTo :  this.route });
     }
-
     else {
-      console.log('we are in add')
-
       this.addressCrudService.addAddress(this.name , this.city , this.country , this.postalCode , this.street , this.houseNr , this.phone);
       this.router.navigate(['../'] , { relativeTo :  this.route });
     }
   } //onSubmit()
 
   
-  ExitPopup(event) {
+  onExitEntryView(event) {
     if (
       event.target.className === "container" ||
       event.target.nodeName === "svg" ||
       event.target.nodeName === "use" ||
       event.target.localName === "app-new-address"
     ) {
-      this.popupView = true;
+        this.showPopupView();
     }
-  }
-
-  onPopupYes() {
-    // this.router.navigate(["../"] , );
-    if(this.modifyAddressView) {
-      this.router.navigate(['../../'] , { relativeTo :  this.route });
-    } else {
-      this.router.navigate(['../'] , { relativeTo :  this.route } );
-    }
-
-  }
-  onPopupNo() {
-    this.popupView = false;
   }
 
 
@@ -104,11 +90,20 @@ export class NewAddressComponent implements OnInit { //#########################
     this.addressCrudService.deleteAddress(this.currentID)
   }
 
+  
+  // #####################################################       PRIVATE       #############################################################################
 
+  private weAreNotInModifyEntryView() {
+    this.synchUIService.modifyEntryView = false;
+  }
 
+  private weAreInModifyEntryView() {
+    this.synchUIService.modifyEntryView = true;
+  }
 
-
-
+  private showPopupView() {
+    this.synchUIService.showPopupViewSubject.next(true);
+  }
 
 
 

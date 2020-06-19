@@ -9,6 +9,7 @@ import { ClickOutsideDirective } from './_directives/click-outside.directive';
 // import { TheadBorderDirective } from './thead-border.directive';
 import { ScrollTopBottomDirective } from './_directives/scroll-top-bottom.directive';
 import { HeaderComponent } from './header/header.component';
+import { AreYouSureYouWannaExitComponent } from './are-you-sure-you-wanna-exit/are-you-sure-you-wanna-exit.component';
 
 
 
@@ -22,6 +23,7 @@ import { HeaderComponent } from './header/header.component';
     ClickOutsideDirective,
     ScrollTopBottomDirective,
     HeaderComponent,
+    AreYouSureYouWannaExitComponent,
   ],
   imports: [
     CommonModule
@@ -35,6 +37,7 @@ import { HeaderComponent } from './header/header.component';
     ClickOutsideDirective,
     ScrollTopBottomDirective,
     HeaderComponent,
+    AreYouSureYouWannaExitComponent,
   ]
 })
 

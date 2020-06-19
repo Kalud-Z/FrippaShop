@@ -3,6 +3,7 @@ import { BalanceCrudService } from '../_services/balance-crud.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BalanceItem } from '../balanceItem.model';
 import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations/animations';
+import { SynchUIService } from 'src/app/_services/synch-ui.service';
 
 
 @Component({
@@ -15,40 +16,41 @@ import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations
   ]
 })
 export class NewBalanceItemComponent implements OnInit { //#########################################################################################
-  popupView: boolean;
+  @HostBinding('@createNewState') routeAnim = true;
+
   currentID : number;
-  modifyTaskView: boolean;
+  modifyEntryView: boolean;
   currentBalanceItem : BalanceItem;
 
   spent : number;
   received: number;
   details : string;
 
-  @HostBinding('@createNewState') routeAnim = true;
-
-  
 
   constructor(private balanceCrudService : BalanceCrudService,
               private router : Router,
-              private route : ActivatedRoute
+              private route : ActivatedRoute,
+              private synchUIService : SynchUIService
             ) { }
 
-  ngOnInit(): void {
 
+  ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      if (params["id"]) {
-        this.modifyTaskView = true;
+      if (params["id"]) {  //if we are in  modifyEntryView
+        this.weAreInModifyEntryView();
+        this.modifyEntryView = this.synchUIService.modifyEntryView;
+
         this.currentID = +params["id"];
         this.currentBalanceItem = this.balanceCrudService.getBalanceItem(this.currentID);
         this.spent = this.currentBalanceItem.spent;
         this.received = this.currentBalanceItem.received;
         this.details = this.currentBalanceItem.details;
-        console.log('this is spent ' , this.spent)
-        console.log('this is spent . type ' ,typeof this.spent)
-       
-      }  
+      }  else {  //if we are NOT in  modifyEntryView
+        this.weAreNotInModifyEntryView();
+      }
     }) //subscribe()
   } //ngonint();
+  
   
 
   onSubmit(saveForm) {
@@ -59,12 +61,10 @@ export class NewBalanceItemComponent implements OnInit { //#####################
     const spentFinal    =  spent === undefined ? 0 : spent;
     const receivedFinal =  received === undefined ? 0 : received;
 
-    if(this.modifyTaskView) {
+    if(this.synchUIService.modifyEntryView) {
       this.balanceCrudService.updateBalanceItem(this.currentID ,spentFinal , receivedFinal , details);
-      this.modifyTaskView = false;
       this.router.navigate(['../../'] , { relativeTo :  this.route });
     }
-
     else {
       this.balanceCrudService.addBalanceItem(spentFinal , receivedFinal , details);
       this.router.navigate(['../'] , { relativeTo :  this.route });
@@ -77,31 +77,30 @@ export class NewBalanceItemComponent implements OnInit { //#####################
   }
 
 
-  // exit popup stuff ################################################################################################
-
-  ExitPopup(event) {
+  onExitEntryView(event) {
     if (
       event.target.className === "container" ||
       event.target.nodeName === "svg" ||
       event.target.nodeName === "use" ||
       event.target.localName === 'app-new-balance-item'
     ) {
-      this.popupView = true;
+      this.showPopupView();
     }
   }
 
-  onPopupYes() {
-    // this.router.navigate(["../"] , );
-    if(this.modifyTaskView) {
-      this.router.navigate(['../../'] , { relativeTo :  this.route });
-    } else {
 
-      this.router.navigate(['../'] , { relativeTo :  this.route } );
-    }
+  // #####################################################       PRIVATE       #############################################################################
 
+  private weAreNotInModifyEntryView() {
+    this.synchUIService.modifyEntryView = false;
   }
-  onPopupNo() {
-    this.popupView = false;
+
+  private weAreInModifyEntryView() {
+    this.synchUIService.modifyEntryView = true;
+  }
+
+  private showPopupView() {
+    this.synchUIService.showPopupViewSubject.next(true);
   }
 
 

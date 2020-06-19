@@ -3,9 +3,9 @@
 
     <!-- Form   ########################################################################################################################################### -->
     <!-- ################################################################################################################################################## -->
-        <form  #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)" class="form"  (clickOutside)='ExitPopup($event)'>
+        <form  #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)" class="form"  (clickOutside)='onExitEntryView($event)'>
         <div class="form__ExitLogo-container">
-            <svg class="form__ExitLogo" (click)='ExitPopup($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+            <svg class="form__ExitLogo" (click)='onExitEntryView($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
         </div>
     
         <div class="form__body">
@@ -97,8 +97,8 @@
         
     
         <div class="form__footer">
-            <button type="submit" class="Tasks-default-btn saveButton" [disabled]="saveForm.invalid"> {{ modifyAddressView ? 'Update' : 'Save' }}  </button>
-            <button class="Tasks-default-btn removeTaskButton form__footer__deleteButton" (click)='onDeleteTask()' *ngIf='modifyAddressView; else temp'>  Delete Permanently </button>
+            <button type="submit" class="defaultButton saveButton" [disabled]="saveForm.invalid"> {{ modifyEntryView ? 'Update' : 'Save' }}  </button>
+            <button class="defaultButton removeEntryButton form__footer__deleteButton" (click)='onDeleteTask()' *ngIf='modifyEntryView; else temp'>  Delete Permanently </button>
             <ng-template #temp></ng-template>
         </div>
            
@@ -106,22 +106,25 @@
     
     
     
+
+        <app-are-you-sure-you-wanna-exit></app-are-you-sure-you-wanna-exit>
             
     <!-- Popup   ########################################################################################################################################### -->
-    <!-- ################################################################################################################################################## -->
-        <div class="popupContainer" *ngIf='popupView' @popupWindowState>
+        <!-- <div class="popupContainer" *ngIf='popupView' @popupWindowState>
     
             <div class="popup__body">
     
             <p  class="popup__body__question"> Are you sure U wanna exit ? </p>
     
             <div class="popup__body__optionsContainer">
-                <button type="button" class="Tasks-default-btn popup__body__button" (click)='onPopupYes()'> Yes    </button>
-                <button type="button" class="Tasks-default-btn popup__body__button" (click)='onPopupNo()' > Continue Editing</button>
+                <button type="button" class="defaultButton popup__body__button" (click)='onPopupYes()'> Yes    </button>
+                <button type="button" class="defaultButton popup__body__button" (click)='onPopupNo()' > Continue Editing</button>
             </div>
             
         </div> 
-        </div>
+        </div> -->
+
+
     
     
 <!-- </div>  -->

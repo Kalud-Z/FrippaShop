@@ -1,0 +1,79 @@
+
+
+// converting data from excel  ###############################################################################################################################################
+
+
+// fixData() {
+//   this.tasksCrudService.fixingListDates();
+// }
+
+
+adjustUI() {
+  let markup = `<svg class="checklogo" style="height: 1.5rem; width: 1.5rem;">  <use xlink:href="/assets/symbol-defs.svg#icon-checkmark"></use> </svg> `;
+  const allCell = document.getElementsByTagName('td');
+
+  Array.from(allCell).forEach(el => {
+    if(el.innerText === 'check') {
+      el.innerText = '';
+      el.insertAdjacentHTML('afterbegin', markup);
+    }
+  })
+  
+} //adjustUI()
+
+onStore() {
+  this.dataStorageService.storeTasksList(this.tasksCrudService.tasksList);
+}
+
+extraction() {
+  const allRows = document.querySelectorAll('.ff  tr');
+
+  //looping through all rows
+  allRows.forEach( (el,index) => {
+    const allCells = el.children;
+    var type: string;
+    var alreadySent : boolean = false;
+    var detail : string;
+    var id: number;
+    var date : Date = new Date();
+    date.setFullYear(2020,2,1);  
+
+
+    
+    //looping through all cells
+    Array.from(allCells).forEach((td,index) => {
+      var checkMarkIndex : number;
+      var x = td.textContent; 
+      console.log('this is thecell content : ' , x);
+
+      // if (x == String.fromCharCode(160)) { x = ''}
+      if(x == '✓')  { 
+        checkMarkIndex = index;
+        // console.log('yeswe ave cehckmark in this index : ' , index)
+      };
+
+      switch(checkMarkIndex) {
+        case 1 : {  type = 'transaction' ; break; } 
+        case 2 : {  type = 'shoes' ; break; } 
+        case 3 : {  type = 'watch' ; break; } 
+        case 4 : {  type = 'other' ; break; } 
+        case 5 : {  type = 'shipment' ; break; } 
+        case 8 : {  alreadySent = true ; break; } 
+      }
+
+      if(index === 7) { detail = x }
+      if(index === 0) { id = +x }
+
+      
+    }) //end of inner loop
+
+
+
+    this.tasksCrudService.createNewTaskAndPush(type , alreadySent , detail , id , date);
+
+  }) //end of first loop
+
+
+} //extraction()
+
+

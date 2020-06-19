@@ -1,14 +1,9 @@
 
 
-<!-- <div class="container"  (click)='ExitPopup($event)' > -->
-
-
-<!-- Form   ########################################################################################################################################### -->
-<!-- ################################################################################################################################################## -->
-    <form  #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)" class="form" (clickOutside)='ExitPopup($event)'>
-        <div class="form__ExitLogo-container">
-            <svg class="form__ExitLogo" (click)='ExitPopup($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
-        </div>
+<form  #saveForm="ngForm"  class="form"  (ngSubmit)="onSubmit(saveForm)"  (clickOutside)='onExitEntryView($event)'>
+    <div class="form__exitIconWrapper">
+        <svg class="form__exitIcon" (click)='onExitEntryView($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+    </div>
 
     <div class="form__group">
         <label for="spent"> Spent </label>
@@ -16,86 +11,52 @@
     </div>
 
 
-    <div class="form__vertical-line" ></div>
+    <div class="form__seperationLine" ></div>
+
 
     <div class="form__group">
         <label for="received"> Received </label>
-        <input type="number" name="received" id="received" [(ngModel)]='received' >
+        <input type="number" name="received" id="received"  [(ngModel)]='received' >
     </div>
 
-    <div class="form__vertical-line" ></div>
+
+    <div class="form__seperationLine" ></div>
 
 
     <div class="form__group">
         <label for="details"> Details </label>
-        <textarea  name="details" id="details" [(ngModel)]='details' required cols="5" ></textarea>
+        <textarea  name="details" id="details" [(ngModel)]='details' required cols="5"></textarea>
     </div>
-
 
 
     <div class="form__footer">
-        <button type="submit" class="Tasks-default-btn saveButton" [disabled]="saveForm.invalid"> {{ modifyTaskView ? 'Update' : 'Save' }}  </button>
-        <button class="Tasks-default-btn removeTaskButton form__footer__deleteButton" (click)='onDeleteTask()' *ngIf='modifyTaskView; else temp'>  Delete Permanently </button>
+        <button type="submit" class="defaultButton saveButton" [disabled]="saveForm.invalid"> {{ modifyEntryView ? 'Update' : 'Save' }}  </button>
+        <button class="defaultButton removeEntryButton form__footer__deleteButton"  *ngIf='modifyEntryView; else temp' (click)='onDeleteTask()'>  Delete Permanently </button>
         <ng-template #temp></ng-template>
     </div>
-      
-      
-    </form>
-
-
-
         
-<!-- Popup   ########################################################################################################################################### -->
-<!-- ################################################################################################################################################## -->
-    <div class="popupContainer" *ngIf='popupView' @popupWindowState>
+</form>
 
-        <div class="popup__body">
 
+
+<app-are-you-sure-you-wanna-exit></app-are-you-sure-you-wanna-exit>
+
+    <!-- 
+<div class="popupContainer" *ngIf='popupView' @popupWindowState>
+    <div class="popup__body">
         <p  class="popup__body__question"> Are you sure U wanna exit ? </p>
-
         <div class="popup__body__optionsContainer">
-            <button type="button" class="Tasks-default-btn popup__body__button" (click)='onPopupYes()'> Yes    </button>
-            <button type="button" class="Tasks-default-btn popup__body__button" (click)='onPopupNo()' > Continue Editing</button>
+            <button type="button" class="defaultButton popup__body__button" (click)='onPopupYes()'> Yes    </button>
+            <button type="button" class="defaultButton popup__body__button" (click)='onPopupNo()' > Continue Editing</button>
         </div>
-        
     </div> 
-    </div>
-
-
-<!-- </div> -->
+</div>  -->
 
 
 
 
 
 
-
-
-
-
-<!-- 
-
-     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="loginForm" >
-    
-            <p> Login to your account </p>
-    
-            <div class="loginForm__inputGroup">
-                <label for="email"> Email</label>
-                <input type="email" id="email" ngModel name="email" required email>
-            </div>
-    
-            <div class="loginForm__inputGroup">
-                <label for="password"> Password </label>
-                <input type="password"  id="password" ngModel name="password" required>
-            </div> 
-    
-            <button type="submit" class="loginForm__button" [disabled]="loginForm.invalid"> Login </button>
-    
-        </form>
-    
-
-
- -->
 
 
 

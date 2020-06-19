@@ -1,0 +1,13 @@
+
+
+<div class="popupContainer" *ngIf='popupView' @popupWindowState>
+    <div class="popup__body">
+        <p  class="popup__body__question"> Are you sure U wanna exit ? </p>
+        <div class="popup__body__optionsContainer">
+            <button type="button" class="defaultButton popup__body__button" (click)='onPopupYes()'> Yes    </button>
+            <button type="button" class="defaultButton popup__body__button" (click)='onPopupNo()' > Continue Editing</button>
+        </div>
+    </div> 
+</div>
+
+

@@ -1,0 +1,95 @@
+
+// turning excel data into objects ... ###################################################################################################
+
+
+store() {
+  this.dt.storeBalanceItemsList(this.balanceCrudService.balanceItemsList);
+}
+
+
+turnToFloat(str: string) {
+  var newStr = str.replace(/,/g, ".");
+  var finalNumber = parseFloat(newStr);
+  return finalNumber;
+}
+
+
+
+setDate(str: string) {
+  var monthArrayShort = [];
+  this.monthsArray.map(el => { monthArrayShort.push(el.substr(0, 3)) })
+
+  var arrayOfData = str.split('-');
+  var day = +arrayOfData[0]
+  var year = +arrayOfData[2]
+  var month = arrayOfData[1]
+
+  var monthIndex = monthArrayShort.indexOf(month);
+
+  var finalDate = new Date();
+  finalDate.setFullYear(year, monthIndex, day)
+
+  return finalDate;
+}
+
+
+extraction() {
+  const allRows = document.querySelectorAll('.tt  tr');
+
+  console.log(allRows);
+
+  allRows.forEach((el, index) => {
+    const allCells = el.children;
+    var left: number = 0;
+    var received: number = 0;
+    var spent: number = 0;
+    var details: string;
+    var date: Date;
+
+    //looping through all cells
+    Array.from(allCells).forEach((td, index) => {
+
+      var x = td.textContent;
+
+      if (index === 1) {
+        if (x !== '') {
+          spent = this.turnToFloat(x);
+          spent = !spent ? 0 : spent;
+        }
+      }
+
+      if (index === 2) {
+        if (x !== '') {
+          received = this.turnToFloat(x);
+          received = !received ? 0 : received;
+        }
+      }
+
+
+      if (index === 3) {
+        if (x !== '') {
+          left = this.turnToFloat(x);
+          left = !left ? 0 : left;
+        }
+      }
+
+
+      if (index === 4) { details = x }
+
+      if (index === 0) {
+        date =  this.setDate(x);
+      }
+
+
+    }) //end of inner loop
+
+  
+    // var obj = new BalanceItem(1, spent, received ,left , details ,date);
+    // this.balanceCrudService.createNewItemAndPush(spent , received , left , details, date);
+
+  }) //end of first loop
+
+
+} //extraction() ####
+
+

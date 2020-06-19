@@ -2,9 +2,8 @@
 @import 'src/mixins.scss' ;
 
 
-:host {
-    display : block
-}
+:host { display : block }
+
 
 .container {
     padding: 2rem 3rem;
@@ -18,102 +17,6 @@
 }
 
 
-
-.header {
-    z-index: 100;
-    background:linear-gradient(to bottom, #e5bab200 5%, #e5bab2 100%);
-    box-shadow: 2px 2px 2px 0px rgba(189,134,189,1);
-
-    border-radius: 7px;
-    transition: all .5s;
-    transform: translateY(-95%);
-    // transform: translateY(-85%);
-    &:hover , &:active { transform: translateY(0); }
-    width:-webkit-fit-content;
-    width:-moz-fit-content;
-    width:fit-content;
-    align-self: flex-start;
-    margin-left: -3rem;
-    @include flexCenter;
-    margin-bottom: -2.5rem;
-    padding: 2rem 3rem;
-    & > *:not(:last-child) {
-        margin-right: 3rem;
-        @include respond(phone) {
-            margin-right: 0rem;
-            margin-bottom: 3rem;
-        }
-    }
-
-    @include respond(phone) {
-        transform: translateY(-105%);
-        // transform: translateY(-90%);
-        padding: 1rem 1.5rem;
-        flex-direction: column;
-        align-items: stretch;
-        margin-bottom: -15rem;
-    }
-
-    &:hover div , &:active div { transform: translate(0px, 0px) scale(1) }
-    &:hover svg , &:active svg { fill : currentColor !important }
-
-    &__logoWrapper {
-        margin-left: auto;
-        padding:0.5rem .5rem;
-        transition: 0.5s;
-        transition-delay: 0.18s;
-        display: flex;
-        justify-content:center ;
-        align-items: center;
-        // border:1px solid yellow;
-
-        & svg { 
-            cursor: pointer;
-            transition: all 0.45s;
-            margin-left: 1rem;
-            height:2rem;
-            width:2rem;
-            fill:rgba(255, 0, 0, 0.5);
-            margin-left: auto;
-        }
-
-        &:hover .header , &:active .header { transform: translateY(0); }
-    }
-
-    &__saveLogo    { transform: translate(-22rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-20rem, 6rem) scale(1.5) } }
-    &__addLogo     { transform: translate(-46rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-44rem, 6rem) scale(1.5) } }
-    &__filterLogo  { transform: translate(-70rem, 6rem) scale(1.5); @include respond(tab-port) { transform: translate(-68rem, 6rem) scale(1.5) } }
-
-    &__filterLogo  { @include respond(phone) { transform: translate(-12.5rem, 6.3rem)  scale(1.5) } }
-    &__saveLogo    { @include respond(phone) { transform: translate(-16.4rem, 20.3rem) scale(1.5) } }
-    &__addLogo     { @include respond(phone) { transform: translate(-20.7rem, 13.2rem) scale(1.5) } }
-
-
-
-}
-
-
-.headerButtons {
-    font-family: inherit;
-	background:linear-gradient(to bottom, #2d8568 5%, #4caf8e 100%);
-    // padding:1rem;
-    color: white;
-    text-shadow: none;
-    border:none;
-    transform: translate(0px , 0px);
-    // box-shadow: 1px 1px 2px 1px rgba(179,127,179,1) !important;
-    box-shadow: 1px 1px 2px 1px rgb(148, 96, 148) !important;
-    @include flexCenter;
-    width:25rem;
-
-    &:active {
-        transform: translate(1px , 1px);
-        box-shadow: none;
-    }
-} 
-
-
-
 .table {
     border: 1px solid $mediumColor-darker;
     width: 100%;
@@ -123,119 +26,42 @@
     border-right: none !important;
     z-index: 80;
     width: 80%;
-    // white-space: nowrap;
 
-}
+    & thead {
+        font-family: 'Merriweather Sans', sans-serif;
+        font-style: italic;
+        background: $darkColor-darker; //original
+        & tr { border-bottom:1px solid transparent }
 
-tbody {
-    background-color: white;
-
-
-    &:last-child tr {
-        border-bottom:1px solid transparent;
-
-        & > *:not(:last-child) {
-            border-bottom:1px solid black !important;
+        & th {
+            font-size : 1.5rem;
+            font-weight: bold;
+            color: #000000;
+            text-align: center;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            &:last-child  {
+                border:none;
+                border-top:1px solid transparent;
+                background-color: #c6ffec;
+                @include respond(phone) { padding-right: 5rem }
+            }
         }
     }
-
-}
-
-.tbodyRow {
-    &:hover {
-        background-color: rgba(201, 166, 166, 0.158);
-    }
-    
-    &__checkmarkLogo {
-        height:1.8rem;
-        width:1.8rem;
-        fill: currentColor;
-    }
-
-    &__date {
-        white-space: nowrap;
-    }
-
-
-
-}
-
-
-.table thead {
-    font-family: 'Merriweather Sans', sans-serif;
-    font-style: italic;
-    background: $darkColor-darker; //original
-    // background-color: #d4e5b2;
-
-    & tr {
-        border-bottom:1px solid transparent;
-    }
-
-
-}
-
-.table thead th {
-    font-size : 1.5rem;
-    font-weight: bold;
-    color: #000000;
-    text-align: center;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-
-    &:last-child  {
-        border:none;
-        border-top:1px solid transparent;
-        background-color: #c6ffec;
-        @include respond(phone) { padding-right: 5rem }
-    }
-}
-
-
-.table td, .table th {
-    border: 1px solid $mediumColor-darker;
-    padding: .5rem 1rem;
-
-}
-
-tr td {
-    text-align: center;
-}
-
-.table tr:last-child td:first-child {
-    border-bottom: none;
-}
-
-
-tr:hover .editLogoCell__editTask-logo {
-    fill : rgba(255, 0, 0, 1);
-}
-
-
-.editLogoCell {
-    border: none !important;
-    background-color: $lightColor-main;
-    border-right: none;
-
-    
-    &__editTask-logo {
-        // opacity: 0.5;
-        // transform: scale(0.7);   // opacity && transform.scale : they make the logo appear on top of the sticky header !
-        transition: all .2s;
-        cursor: pointer;
-        height: 1.8rem;
-        width: 1.8rem;
-        margin-left: -.5rem;
-        @include respond(phone) { margin-left: -2.5rem }
-        fill : rgba(255, 0, 0, 0.26);
-        @include respond(tab-land) { fill : rgba(255, 0, 0, 1)}
+ 
+    tbody {
+        background-color: white;
+        &:last-child tr {
+            border-bottom:1px solid transparent;
+            & > *:not(:last-child) {  border-bottom:1px solid black !important }
+        }
+        .tbodyRow {  &:hover { background-color: rgba(201, 166, 166, 0.158) } }
     }
 }
 
 
 
-
-
-// filter stuff ###############################################################################################################################
+//#####################################################          filter stuff           ##########################################################################
 @for $i from 2 through 3 {
     .countryFilter__option:nth-child( #{$i} ) {
         transform: translateY(calc((#{$i} * #{$filterOptionHeight * -1})  + 4rem ));
@@ -250,42 +76,5 @@ tr:hover .editLogoCell__editTask-logo {
         z-index:  calc( 3000 - #{ $i } ) !important;
     }
 }
-
-
-
-
-.optionSelected {
-    background-color: #852d3c !important;
-}
-
-
-
-
-.hideElement {
-    opacity: 0.5 !important;
-    cursor: not-allowed !important;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

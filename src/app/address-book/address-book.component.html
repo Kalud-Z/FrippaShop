@@ -2,45 +2,44 @@
 <div class="container">
 
     <app-header></app-header>
+    
         
     <div class="filterContainer" [ngClass]="{'filterContainer-showFilter' : showFilterCrl }">
-
+        
         <div class="filterHeader"> &nbsp;
-        <button type="button" class="filterHeader__resetAllButton" (click)='resetAllFilters()' > Reset All </button>
-        <svg class="filterHeader__ExitLogo" (click)='showFilterCrl = false'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
-    </div>
+            <button type="button" class="filterHeader__resetAllButton" (click)='resetAllFilters()' > Reset All </button>
+            <svg class="filterHeader__exitIcon" (click)='showFilterCrl = false'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+        </div>
 
 
-    <div class="filterBody">
-
-        <div class="countryFilter  filterCatWrapper">
-            <div class="countryFilter__optionsWrapper  filterOptionsWrapper">
-                <div class="countryFilter__option  filterOptionsWrapper__filterOption"> Filter By Country 
-                    <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByCountryInput = []" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+        <div class="filterBody">
+            <div class="countryFilter  filterCatWrapper">
+                <div class="countryFilter__optionsWrapper  filterOptionsWrapper">
+                    <div class="countryFilter__option  filterOptionsWrapper__filterOption"> Filter By Country 
+                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByCountryInput = []" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+                    </div>
+                    <div class="countryFilter__option  filterOptionsWrapper__filterOption" *ngFor='let country of countries' 
+                    [ngClass]="{ filterOptionSelected : filterByCountryInput.indexOf(country) !== -1 }"  (click)='addOrRemoveCountry(country)'  > {{ country }} </div>
                 </div>
-                <div class="countryFilter__option  filterOptionsWrapper__filterOption" *ngFor='let country of countries' 
-                [ngClass]="{ filterOptionSelected : filterByCountryInput.indexOf(country) !== -1 }"  (click)='addOrRemoveCountry(country)'  > {{ country }} </div>
-            </div>
             </div>
 
 
             <div class="cityFilter  filterCatWrapper">
-            <div class="cityFilter__optionsWrapper  filterOptionsWrapper">
-                <div class="cityFilter__option  filterOptionsWrapper__filterOption"> Filter By City
-                    <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByCityInput = []">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+                <div class="cityFilter__optionsWrapper  filterOptionsWrapper">
+                    <div class="cityFilter__option  filterOptionsWrapper__filterOption"> Filter By City
+                        <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByCityInput = []">  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
+                    </div>
+                    <div class="cityFilter__option  filterOptionsWrapper__filterOption" *ngFor='let city of cities'   
+                    [ngClass]="{ filterOptionSelected : filterByCityInput.indexOf(city) !== -1 }" (click)='addOrRemoveCity(city)'> {{ city }} </div>
                 </div>
-                <div class="cityFilter__option  filterOptionsWrapper__filterOption" *ngFor='let city of cities'   
-                [ngClass]="{ filterOptionSelected : filterByCityInput.indexOf(city) !== -1 }" (click)='addOrRemoveCity(city)'> {{ city }} </div>
-            </div>
             </div>
 
-    </div>  <!-- filterbody -->
-    </div> <!-- filterWrapper -->
+        </div> <!-- filterbody -->
 
+    </div> 
 
 
     <table class="table">
-
         <thead>
             <tr>
                 <th>ID</th>
@@ -56,7 +55,6 @@
         </thead>
 
         <tbody *ngFor='let address of addressList | filterByCountry:filterByCountryInput | filterByCity: filterByCityInput ; let i = index'>
-
             <tr class="tbodyRow">
                 <td class="tbodyRow__id">          {{ address.id }} </td>
                 <td class="tbodyRow__name">        {{ address.name }} </td>
@@ -66,11 +64,10 @@
                 <td class="tbodyRow__postalCode">  {{ address.postalCode }}  </td>
                 <td class="tbodyRow__country">     {{ address.country }}</td>
                 <td class="tbodyRow__phone">       {{ address.phone }}</td>
-                <td class="editIconCell" #logoCell  appBalanceTableStyle>
+                <td class="editIconCell"  appBalanceTableStyle>
                     <svg class="editIconCell__editTaskIcon" (click)='onModifyAddress(i+1)'> <use xlink:href="/assets/symbol-defs.svg#icon-document-edit"></use> </svg> 
                 </td>
             </tr>
-
         </tbody>
 
         

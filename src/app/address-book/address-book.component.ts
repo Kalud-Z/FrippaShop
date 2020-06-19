@@ -1,12 +1,14 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { Address } from './address.model';
-import { AuthService } from '../login/_services/auth.service';
-import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AddressCrudService } from './_services/address-crud.service';
-import { DataStorageService } from '../shared/_services/data-storage.service';
-import { routeSlideStateTrigger } from '../shared/_animations/animations';
+
+import { environment } from 'src/environments/environment';
+
 import { SynchUIService } from '../_services/synch-ui.service';
+import { AuthService } from '../login/_services/auth.service';
+import { DataStorageService } from '../shared/_services/data-storage.service';
+import { AddressCrudService } from './_services/address-crud.service';
+import { Address } from './address.model';
+import { routeSlideStateTrigger } from '../shared/_animations/animations';
 
 @Component({
   selector: 'app-address-book',
@@ -16,25 +18,22 @@ import { SynchUIService } from '../_services/synch-ui.service';
     routeSlideStateTrigger
   ]
 })
+
 // ##########################################################################################################################################################
 export class AddressBookComponent implements OnInit { //#####################################################################################################
+  @HostBinding('@routeSlideState') routeAnimation = true;
+  
   addressList : Address[] = [];
-
   currentUser : string;
   adminName : string;
-  showFilterCrl : boolean;
   countries : string[] = []
   cities    : string[] = []
-
-  @HostBinding('@routeSlideState') routeAnimation = true;
-
+  
   filterByCountryInput: string[] = [];
   filterByCityInput:    string[] = [];
-
-  clickInsideHeader = false;
-
   
-  // ########################################################################################################
+  clickInsideHeader = false;
+  showFilterCrl : boolean;
 
   constructor(private addressCrudService : AddressCrudService,
               private authService : AuthService,
@@ -44,51 +43,30 @@ export class AddressBookComponent implements OnInit { //########################
               private synchUIService : SynchUIService
               ) { }
 
+
   ngOnInit(): void {
     this.addressCrudService.addressSubject.subscribe(data => { 
       this.addressList = data;
       this.synchUIService.isComponentLoadingSubject.next(false);
-      console.log('we just got data back for address ts')
       if(data !== null) {
         this.countries = this.buildCountriesArray();
         this.cities    = this.buildCitiesArray();
       }
     })
-
-    this.addressCrudService.getAddressList();
-    
-    this.currentUser = this.authService.currentUserName;
-    this.adminName = environment.khaledName;
-
-    
     this.synchUIService.clickInsideHeaderSubject.subscribe(data =>  this.clickInsideHeader = data )
     this.synchUIService.onAddNewRowSubject.subscribe(() =>  this.onAddAddress() )
     this.synchUIService.showFilterSubject.subscribe(() => this.showFilter() )
-  }
 
-  clickedOutsideHeader() {
-    // console.log('clickedOutsideHeader is called')
-    this.clickInsideHeader = false;
-  }
-
-  mouseEnterHeader() {
-    // console.log('mouseEnterHeader is called')
-    setTimeout(() => {
-      this.clickInsideHeader = true;
-    }, 20);
-  }
-
-  mouseLeaveHeader() {
-    // console.log('mouseLEaverHeader is called')
-    this.clickedOutsideHeader();
+    this.addressCrudService.getAddressList();
+    this.currentUser = this.authService.currentUserName;
+    this.adminName = environment.khaledName;
   }
 
   
   addOrRemoveCountry(country : string) {
     let indexOfTarget =  this.filterByCountryInput.indexOf(country);
-    if(indexOfTarget === -1) {
-      this.filterByCountryInput = [...this.filterByCountryInput , country];
-    } else {
+    if(indexOfTarget === -1) { this.filterByCountryInput = [...this.filterByCountryInput , country] }
+    else {
       this.filterByCountryInput.splice(indexOfTarget , 1);
       this.filterByCountryInput = [...this.filterByCountryInput];
     }
@@ -97,18 +75,39 @@ export class AddressBookComponent implements OnInit { //########################
   
   addOrRemoveCity(city : string) {
     let indexOfTarget =  this.filterByCityInput.indexOf(city);
-    if(indexOfTarget === -1) {
-      this.filterByCityInput = [...this.filterByCityInput , city];
-    } else {
+    if(indexOfTarget === -1) { this.filterByCityInput = [...this.filterByCityInput , city] }
+    else {
       this.filterByCityInput.splice(indexOfTarget , 1);
       this.filterByCityInput = [...this.filterByCityInput];
     }
   }
 
 
+  onAddAddress() {
+    if(this.currentUser === this.adminName && this.clickInsideHeader) {
+      this.router.navigate(['new-address'] , { relativeTo :  this.route } );
+    }
+  }
 
 
-  buildCountriesArray () {
+  onModifyAddress(id : number) {
+    if(this.currentUser === this.adminName ) {
+      setTimeout(() => {
+        this.router.navigate(['new-address/' + id ] , { relativeTo :  this.route } );
+      }, 20);
+    }
+  }
+  
+
+  resetAllFilters() {
+    this.filterByCountryInput = [];
+    this.filterByCityInput = [];
+  }
+  
+
+
+  // #######################################################    PRIVATE   #####################################################################################
+  private buildCountriesArray () {
     // console.log(' we are in builcoutry ,  this is the list : ' , this.addressList)
     let finalArray : string[] = [];
     this.addressList.forEach(el => {
@@ -121,8 +120,7 @@ export class AddressBookComponent implements OnInit { //########################
   }
 
 
-  
-  buildCitiesArray () {
+  private buildCitiesArray () {
     let finalArray : string[] = [];
     
     this.addressList.forEach(el => {
@@ -135,54 +133,14 @@ export class AddressBookComponent implements OnInit { //########################
   }
 
 
-
-
-
-  onAddAddress() {
-    if(this.currentUser === this.adminName && this.clickInsideHeader) {
-      this.router.navigate(['new-address'] , { relativeTo :  this.route } );
-    }
-  }
-
-
-  onModifyAddress(id : number) {
-    console.log('modify noww')
-    if(this.currentUser === this.adminName ) {
-      setTimeout(() => {
-        this.router.navigate(['new-address/' + id ] , { relativeTo :  this.route } );
-      }, 20);
-    }
-  }
-
-  
-  showFilter() {
+  private showFilter() {
     if(this.clickInsideHeader) {
       this.showFilterCrl = true
     }
   }
-  
-
-  resetAllFilters() {
-    this.filterByCountryInput = [];
-    this.filterByCityInput = [];
-  }
-  
-
-
-  storeData() {
-    // console.log('in storeeee')
-    this.ds.storeAddressList(this.addressCrudService.addressList).subscribe( data => {
-      console.log(data)
-    })
-  }
 
 
 
 
-}  // class #################################################################################################################################################
-
-
-
-
-
-
+}  //####################################################################################################################################################  
+// class #################################################################################################################################################

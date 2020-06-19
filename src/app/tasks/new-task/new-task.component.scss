@@ -3,19 +3,16 @@
 
 
 :host {
-    transform: scale(1);
+    background-color: rgba(255, 0, 0, 0.479);
     z-index: 99999;
+    height: 100vh;
+    width: 100vw;
+    transform: scale(1);
     position: fixed;
     top:0;
     right: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(255, 0, 0, 0.479);
+    
     @include flexCenter;
-}
-
-* {
-    // border: 1px solid black;
 }
 
 
@@ -23,252 +20,155 @@
 .form {
     border-radius: 5px;
     background-color: $lightColor-main ;
-    font-size: 1.3rem;
     border:1px solid rgba(0, 0, 0, 0.363);
-    padding: 2rem 3rem;
+    
     display: flex;
     flex-direction: column;
-    // flex-direction: column;
-    
+    font-size: 1.3rem;
+    padding: 2rem 3rem;
 
-    &__ExitLogo-container {
+    &__exitIconWrapper {
         position: relative;
         height: 3rem;
-        // background-color: red;
-        @include respond(phone) {
-            height: 1rem;
-        }
+        @include respond(phone) { height: 1rem }
     }
 
-    &__ExitLogo {
+    &__exitIcon {
         position: absolute;
         top: -50%;
-        right: -7%;
+        right: -4%;
         height: 2rem;
         width: 2rem;
         align-self: flex-end;
         cursor: pointer;
-        @include respond(phone) {
-            top: -174%;
-            right: -8%;
-        }
+        @include respond(phone) { top: -174%; right: -8% }
     }
 
-
     &__body {
-        // background-color: yellow;
         white-space: nowrap;
         @include flexCenter;
+        @include respond(phone) { flex-direction: column }
         align-items: stretch;
         & > *:not(:last-child) { 
             margin-right: 3rem;
+            @include respond(phone) { margin-right: 0; margin-bottom: 1.8rem }
+        }
+
+                
+        .selectType {
+            display: flex;
+            flex-direction: column;
+
+            &__text {
+                align-self: center;
+            }
+
+            &__optionsWrapper {
+                margin-top: 1.4rem;
+            }
+
+            &__option {
+                transition: all 0.2s;
+                cursor: addButton;
+                padding: 1rem 2rem;
+                background-color: #d0ffc6;
+                border:1px solid transparent;
+                &:not(:last-child) { margin-bottom: .5rem; }
+
+                &:hover {
+                    background-color: #c6d9ff ;
+                }
+
+                &-selected {
+                    background-color: #c6d9ff !important;
+                    border:1px solid #003bb3 !important;
+                }
+
+            }
+
+        }
+
+        .seperationLine {
+            border-right: 1px solid rgba(128, 128, 128, 0.24);
+            height: 20rem;
+            align-self: center;
             @include respond(phone) {
-                margin-right: 0;
-                margin-bottom: 1.8rem;
-                // background-color: red;
+                border-top: 1px solid rgba(128, 128, 128, 0.493);
+                border-right: 1px solid transparent;
+                width: 20rem;
+                height: 0rem;
             }
         }
-        // & > *:not(:last-child) { margin-right: 0rem; }
-        @include respond(phone) { flex-direction: column }
+        
+        .textareaFormGroup {
+            display: flex;
+            flex-direction: column;
 
-      
-    }
-
-    &__select {
-        cursor: pointer;
-        & option {
-            cursor: pointer;
-            font-size: 1.4rem;
+            & label  {
+                align-self:center;
+                margin-bottom: 1.4rem;
+            }
+            
+            & textarea {
+                resize: none;
+                padding: 1rem;
+            }
         }
-    }
 
-    &__vertical-line {
-        border-right: 1px solid rgba(128, 128, 128, 0.24);
-        height: 20rem;
-        align-self: center;
-        @include respond(phone) {
-            border-top: 1px solid rgba(128, 128, 128, 0.493);
-            border-right: 1px solid transparent;
-            width: 20rem;
-            height: 0rem;
+        .alreadySent {
+            display: flex;
+            flex-direction: column;
+
+            &__text {
+                margin-bottom: 1.4rem;
+                align-self: center;
+            }
+
+            &__option {
+                text-align: center;
+                transition: all 0.2s;
+                cursor: pointer;
+                padding: 1rem 2rem;
+                background-color: #d0ffc6;
+                border:1px solid transparent;
+                &:not(:last-child) { margin-bottom: .5rem }
+
+                &:hover { background-color: #c6d9ff }
+
+                &-selected {
+                    background-color: #c6d9ff !important;
+                    border:1px solid #003bb3 !important;
+                }
+            }
         }
+
     }
 
-    &__radioButton {
-        cursor: pointer;
-    }
 
     &__footer {
         margin-top: 2rem;
         margin-bottom: 2rem;
-        @include flexCenter;
+
         position: relative;
+        @include flexCenter;
 
         &__deleteButton{
            position: absolute;
            right:-3%;
            top: 140%;
            @include respond(tab-port) { top : 127% }
-           @include respond(phone) {
-               top : 124%;
-               right:-7%;
-            //    font-siz
-            }
+           @include respond(phone) { top : 124%; right:-7% }
         }
     }
 
-
-} //form
-
-
-
-.f {
-    background-color: red;
-    border:1px solid black;
-    width: 10rem;
-}
-
-
-.textareaFormGroup {
-    display: flex;
-    flex-direction: column;
-
-    & label  {
-        align-self:center;
-        margin-bottom: 1.4rem;
-    }
-    
-    & textarea {
-        resize: none;
-        padding: 1rem;
-    }
-}
-
-.label {
-    font-size: 1.6rem;
-}
-
-.SelectType {
-    display: flex;
-    flex-direction: column;
-
-    &__text {
-        align-self: center;
-    }
-
-    &__optionsWrapper {
-        margin-top: 1.4rem;
-    }
-
-    &__option {
-        transition: all 0.2s;
-        cursor: addButton;
-        padding: 1rem 2rem;
-        background-color: #d0ffc6;
-        border:1px solid transparent;
-        &:not(:last-child) { margin-bottom: .5rem; }
-
-        &:hover {
-            background-color: #c6d9ff ;
-        }
-        
-    }
-
-}
-
-.option-selected {
-    background-color: #c6d9ff !important;
-    border:1px solid #003bb3 !important;
-}
-
-
-.alreadySent {
-    display: flex;
-    flex-direction: column;
-
-    &__text {
-        margin-bottom: 1.4rem;
-        align-self: center;
-    }
-
-    &__option {
-        text-align: center;
-        transition: all 0.2s;
-        cursor: pointer;
-        padding: 1rem 2rem;
-        background-color: #d0ffc6;
-        border:1px solid transparent;
-        &:not(:last-child) { margin-bottom: .5rem; }
-
-        &:hover {
-            background-color: #c6d9ff ;
-        }
-    }
-}
+} 
 
 
 
-// buttons ###############################################################################################################################
+
+// ############################################         UTITLITY CLASSES            ###################################################################
 
 
-
-.disable-button {
-    -webkit-filter:opacity(60%);
-            filter:opacity(60%);
-    cursor: not-allowed;
-
-    &:hover {
-        border-color:transparent;
-    }
-}
-
-
-// #######################################################################################################################################
-
-
-.popupContainer {
-    position: fixed;
-    top:0;
-    right:0;
-    height: 100vh;
-    width: 100vw;
-    @include flexCenter;
-    background-color:  rgba(0, 0, 0, 0.623);
-}
-
-.popup__body {
-    border-radius: 7px;
-    font-size: 1.5rem;
-    background-color:pink;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 3rem;
-    margin-bottom: 33rem;
-    @include respond(tab-land) { margin-bottom: 0rem }
-
-    &__question {
-        margin-bottom: 2rem;
-    }
-
-    &__optionsContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-    }
-    
-    &__button {
-        &:first-child { margin-right: 3rem; }
-        font-size: inherit;
-
-    }
-
-    
-    
-
-}
-
+.label { font-size: 1.6rem }
 
 

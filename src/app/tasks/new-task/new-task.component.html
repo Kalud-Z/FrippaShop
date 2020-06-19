@@ -1,27 +1,24 @@
 
-
 <form class="form"  (clickOutside)='onExitEntryView($event)'>
-
-    <div class="form__ExitLogo-container">
-        <svg class="form__ExitLogo" (click)='onExitEntryView($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+    <div class="form__exitIconWrapper">
+        <svg class="form__exitIcon" (click)='onExitEntryView($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
     </div>
 
 
     <div class="form__body">
-
-        <div class="SelectType">
-            <p class="SelectType__text label"> Select Type : </p>
-            <div class="SelectType__optionsWrapper">
-                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'transaction' }" (click)="taskType ='transaction'">  Transaction</div>
-                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'shoes' }"       (click)="taskType ='shoes'" >       Shoes Collected</div>
-                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'watch' }"       (click)="taskType ='watch'" >       Watch Collected</div>
-                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'other' }"       (click)="taskType ='other'" >       Other Item Collected</div>
-                <div class="SelectType__option" [ngClass]= "{ 'option-selected' : taskType === 'shipment' }"    (click)="taskType ='shipment'" >    Shipment</div>
+        <div class="selectType">
+            <p class="selectType__text label"> Select Type : </p>
+            <div class="selectType__optionsWrapper">
+                <div class="selectType__option" [ngClass]= "{ 'selectType__option-selected' : taskType === 'transaction' }" (click)="taskType ='transaction'">  Transaction</div>
+                <div class="selectType__option" [ngClass]= "{ 'selectType__option-selected' : taskType === 'shoes' }"       (click)="taskType ='shoes'" >       Shoes Collected</div>
+                <div class="selectType__option" [ngClass]= "{ 'selectType__option-selected' : taskType === 'watch' }"       (click)="taskType ='watch'" >       Watch Collected</div>
+                <div class="selectType__option" [ngClass]= "{ 'selectType__option-selected' : taskType === 'other' }"       (click)="taskType ='other'" >       Other Item Collected</div>
+                <div class="selectType__option" [ngClass]= "{ 'selectType__option-selected' : taskType === 'shipment' }"    (click)="taskType ='shipment'" >    Shipment</div>
             </div>
         </div>
 
 
-        <div class="form__vertical-line"></div>
+        <div class="seperationLine"></div>
 
 
         <div class="formGroup textareaFormGroup">
@@ -31,20 +28,23 @@
         </div>
 
 
-        <div class="form__vertical-line"></div>
+        <div class="seperationLine"></div>
 
 
         <div class="alreadySent">
             <p class="alreadySent__text label"> Already Sent ? </p>
-            <div class="alreadySent__option" [ngClass]="{'option-selected' : alreadySent }"        (click)="alreadySent = true" > Yes </div>
-            <div class="alreadySent__option" [ngClass]="{'option-selected' : !this.alreadySent }"  (click)="alreadySent = false" > Not Yet </div>
+            <div class="alreadySent__option" [ngClass]="{'alreadySent__option-selected' : alreadySent }"        (click)="alreadySent = true" > Yes </div>
+            <div class="alreadySent__option" [ngClass]="{'alreadySent__option-selected' : !this.alreadySent }"  (click)="alreadySent = false" > Not Yet </div>
         </div>
 
     </div>
             
     <div class="form__footer">
-        <button type="button" class="defaultButton form__footer__addButton" (click)='onAddTask()'  [ngClass]="{'disable-button' : !formValid}">   {{ modifyEntryView ? 'Update Task' : 'Add New Task' }} </button>
-        <button type="button" class="defaultButton removeEntryButton form__footer__deleteButton" (click)='onDeleteTask()' *ngIf='modifyEntryView; else temp'>  Delete Task Permanently </button>
+        <button type="button" class="defaultButton form__footer__addButton" 
+        [ngClass]="{ disableButton : !formValid}" (click)='onAddTask()'>   {{ modifyEntryView ? 'Update Task' : 'Add New Task' }} </button>
+
+        <button type="button" class="removeEntryButton  defaultButton  form__footer__deleteButton" 
+        *ngIf='modifyEntryView; else temp' (click)='onDeleteTask()'>  Delete Task Permanently </button>
         <ng-template #temp></ng-template>
     </div>
     

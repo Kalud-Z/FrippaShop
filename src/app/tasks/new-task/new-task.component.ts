@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, HostBinding, HostListener, ElementRef } from "@angular/core";
-import { tasksCrudService } from "../_services/tasks-crud.service";
+import { Component, OnInit, HostBinding } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
+
+import { tasksCrudService } from "../_services/tasks-crud.service";
 import { Task } from "../task.model";
 import { AuthService } from 'src/app/login/_services/auth.service';
 import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations/animations';
 import { SynchUIService } from 'src/app/_services/synch-ui.service';
+
 
 @Component({
   selector: "app-new-task",
@@ -16,20 +18,18 @@ import { SynchUIService } from 'src/app/_services/synch-ui.service';
   ]
 })
 
+
 // ###################################################################################################################################################
 export class NewTaskComponent implements OnInit {  //###################################################################################################
+  @HostBinding('@createNewState') routeAnimation = true;
+
   taskType: string;
   details: string;
   alreadySent: boolean;
   currentID: number;
 
-
-  // modifyTaskView: boolean;
   modifyEntryView: boolean;
-
   formValid: boolean = false;
-
-  @HostBinding('@createNewState') routeAnimation = true;
 
 
   constructor(
@@ -39,6 +39,7 @@ export class NewTaskComponent implements OnInit {  //###########################
     private route: ActivatedRoute,
     private synchUIService : SynchUIService
   ) { }
+
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -59,11 +60,8 @@ export class NewTaskComponent implements OnInit {  //###########################
 
 
   ngDoCheck() {
-    if (!this.taskType || !this.details || this.alreadySent === undefined) {
-      this.formValid = false;
-    } else {
-      this.formValid = true;
-    }
+    if (!this.taskType || !this.details || this.alreadySent === undefined) { this.formValid = false }
+    else { this.formValid = true }
   }
 
 
@@ -76,9 +74,9 @@ export class NewTaskComponent implements OnInit {  //###########################
         this.router.navigate(["../"]);
       }
     }
-
   }
   
+
 
   onDeleteTask() {
     if (this.authService.currentUserName === 'khaled') {
@@ -86,6 +84,8 @@ export class NewTaskComponent implements OnInit {  //###########################
       this.router.navigate(["../../"]);
     }
   }
+
+  
 
   onExitEntryView(event) {
     console.log('we closing');
@@ -99,12 +99,7 @@ export class NewTaskComponent implements OnInit {  //###########################
     }
   }
 
-  // onPopupYes() {
-  //   this.router.navigate(["../"]);
-  // }
-  // onPopupNo() {
-  //   this.popupView = false;
-  // }
+  
 
 
   // ########################################  PRIVATE METHODS ###############################################################################
@@ -113,10 +108,6 @@ export class NewTaskComponent implements OnInit {  //###########################
     this.taskType = type;
     this.details = details;
     this.alreadySent = alreadySent;
-  }
-
-  private hasNumber(myString) {
-    return /\d/.test(myString);
   }
 
 
@@ -131,9 +122,6 @@ export class NewTaskComponent implements OnInit {  //###########################
   private showPopupView() {
     this.synchUIService.showPopupViewSubject.next(true);
   }
-
-
-
 
 
 

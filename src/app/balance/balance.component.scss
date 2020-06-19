@@ -105,16 +105,6 @@
 }
 
 
-.table td, .table th {
-    border: 1px solid $mediumColor-darker;
-    padding: .5rem 1rem;
-}
-
-tr td { text-align: center }
-
-.table tr:last-child td:first-child { border-bottom: none }
-
-
 .monthRowWrapper {
     background: $darkColor-darker;
     font-size: 1.5rem;

@@ -106,12 +106,7 @@
 
 }
 
-.table td, .table th {
-    border: 1px solid $mediumColor-darker;
-    padding: .5rem 1rem;
-}
 
-.table tr:last-child td:first-child { border-bottom: none }
 
 tr td:not(:nth-last-child(3)) { text-align: center }
 

@@ -1,9 +1,10 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+
 import { Address } from '../address.model';
+import { SynchUIService } from 'src/app/_services/synch-ui.service';
 import { AddressCrudService } from '../_services/address-crud.service';
 import { createNewTrigger, popupWindowTrigger } from 'src/app/shared/_animations/animations';
-import { SynchUIService } from 'src/app/_services/synch-ui.service';
 
 @Component({
   selector: 'app-new-address',
@@ -15,8 +16,8 @@ import { SynchUIService } from 'src/app/_services/synch-ui.service';
   ]
 })
 
-// 
-export class NewAddressComponent implements OnInit { //############################################################################################
+// #####################################################################################################################################################
+export class NewAddressComponent implements OnInit { //################################################################################################
   @HostBinding('@createNewState') routeAnimation = true;
 
   name : string 
@@ -31,7 +32,6 @@ export class NewAddressComponent implements OnInit { //#########################
   currentAddress : Address;
 
   modifyEntryView: boolean;
-
 
   constructor(private route : ActivatedRoute,
               private router : Router,
@@ -85,10 +85,7 @@ export class NewAddressComponent implements OnInit { //#########################
   }
 
 
-
-  onDeleteTask() {
-    this.addressCrudService.deleteAddress(this.currentID)
-  }
+  onDeleteTask() { this.addressCrudService.deleteAddress(this.currentID) }
 
   
   // #####################################################       PRIVATE       #############################################################################
@@ -107,9 +104,7 @@ export class NewAddressComponent implements OnInit { //#########################
 
 
 
-
-
 } // class #############################################################################################################################################
-
+// ####################################################################################################################################################
 
 

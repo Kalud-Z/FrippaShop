@@ -1,171 +1,98 @@
 
+<form  #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)" class="form"  (clickOutside)='onExitEntryView($event)'>
+    <div class="form__exitIconWrapper">
+        <svg class="form__exitIcon" (click)='onExitEntryView($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+    </div>
 
+    <div class="form__body">
 
-    <!-- Form   ########################################################################################################################################### -->
-    <!-- ################################################################################################################################################## -->
-        <form  #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)" class="form"  (clickOutside)='onExitEntryView($event)'>
-        <div class="form__ExitLogo-container">
-            <svg class="form__ExitLogo" (click)='onExitEntryView($event)'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
+        <div class="formGroup">
+            <div class="formGroup__body">
+                <label for="spent"> Name </label>
+                <input type="text" name="name" id="name" [(ngModel)]='name' required>
+            </div>
+            <div class="seperationLine"></div>
         </div>
-    
-        <div class="form__body">
 
-            <div class="form__group">
-                <div class="form__group__body">
-                    <label for="spent"> Name </label>
-                    <input type="text" name="name" id="name" [(ngModel)]='name' required>
-                </div>
-                <div class="form__vertical-line"></div>
+
+        <div class="formGroup">
+            <div class="formGroup__body">
+                <label for="city"> City </label>
+                <input type="text" name="city" id="city" [(ngModel)]='city' required>
             </div>
-    
-            
-        
-            <div class="form__group">
-                <div class="form__group__body">
-                    <label for="city"> City </label>
-                    <input type="text" name="city" id="city" [(ngModel)]='city' required>
-                </div>
-                <div class="form__vertical-line" ></div>
-            </div>
-        
-            
-        
-        
-            <div class="form__group">
-                <div class="form__group__body">
-                    <label for="country"> Country </label>
-                    <input type="text" name="country" id="country" [(ngModel)]='country' required>
-                </div>
-                <div class="form__vertical-line" ></div>
-            </div>
-
-        
-        
-            <div class="form__group">
-                <div class="form__group__body">
-                    <label for="postalCode"> Postal Code </label>
-                    <input type="number" name="postalCode" id="postalCode" [(ngModel)]='postalCode' required>
-                </div>
-                <div class="form__vertical-line" ></div>
-            </div>
-
-            
-        
-        
-            <div class="form__group">
-                <div class="form__group__body">
-                    <label for="street"> Street </label>
-                    <input type="text" name="street" id="street" [(ngModel)]='street' required>
-                </div>
-                <div class="form__vertical-line" ></div>
-            </div>
-
-
-            
-        
-        
-            <div class="form__group">
-                <div class="form__group__body">
-                    <label for="houseNr"> House Nr° </label>
-                    <input type="houseNr" name="houseNr" id="houseNr" [(ngModel)]='houseNr' required>
-                </div>
-                <div class="form__vertical-line" ></div>
-            </div>
-
-            
-        
-        
-            <div class="form__group">
-                <div class="form__group__body">
-                    <label for="phone"> Phone </label>
-                    <input type="phone" name="phone" id="phone" [(ngModel)]='phone' required>
-                </div>
-                <div class="form__vexrtical-line" ></div>
-            </div>
-
-
-            <div class="form__group hidden-form__group">
-                <div class="form__group__body">
-                    <label for="phone"> Phone </label>
-                    <input type="phone" name="phone" id="phone" [(ngModel)]='phone' required>
-                </div>
-                <div class="form__vertical-line" ></div>
-            </div>
-
-
-        </div> <!-- form__body -->
-        
-    
-        <div class="form__footer">
-            <button type="submit" class="defaultButton saveButton" [disabled]="saveForm.invalid"> {{ modifyEntryView ? 'Update' : 'Save' }}  </button>
-            <button class="defaultButton removeEntryButton form__footer__deleteButton" (click)='onDeleteTask()' *ngIf='modifyEntryView; else temp'>  Delete Permanently </button>
-            <ng-template #temp></ng-template>
+            <div class="seperationLine" ></div>
         </div>
-           
-        </form>
-    
-    
-    
 
-        <app-are-you-sure-you-wanna-exit></app-are-you-sure-you-wanna-exit>
-            
-    <!-- Popup   ########################################################################################################################################### -->
-        <!-- <div class="popupContainer" *ngIf='popupView' @popupWindowState>
-    
-            <div class="popup__body">
-    
-            <p  class="popup__body__question"> Are you sure U wanna exit ? </p>
-    
-            <div class="popup__body__optionsContainer">
-                <button type="button" class="defaultButton popup__body__button" (click)='onPopupYes()'> Yes    </button>
-                <button type="button" class="defaultButton popup__body__button" (click)='onPopupNo()' > Continue Editing</button>
+
+        <div class="formGroup">
+            <div class="formGroup__body">
+                <label for="country"> Country </label>
+                <input type="text" name="country" id="country" [(ngModel)]='country' required>
             </div>
-            
-        </div> 
-        </div> -->
+            <div class="seperationLine" ></div>
+        </div>
 
 
-    
-    
-<!-- </div>  -->
-<!-- container -->
+        <div class="formGroup">
+            <div class="formGroup__body">
+                <label for="postalCode"> Postal Code </label>
+                <input type="number" name="postalCode" id="postalCode" [(ngModel)]='postalCode' required>
+            </div>
+            <div class="seperationLine" ></div>
+        </div>
+        
+
+        <div class="formGroup">
+            <div class="formGroup__body">
+                <label for="street"> Street </label>
+                <input type="text" name="street" id="street" [(ngModel)]='street' required>
+            </div>
+            <div class="seperationLine" ></div>
+        </div>
 
 
+        <div class="formGroup">
+            <div class="formGroup__body">
+                <label for="houseNr"> House Nr° </label>
+                <input type="houseNr" name="houseNr" id="houseNr" [(ngModel)]='houseNr' required>
+            </div>
+            <div class="seperationLine" ></div>
+        </div>
+
+
+        <div class="formGroup ">
+            <div class="formGroup__body">
+                <label for="phone"> Phone </label>
+                <input type="phone" name="phone" id="phone" [(ngModel)]='phone' required>
+            </div>
+            <div class="seperationLine"></div>
+        </div>
+
+<!--  -->
+        <div class="formGroup hideFormGroup ">
+            <div class="formGroup__body">
+                <label for="phone"> Phone </label>
+                <input type="phone" name="phone" id="phone" [(ngModel)]='phone' required>
+            </div>
+            <div class="seperationLine" ></div>
+        </div>
+
+
+    </div> <!-- form__body -->
+
+
+    <div class="form__footer">
+        <button type="submit" class="defaultButton saveButton" [disabled]="saveForm.invalid"> {{ modifyEntryView ? 'Update' : 'Save' }}  </button>
+
+        <button class="defaultButton removeEntryButton form__footer__deleteButton"  *ngIf='modifyEntryView; else temp' 
+        (click)='onDeleteTask()'>  Delete Permanently </button>
+        <ng-template #temp></ng-template>
+    </div>
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <!-- 
-    
-         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="loginForm" >
-        
-                <p> Login to your account </p>
-        
-                <div class="loginForm__inputGroup">
-                    <label for="email"> Email</label>
-                    <input type="email" id="email" ngModel name="email" required email>
-                </div>
-        
-                <div class="loginForm__inputGroup">
-                    <label for="password"> Password </label>
-                    <input type="password"  id="password" ngModel name="password" required>
-                </div> 
-        
-                <button type="submit" class="loginForm__button" [disabled]="loginForm.invalid"> Login </button>
-        
-            </form>
-        
-    
-    
-     -->
-    
-    
-    
-    
+</form>
+
+
+
+
+<app-are-you-sure-you-wanna-exit></app-are-you-sure-you-wanna-exit>
     

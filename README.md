@@ -1,27 +1,37 @@
+
 # FrippaShop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+is a WebApp built with Angular 9.
+It serves as data management system for a small-time retail company.
 
-## Development server
+### Implemented Features & Techniques :
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Data fetched and stored from Firebase Realtime Database.
+* CRUD operations, to modify, delete and update data.
+* Angular Animation is used for smoother transition between different routes.
+* Styling templates made-easy via Sass and heavy use of Flexbox.
+* Routes are protected via Route Guards. Hence, user authentication is required.
+* Custom Directives are implemented to access and manipulate the DOM (for UI purposes)
+* Custom Pipes are created for filtering and properly formatting the data.
+* Multiple Services are used for proper state management. 
+* Pre-loading feature modules is implemented for faster UI rendering.
+* App is fully responsive and ideal for use on mobile devices.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+__________________________________________________________________
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+![](AppPreviewScreenshots/intro.png)
 
-## Running unit tests
+__________________________________________________________________
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![](AppPreviewScreenshots/table.png)
 
-## Running end-to-end tests
+__________________________________________________________________
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+![](AppPreviewScreenshots/addNew.png)
 
-## Further help
+__________________________________________________________________
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+![](AppPreviewScreenshots/filter.png)
+

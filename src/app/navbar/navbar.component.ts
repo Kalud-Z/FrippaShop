@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit { //#############################
 
   ngOnInit(){
     this.synchUIService.isComponentLoadingSubject.subscribe(data => {
-      this.isLoadingTemp = data;
+       this.isLoadingTemp = data;
     })
   }
   
@@ -46,9 +46,7 @@ export class NavbarComponent implements OnInit { //#############################
   }
 
 
-  onLogout() {
-    this.authService.logout();
-  }
+  onLogout() { this.authService.logout() }
 
 
   showLoadingSpinner(moduleClicked : string) {
@@ -62,26 +60,13 @@ export class NavbarComponent implements OnInit { //#############################
 
   }
 
-  clickedOutsideNav() {
-    // console.log('clickedOutsideNav is called')
-    this.clickInsideNav = false;
-  }
-
-  // navClicked() {
-  //   // console.log('navClicked is called')
-  //   // this.clickInsideNav = true;
-  // }
+  clickedOutsideNav() { this.clickInsideNav = false }
 
   mouseEnterNav() {
-    setTimeout(() => {
-      this.clickInsideNav = true;
-    }, 10);
+    setTimeout(() => { this.clickInsideNav = true }, 10);
   }
 
-  mouseLeaveNav() {
-    // console.log('mouseLeave is called')
-    this.clickedOutsideNav();
-  }
+  mouseLeaveNav() {  this.clickedOutsideNav() }
 
 
 } //class####################################################################################################################################################

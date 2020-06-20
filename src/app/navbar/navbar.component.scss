@@ -2,9 +2,6 @@
 @import 'src/mixins.scss' ;
 
 
-* {
-    // border : 1px solid black;
-}
 
 .container {
     z-index: 200;
@@ -18,26 +15,24 @@
     justify-content: flex-start;
 }
 
+
 .nav {
     border-top-right-radius: 1rem; 
     border-bottom-right-radius: 1rem; 
     cursor: pointer;
-    font-size: 2rem;
     width: fit-content;
+    
+    font-size: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: .45s all ease-out;
     position: relative;
-    @include respond(phone) {
-        font-size: 3rem;
-    }
+    @include respond(phone) { font-size: 3rem }
 
     & > *:not(:last-child) {
-        @include respond(phone) {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.185);
-        }
+        @include respond(phone) {  border-bottom: 1px solid rgba(0, 0, 0, 0.185) }
     }
 
     &:hover , &:active {
@@ -51,13 +46,14 @@
         background-color: $darkColor-main;
         &:first-child {  border-top-right-radius: 1rem; }
         &:nth-last-child(2)  {  border-bottom-right-radius: 1rem; }
-        padding: 1rem 2rem ;
         transition: all .3s;
         outline: none;
         width: 100%;
-        @include flexCenter;
-        position: relative;
+        
         font-family: 'Merriweather Sans', sans-serif;
+        @include flexCenter;
+        padding: 1rem 2rem ;
+        position: relative;
         opacity: 0.4;
         &:hover  &__text { opacity: 1;}
         @include respond(phone) { padding: 1.5rem 3rem }
@@ -65,29 +61,21 @@
         &__text , & svg { opacity: 0.4;}
         &__text {  margin-right: 2rem; }
 
-        & svg  {
+        &__icon  {
             height:2rem;
             width:2rem;
             margin-left: auto;
             fill: currentColor;
-            @include respond(phone) {
-                height:3rem;
-                width:3rem;
-            }
+            @include respond(phone) { height:3rem;  width:3rem }
         }
-
-        &__logoPlaceHolder {
-            height:2rem;
-            width:2rem;
-            margin-left: auto;
-            fill: currentColor;
-        }
-        
 
     }
 }
 
 
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // #ff6550   ,   #50ffa5  , #7950ff , #ffbc50
 
 .tasks {
@@ -151,50 +139,30 @@
 
 
 
-.activeLogoAndText {
-    opacity: 1 !important;
-}
-
-
-.activeItem {
-    opacity: 1 !important;
-    .nav__item tasks:hover & {
-        background-color: red !important;
-    }
-}
-
-
-.hideNavBar {
-    display:none;
-}
-
-
-.hidden {
-    opacity: 0 !important;
-}
-
-.show {
-    opacity: 1 !important;
-}
-
-
 app-loading-spinner-login {
-    // background-color: red;
     opacity: 0;
     position: absolute;
     top:50%;
     right:0%;
     transform: translate(-30%, -43%);
-    @include respond(phone) {
-        transform: translate(-83%, -43%);
-    }
-
+    @include respond(phone) {  transform: translate(-83%, -43%) }
 }
 
 
+// ###########################################################################################################################################
 
+.activeLogoAndText {  opacity: 1 !important }
 
+.elementUnclickable { pointer-events: none!important }
 
+.activeItem {
+    opacity: 1 !important;
+    .nav__item tasks:hover & { background-color: red !important }
+}
 
+.hideNavBar { display: none }
 
+.hidden { opacity: 0 !important }
+
+.show { opacity: 1 !important }
 

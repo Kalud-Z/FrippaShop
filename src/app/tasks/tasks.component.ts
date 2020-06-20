@@ -1,14 +1,16 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-import { DataStorageService } from '../shared/_services/data-storage.service';
 import { AuthService } from '../login/_services/auth.service';
 import { Task } from './task.model';
 import { tasksCrudService } from './_services/tasks-crud.service';
 import { routeSlideStateTrigger } from '../shared/_animations/animations';
 import { SynchUIService } from '../_services/synch-ui.service';
+
 
 @Component({
   selector: 'app-tasks',
@@ -20,7 +22,7 @@ import { SynchUIService } from '../_services/synch-ui.service';
 })
 
 // ###########################################################################################################################################################
-export class TasksComponent implements OnInit  { //###########################################################################################################
+export class TasksComponent implements OnInit , OnDestroy  { //###########################################################################################################
   @HostBinding('@routeSlideState') routeAnimation = true;
 
   tasks: Task[];
@@ -41,6 +43,7 @@ export class TasksComponent implements OnInit  { //#############################
   showFilterCrl : boolean = false;
   inFilterMode = false;
 
+  destroy$ = new Subject<boolean>();
 
   constructor(private authService : AuthService,
               private tasksCrudService : tasksCrudService,
@@ -51,13 +54,13 @@ export class TasksComponent implements OnInit  { //#############################
 
 
   ngOnInit(): void {
-    this.tasksCrudService.tasksListChangedSubject.subscribe(data => {
+    this.tasksCrudService.tasksListChangedSubject.pipe(takeUntil(this.destroy$)).subscribe(data => {
       this.tasks = data;
       this.synchUIService.isComponentLoadingSubject.next(false);  // now , hopefully , template is fully rendered , so now we stop the loading spinner
     })
-    this.synchUIService.clickInsideHeaderSubject.subscribe(data =>  this.clickInsideHeader = data )
-    this.synchUIService.onAddNewRowSubject.subscribe(() =>  this.onAddNewTask() )
-    this.synchUIService.showFilterSubject.subscribe(() => this.showFilter() )
+    this.synchUIService.clickInsideHeaderSubject.pipe(takeUntil(this.destroy$)).subscribe(data =>  this.clickInsideHeader = data )
+    this.synchUIService.onAddNewRowSubject.pipe(takeUntil(this.destroy$)).subscribe(() =>  this.onAddNewTask() )
+    this.synchUIService.showFilterSubject.pipe(takeUntil(this.destroy$)).subscribe(() => this.showFilter() )
 
     this.tasksCrudService.getTasksList();
     this.currentUser = this.authService.currentUserName;
@@ -68,6 +71,12 @@ export class TasksComponent implements OnInit  { //#############################
   ngDoCheck() {
     if(this.filterByMonthInput.length === 0) { this.inFilterMode = false } 
     else { this.inFilterMode = true  }
+  }
+
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 

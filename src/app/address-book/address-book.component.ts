@@ -1,7 +1,9 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { SynchUIService } from '../_services/synch-ui.service';
 import { AuthService } from '../login/_services/auth.service';
@@ -20,7 +22,7 @@ import { routeSlideStateTrigger } from '../shared/_animations/animations';
 })
 
 // ##########################################################################################################################################################
-export class AddressBookComponent implements OnInit { //#####################################################################################################
+export class AddressBookComponent implements OnInit , OnDestroy { //#####################################################################################################
   @HostBinding('@routeSlideState') routeAnimation = true;
   
   addressList : Address[] = [];
@@ -35,6 +37,8 @@ export class AddressBookComponent implements OnInit { //########################
   clickInsideHeader = false;
   showFilterCrl : boolean;
 
+  destroy$ = new Subject<boolean>();
+
   constructor(private addressCrudService : AddressCrudService,
               private authService : AuthService,
               private router : Router,
@@ -45,7 +49,7 @@ export class AddressBookComponent implements OnInit { //########################
 
 
   ngOnInit(): void {
-    this.addressCrudService.addressSubject.subscribe(data => { 
+    this.addressCrudService.addressSubject.pipe(takeUntil(this.destroy$)).subscribe(data => { 
       this.addressList = data;
       this.synchUIService.isComponentLoadingSubject.next(false);
       if(data !== null) {
@@ -53,13 +57,19 @@ export class AddressBookComponent implements OnInit { //########################
         this.cities    = this.buildCitiesArray();
       }
     })
-    this.synchUIService.clickInsideHeaderSubject.subscribe(data =>  this.clickInsideHeader = data )
-    this.synchUIService.onAddNewRowSubject.subscribe(() =>  this.onAddAddress() )
-    this.synchUIService.showFilterSubject.subscribe(() => this.showFilter() )
+    this.synchUIService.clickInsideHeaderSubject.pipe(takeUntil(this.destroy$)).subscribe(data =>  this.clickInsideHeader = data )
+    this.synchUIService.onAddNewRowSubject.pipe(takeUntil(this.destroy$)).subscribe(() =>  this.onAddAddress() )
+    this.synchUIService.showFilterSubject.pipe(takeUntil(this.destroy$)).subscribe(() => this.showFilter() )
 
     this.addressCrudService.getAddressList();
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;
+  }
+
+  
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   

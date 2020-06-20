@@ -1,61 +1,57 @@
 
-
 <div class="container">
 
-    <div class="form-wrapper" [ngClass]="{'showForm-wrapper' : currentUserEmail }">
-    <!-- <div class="form-wrapper" [ngClass]="{'showForm-wrapper' : true }"> -->
+    <div class="formContainer" [ngClass]="{'formContainer-show' : currentUserEmail }">
 
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="loginForm" >
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="loginForm" >
 
-        <p> Login to your account</p>
+            <p> Login to your account</p>
 
-        <div class="loginForm__inputGroup">
-            <label for="email"> Email </label>
-            <input type="email" id="email" ngModel name="email" required email [(ngModel)]='initialEmail'>
-        </div>
+            <div class="loginForm__inputGroup">
+                <label for="email"> Email </label>
+                <input type="email" id="email" ngModel name="email" required email [(ngModel)]='initialEmail'>
+            </div>
 
-        <div class="loginForm__inputGroup">
-            <label for="password"> Password </label>
-            <input type="password"  id="password" ngModel name="password" required>
-        </div> 
+            <div class="loginForm__inputGroup">
+                <label for="password"> Password </label>
+                <input type="password"  id="password" ngModel name="password" required>
+            </div> 
 
-        <button type="submit" class="loginForm__button" [disabled]="loginForm.invalid"> Login 
-        <app-loading-spinner-login *ngIf='isLoading' class='loginView' ></app-loading-spinner-login>
-        </button>
+            <button type="submit" class="loginForm__button" [disabled]="loginForm.invalid"> Login 
+            <app-loading-spinner-login class='loginView'  *ngIf='isLoading' ></app-loading-spinner-login>
+            </button>
 
-
-    </form>
-
-
-
+        </form>
 
     </div>
  
 
 
-    <div class="usersWrapper">
-        <div class="usersWrapper__imageWrapper">
-            <img src="/assets/ahmed-pic.jpg" alt="" class="usersWrapper__imageWrapper__image" 
-            [ngClass]="{ 'usersWrapper__imageWrapper__image-ahmed' : currentUserEmail ,  'userNotSelected' : currentUserName !== 'ahmed' && currentUserName }" 
-            (click)='ahmedLogin()' >
+    <div class="usersContainer">
+        <div class="imageWrapper">
+            <img src="/assets/ahmed-pic.jpg"  class="imageWrapper__image" 
+            [ngClass]="{ 'imageWrapper__image-ahmed' : currentUserEmail ,
+            'imageWrapper__image-userNotSelected' : currentUserName !== 'ahmed' && currentUserName }" 
+            (click)='ahmedLogin()'>
         </div>
 
-        <div class="usersWrapper__imageWrapper">
-            <img src="/assets/khaled-pic-small.jpg" alt="" class="usersWrapper__imageWrapper__image usersWrapper__imageWrapper__image-khaled"
-            [ngClass]="{ 'usersWrapper__imageWrapper__image-khaled' : currentUserEmail , 'userNotSelected' : currentUserName !== 'khaled' && currentUserName }" (click)='khaledLogin()'>
+        <div class="imageWrapper">
+            <img src="/assets/khaled-pic-small.jpg"  class="imageWrapper__image imageWrapper__image-khaled"
+            [ngClass]="{ 'imageWrapper__image-khaled' : currentUserEmail , 
+            'imageWrapper__image-userNotSelected' : currentUserName !== 'khaled' && currentUserName }" 
+            (click)='khaledLogin()'>
         </div>
 
 
     </div>
 
 
+    <!-- background design -->
+    <div class="backgroundLayer backgroundLayer-1" appCutLayer></div>
+    <div class="backgroundLayer backgroundLayer-2"></div>
+    <div class="backgroundLayer backgroundLayer-3" appCutLayer></div>
 
- <div class="layer layer-1" appCutLayer></div>
- <div class="layer layer-2"></div>
- <div class="layer layer-3" appCutLayer></div>
 
-
-    
 </div>
 
 

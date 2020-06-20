@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild, HostBinding } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { AuthService } from './_services/auth.service';
+import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataStorageService } from '../shared/_services/data-storage.service';
+import { NgForm } from '@angular/forms';
+
+import { AuthService } from './_services/auth.service';
 import { environment } from 'src/environments/environment';
+
 import { routeSlideStateTrigger } from '../shared/_animations/animations';
+
 
 @Component({
   selector: 'app-login',
@@ -15,15 +16,13 @@ import { routeSlideStateTrigger } from '../shared/_animations/animations';
     routeSlideStateTrigger
   ]
 })
-// #############################################################################################################################################################
-export class LoginComponent implements OnInit { //##############################################################################################################
-// AIzaSyDIVA6P44Okinr0qT4z9XzJCpzX1qRDuwo
-  userSub : Subscription;
-  token : string;
-  id : string;
 
+// #############################################################################################################################################################
+export class LoginComponent  { //##############################################################################################################
   @HostBinding('@routeSlideState') routeAnimation = true;
 
+  token : string;
+  id : string;
 
   currentUserName : string;
   currentUserEmail : string;
@@ -31,18 +30,9 @@ export class LoginComponent implements OnInit { //##############################
 
   isLoading = false;
 
-  constructor(private authService: AuthService,
-              private router : Router,
-              private dataStorageService : DataStorageService
-              ) { }
+  constructor(private authService: AuthService, private router : Router) { }
 
  
-  ngOnInit(): void {
-    // this.authService.autoLogin();
-  }
-
-
-
   onSubmit(loginForm : NgForm) {
     const email    = loginForm.value.email;
     const password = loginForm.value.password;
@@ -50,26 +40,13 @@ export class LoginComponent implements OnInit { //##############################
     this.isLoading = true;
     this.authService.login(email , password).subscribe(data => {
       this.isLoading = false;
-      
-      if(data.email === environment.ahmedEmail) {
-        this.authService.currentUserName = environment.ahmedName;
-      } 
-      
-      if(data.email === environment.khaledEmail) {
-        this.authService.currentUserName = environment.khaledName;
-      } 
-      
-      
+      if(data.email === environment.ahmedEmail) { this.authService.currentUserName = environment.ahmedName } 
+      if(data.email === environment.khaledEmail) { this.authService.currentUserName = environment.khaledName } 
       this.router.navigate(['/tasks']);
-
     } , errorMessage => {
         this.isLoading = false;
         alert(errorMessage);
     } );  //handling error.
-
-
-   
-
   
   }  // onSubmit()
 
@@ -83,7 +60,6 @@ export class LoginComponent implements OnInit { //##############################
     this.currentUserEmail = environment.khaledEmail;
     this.currentUserName = 'khaled';
   }
-
 
   ngDoCheck() {
     if(this.currentUserEmail) {

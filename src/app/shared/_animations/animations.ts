@@ -4,7 +4,7 @@ import { trigger, style, transition, animate, query, group, stagger, keyframes }
 export const routeSlideStateTrigger = trigger('routeSlideState', [
     transition(':enter' , [
         group([
-            query('.table , .filterContainer , .header , .form-wrapper , .usersWrapper' , [
+            query('.table , .filterContainer , .header , .formContainer , .usersContainer' , [
                 style({
                     opacity : 0
                 }),
@@ -17,7 +17,7 @@ export const routeSlideStateTrigger = trigger('routeSlideState', [
     ]), //transition
   
     transition(':leave' , [
-        query('.table , .filterContainer , .header ,  .form-wrapper , .usersWrapper' , [
+        query('.table , .filterContainer , .header ,  .formContainer , .usersContainer' , [
             animate('.85s' , style({
                 opacity : 0
             }))

@@ -2,56 +2,44 @@
 @import 'src/mixins.scss' ;
 
 
-* {
-    // border: 1px solid black;
-}
-
-
-:host {
-    flex: 1 ;
-    // display : block;
-}
-
-
-.container {
-    // position: fixed;
-    height:100%;
-    width: 100%;
-    // background-color: rgb(238, 229, 229);
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    position:  relative;
-
-}
-
-.layer {
-    height:100%;
-    width:100%;
-    position  :absolute;
-    top:0;
-    right:0;
-    // opacity: 0.7;
-
 /*     
-
 $lightColor-main :   #c6ffec;
 $lightColor-lighter :   #c6ffec;
 $lightColor-darker :   #c6ffec;
-
 
 $mediumColor-main :   #ffecc6;
 $mediumColor-lighter :   #3FFED4;
 $mediumColor-darker :   rgb(9, 122, 98);
 
-
-
 $darkColor-main :   #ffc6ec;
 $darkColor-lighter :   #FFD7F1;
 $darkColor-darker :   #E5B2D4;
 
-
  */
+
+
+
+:host { flex: 1 }
+
+
+.container {
+    height:100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position:  relative;
+}
+
+
+
+.backgroundLayer {
+    height:100%;
+    width:100%;
+    position  :absolute;
+    top:0;
+    right:0;
 
     &-1 {
         background-color: $mediumColor-lighter;
@@ -61,24 +49,107 @@ $darkColor-darker :   #E5B2D4;
     &-2 {
         background-color: $darkColor-lighter;
         z-index: 10;
-        
     }
 
     &-3 {
         background-color: $lightColor-main;
         z-index: 30;
-
-
     }
 }
 
 
-.usersWrapper {
+
+.formContainer {
+    transition: all .8s ease-out;
+    z-index: 200;
+    position: absolute;
+    top:-50%;
+    left:50%;
+    transform: translate(-50% , -50%);
+    
+    &-show {
+        top:50% !important;
+        @include respond(phone) { top:30% !important }
+    }
+
+    .loginForm {
+        border: 3px solid rgba(0, 0, 255, 0.171);
+        width: 30rem;
+        
+        display: flex;
+        flex-direction: column;
+        padding: 1.4rem;
+    
+        & p {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 800;
+            color: black;
+        }
+    
+        &__inputGroup {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+    
+            & label {
+                margin-bottom: .65rem;
+                font-weight: lighter;
+            }
+    
+            & input {
+                padding: .55rem;
+                font-size: 1.5rem;
+                border: 1px solid  #CCCCCC;
+                background-color: #FFFFFF;
+                color: #000000;
+                box-shadow: 0px 0px 5px rgba(66,66,66,.75);
+                &:focus {  outline:none; }
+            }
+        }
+    
+        &__button {
+            margin-top: 2rem;
+            box-shadow: 0px 1px 0px 0px #f0f7fa;
+            background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+            background-color:#33bdef;
+            border-radius:6px;
+            border:1px solid #057fd0;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:1.5rem;
+            font-weight:bold;
+            padding:1rem 2rem;
+            text-decoration:none;
+            text-shadow:0px -1px 0px #5b6178;
+            position: relative;
+            outline: none;
+    
+            &:hover {
+                background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+                background-color:#019ad2;
+            }
+    
+            &:active {
+                position:relative;
+                top:1px;
+            }
+        }
+      
+    
+    }//loginform ##########
+}
+
+
+
+.usersContainer {
     z-index: 100;
     @include flexCenter;
     padding: 2rem;
 
-    &__imageWrapper {
+    .imageWrapper {
         &:not(:last-child) { margin-right: 5rem; }
 
         &__image {
@@ -88,10 +159,7 @@ $darkColor-darker :   #E5B2D4;
             height:25rem;
             transform: translateX(0) translateY(0) scale(1);
             transition: all .4s;
-            @include respond(phone) { 
-                height:20rem;
-            }
-
+            @include respond(phone) {  height:20rem }
 
             &:hover {
                 transform: translateX(0) translateY(0) scale(1.2);
@@ -102,6 +170,9 @@ $darkColor-darker :   #E5B2D4;
                 transform:translateX(0%) translateY(0) scale(1.15);
                 @include respond(phone) { transform:translateX(0%) translateY(0) scale(1); }
             }
+
+    
+            &-userNotSelected { opacity: 0.5 }
 
             &-ahmed {
                 transform: translateX(-100%) translateY(0) scale(1);
@@ -120,104 +191,11 @@ $darkColor-darker :   #E5B2D4;
                     @include respond(phone) { transform: translateX(12%) translateY(76%) scale(1.2); }
                 }   
             }
-
-
         }
-
     }
 }
 
 
-.showForm-wrapper {
-    top:50% !important;
-    @include respond(phone) {
-        top:30% !important;
-    }
-}
-
-.form-wrapper {
-    transition: all .8s ease-out;
-    z-index: 200;
-    position: absolute;
-    top:-50%;
-    left:50%;
-    transform: translate(-50% , -50%);
-}
-
-.loginForm {
-    padding: 1.4rem;
-    width: 30rem;
-    border: 3px solid rgba(0, 0, 255, 0.171);
-    display: flex;
-    flex-direction: column;
-
-    & p {
-        margin-bottom: 2rem;
-        font-size: 2rem;
-        font-weight: 800;
-        color: black;
-    }
-
-    &__inputGroup {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 2rem;
-
-        & label {
-            margin-bottom: .65rem;
-            font-weight: lighter;
-        }
-
-        & input {
-            // padding: 5px;
-            padding: .55rem;
-            font-size: 1.5rem;
-            border: 1px solid  #CCCCCC;
-            background-color: #FFFFFF;
-            color: #000000;
-            box-shadow: 0px 0px 5px rgba(66,66,66,.75);
-
-            &:focus {  outline:none; }
-        }
-    }
-
-
-    &__button {
-        margin-top: 2rem;
-        box-shadow: 0px 1px 0px 0px #f0f7fa;
-        background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
-        background-color:#33bdef;
-        border-radius:6px;
-        border:1px solid #057fd0;
-        display:inline-block;
-        cursor:pointer;
-        color:#ffffff;
-        font-family:Arial;
-        font-size:1.5rem;
-        font-weight:bold;
-        padding:1rem 2rem;
-        text-decoration:none;
-        text-shadow:0px -1px 0px #5b6178;
-        position: relative;
-        outline: none;
-
-        &:hover {
-            background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
-            background-color:#019ad2;
-        }
-        &:active {
-            position:relative;
-            top:1px;
-        }
-    }
-  
-
-}//loginform ##########
-
-
-.userNotSelected {
-    opacity: 0.5;
-}
 
 
 

@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { popupWindowTrigger } from '../_animations/animations';
 import { SynchUIService } from 'src/app/_services/synch-ui.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-are-you-sure-you-wanna-exit',
@@ -15,6 +17,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 // #########################################################################################################################################################
 export class AreYouSureYouWannaExitComponent implements OnInit { //#########################################################################################
   popupView = false;
+  destroy$ = new Subject<boolean>();
 
   constructor(private synchUIService : SynchUIService,
               private router : Router,
@@ -23,7 +26,13 @@ export class AreYouSureYouWannaExitComponent implements OnInit { //#############
 
 
   ngOnInit() {
-    this.synchUIService.showPopupViewSubject.subscribe(data => { this.popupView = data  })
+    this.synchUIService.showPopupViewSubject.pipe(takeUntil(this.destroy$)).subscribe(data => { this.popupView = data })
+  }
+
+  
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 
@@ -36,9 +45,8 @@ export class AreYouSureYouWannaExitComponent implements OnInit { //#############
     this.synchUIService.showPopupViewSubject.next(false);
   }
 
+
   onPopupNo() { this.popupView = false }
-
-
 
 
 }  //#####################################################################################################################################################

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AuthService } from '../login/_services/auth.service';
-import { tasksCrudService } from '../tasks/_services/tasks-crud.service';
 import { SynchUIService } from '../_services/synch-ui.service';
 
 @Component({
@@ -9,16 +9,17 @@ import { SynchUIService } from '../_services/synch-ui.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
+
 // #########################################################################################################################################################
 export class NavbarComponent implements OnInit { //###########################################################################################################################
-  hideNavBar : boolean;
   currentURL  : string;
+  module : string;
+  
+  hideNavBar : boolean;
+  clickInsideNav = false;
   isLoading = false;
   isLoadingTemp : boolean;
-  module : string;
 
-  clickInsideNav = false;
-  // clickInsideNav = false;
 
   constructor(private router : Router ,
               private authService : AuthService,

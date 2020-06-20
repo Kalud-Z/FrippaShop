@@ -1,7 +1,10 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 
 import { DataStorageService } from '../shared/_services/data-storage.service';
 import { AuthService } from '../login/_services/auth.service';
@@ -20,7 +23,7 @@ import { SynchUIService } from '../_services/synch-ui.service';
 })
 
 // #######################################################################################################################################################
-export class BalanceComponent implements OnInit { //########################################################################################################
+export class BalanceComponent implements OnInit , OnDestroy { //########################################################################################################
   @HostBinding('@routeSlideState') routeAnimation = true;
   balanceItemsList: BalanceItem[];
 
@@ -36,6 +39,7 @@ export class BalanceComponent implements OnInit { //############################
   filterByMonthInput: string[] = [];
   filterByYearInput: number;
 
+  destroy$ = new Subject<boolean>();
 
   constructor(private balanceCrudService: BalanceCrudService,
               private dt: DataStorageService,
@@ -46,13 +50,13 @@ export class BalanceComponent implements OnInit { //############################
               ) { }
 
   ngOnInit(): void {
-    this.balanceCrudService.balanceItemSubject.subscribe(data => {
+    this.balanceCrudService.balanceItemSubject.pipe(takeUntil(this.destroy$)).subscribe(data => {
       this.balanceItemsList = data 
       this.synchUIService.isComponentLoadingSubject.next(false);
     })
-    this.synchUIService.clickInsideHeaderSubject.subscribe(data =>  this.clickInsideHeader = data )
-    this.synchUIService.onAddNewRowSubject.subscribe(() =>  this.onAddBalanceItem() )
-    this.synchUIService.showFilterSubject.subscribe(() => this.showFilter() )
+    this.synchUIService.clickInsideHeaderSubject.pipe(takeUntil(this.destroy$)).subscribe(data =>  this.clickInsideHeader = data )
+    this.synchUIService.onAddNewRowSubject.pipe(takeUntil(this.destroy$)).subscribe(() =>  this.onAddBalanceItem() )
+    this.synchUIService.showFilterSubject.pipe(takeUntil(this.destroy$)).subscribe(() => this.showFilter() )
     this.balanceCrudService.getBalanceItemsList();
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;
@@ -65,14 +69,10 @@ export class BalanceComponent implements OnInit { //############################
   }
 
 
-  clickedOutsideHeader() { this.clickInsideHeader = false }
-
-
-  mouseEnterHeader() {
-    setTimeout(() => { this.clickInsideHeader = true }, 20);
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
-
-  mouseLeaveHeader() { this.clickedOutsideHeader() }
 
 
   onAddBalanceItem() {
@@ -93,12 +93,10 @@ export class BalanceComponent implements OnInit { //############################
 
   
   displayDateRow(i : number , items : BalanceItem[]) {
-    if(i < (items.length - 1)) {
-      if(items[i].date.getMonth() !==  items[i+1].date.getMonth()) {  return true } else { return false }
+    if(i < (items.length - 1)) { 
+       if(items[i].date.getMonth() !==  items[i+1].date.getMonth()) { return true } else { return false }
     }
-    else {
-      return false
-    }
+    else { return false }
   }
 
 
@@ -106,7 +104,7 @@ export class BalanceComponent implements OnInit { //############################
 
 // ##############################################          filter Methods         ##########################################################################
 
-  showFilter() {
+  private showFilter() {
     if(this.clickInsideHeader) {
       this.showFilterCrl = true
     }

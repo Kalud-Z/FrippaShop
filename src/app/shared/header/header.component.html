@@ -2,18 +2,20 @@
 
 <div class="header" (clickOutside)='clickedOutsideHeader()'  (mouseenter)="mouseEnterHeader()"  (mouseleave)="mouseLeaveHeader()" >
     <button class="defaultButton headerButtons storeDataButton" 
-        [ngClass]="{'hideElement' : currentUser !== adminName }" > Save Changes 
-       <div class="header__logoWrapper header__saveLogo"> <svg [ngClass]="{ 'hideElement' : currentUser !== adminName}">  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use> </svg> </div>
+        [ngClass]="{ hideElement : currentUser !== adminName }" > Save Changes 
+       <div class="header__iconWrapper  header__saveIcon"> 
+           <svg [ngClass]="{ hideElement : currentUser !== adminName}">  <use xlink:href="/assets/symbol-defs.svg#icon-upload"></use></svg>
+        </div>
     </button>
 
     <button class="defaultButton headerButtons addNewTaskButton" 
-        [ngClass]="{ 'hideElement' : currentUser !== adminName}" (click)='onAddNewRow()'> Add new Entry
-        <div class="header__logoWrapper header__addLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-folder-add"></use> </svg>  </div>
+        [ngClass]="{ hideElement : currentUser !== adminName}" (click)='onAddNewRow()'> Add new Entry
+        <div class="header__iconWrapper  header__addIcon"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-folder-add"></use> </svg>  </div>
     </button>
 
     <button class="defaultButton headerButtons filterButton" 
         (click)='showFilter()'> Filter
-        <div class="header__logoWrapper header__filterLogo"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> </div>
+        <div class="header__iconWrapper  header__filterIcon"> <svg>  <use xlink:href="/assets/symbol-defs.svg#icon-filter"></use> </svg> </div>
     </button>
 </div>
 

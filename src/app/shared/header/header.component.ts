@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/login/_services/auth.service';
+
 import { environment } from 'src/environments/environment';
+
+import { AuthService } from 'src/app/login/_services/auth.service';
 import { SynchUIService } from 'src/app/_services/synch-ui.service';
+
 
 @Component({
   selector: 'app-header',
@@ -13,11 +16,8 @@ import { SynchUIService } from 'src/app/_services/synch-ui.service';
 export class HeaderComponent implements OnInit  { //##########################################################################################################################
   currentUser : string;
   adminName : string;
-  
-
 
   constructor(private authService : AuthService, private synchUIService : SynchUIService) { }
-
 
   ngOnInit() {
     this.currentUser = this.authService.currentUserName;
@@ -25,42 +25,21 @@ export class HeaderComponent implements OnInit  { //############################
   }
 
 
-
-
-  clickedOutsideHeader() {
-    // this.clickInsideHeader = false;
-    this.synchUIService.clickInsideHeader$.next(false)
-  }
+  clickedOutsideHeader() { this.synchUIService.clickInsideHeader$.next(false) }
 
 
   mouseEnterHeader() {
-    setTimeout(() => {
-      // this.clickInsideHeader = true;
-    this.synchUIService.clickInsideHeader$.next(true)
-    }, 20);
+    setTimeout(() => { this.synchUIService.clickInsideHeader$.next(true) }, 20);
   }
 
 
-  mouseLeaveHeader() {
-    this.clickedOutsideHeader();
-  }
+  mouseLeaveHeader() { this.clickedOutsideHeader() }
 
 
-  showFilter() {
-    // if(this.clickInsideHeader) {
-    //   this.showFilterCrl = true
-    // }
-    this.synchUIService.showFilter$.next(true)
-  }
+  showFilter() { this.synchUIService.showFilter$.next(true) }
 
 
-  onAddNewRow() {
-    // if(this.currentUser === this.adminName && this.clickInsideHeader ) {
-    //   console.log('we are now going to new task')
-    //   this.router.navigate(['new-task'] , { relativeTo :  this.route } );
-    // }
-    this.synchUIService.onAddNewRow$.next(true)
-  }
+  onAddNewRow() {  this.synchUIService.onAddNewRow$.next(true) }
 
 
 

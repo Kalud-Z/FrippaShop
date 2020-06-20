@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class BalanceCrudService { //######################################################################################################################
   balanceItemsList: BalanceItem[] = [];
   sentDataToTBalanceNow = false;
-  balanceItemSubject = new Subject<BalanceItem[]>();
+  balanceItem$ = new Subject<BalanceItem[]>();
 
   constructor(private dataStorageService: DataStorageService) { }
 
@@ -117,7 +117,7 @@ export class BalanceCrudService { //############################################
 
   // ####################################################################  PRIVATE ###################################################################
 
-  private BalanceItemsListUpdatedNotify()  { this.balanceItemSubject.next(this.balanceItemsList.slice()) }
+  private BalanceItemsListUpdatedNotify()  { this.balanceItem$.next(this.balanceItemsList.slice()) }
 
 
   private pushToList (data: any[]) {

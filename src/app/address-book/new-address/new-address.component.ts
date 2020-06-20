@@ -99,7 +99,7 @@ export class NewAddressComponent implements OnInit { //#########################
   }
 
   private showPopupView() {
-    this.synchUIService.showPopupViewSubject.next(true);
+    this.synchUIService.showPopupView$.next(true);
   }
 
 

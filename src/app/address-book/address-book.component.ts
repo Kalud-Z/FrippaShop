@@ -49,17 +49,17 @@ export class AddressBookComponent implements OnInit , OnDestroy { //############
 
 
   ngOnInit(): void {
-    this.addressCrudService.addressSubject.pipe(takeUntil(this.destroy$)).subscribe(data => { 
+    this.addressCrudService.address$.pipe(takeUntil(this.destroy$)).subscribe(data => { 
       this.addressList = data;
-      this.synchUIService.isComponentLoadingSubject.next(false);
+      this.synchUIService.isComponentLoading$.next(false);
       if(data !== null) {
         this.countries = this.buildCountriesArray();
         this.cities    = this.buildCitiesArray();
       }
     })
-    this.synchUIService.clickInsideHeaderSubject.pipe(takeUntil(this.destroy$)).subscribe(data =>  this.clickInsideHeader = data )
-    this.synchUIService.onAddNewRowSubject.pipe(takeUntil(this.destroy$)).subscribe(() =>  this.onAddAddress() )
-    this.synchUIService.showFilterSubject.pipe(takeUntil(this.destroy$)).subscribe(() => this.showFilter() )
+    this.synchUIService.clickInsideHeader$.pipe(takeUntil(this.destroy$)).subscribe(data =>  this.clickInsideHeader = data )
+    this.synchUIService.onAddNewRow$.pipe(takeUntil(this.destroy$)).subscribe(() =>  this.onAddAddress() )
+    this.synchUIService.showFilter$.pipe(takeUntil(this.destroy$)).subscribe(() => this.showFilter() )
 
     this.addressCrudService.getAddressList();
     this.currentUser = this.authService.currentUserName;

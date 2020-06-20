@@ -54,13 +54,13 @@ export class TasksComponent implements OnInit , OnDestroy  { //#################
 
 
   ngOnInit(): void {
-    this.tasksCrudService.tasksListChangedSubject.pipe(takeUntil(this.destroy$)).subscribe(data => {
+    this.tasksCrudService.tasksListChanged$.pipe(takeUntil(this.destroy$)).subscribe(data => {
       this.tasks = data;
-      this.synchUIService.isComponentLoadingSubject.next(false);  // now , hopefully , template is fully rendered , so now we stop the loading spinner
+      this.synchUIService.isComponentLoading$.next(false);  // now , hopefully , template is fully rendered , so now we stop the loading spinner
     })
-    this.synchUIService.clickInsideHeaderSubject.pipe(takeUntil(this.destroy$)).subscribe(data =>  this.clickInsideHeader = data )
-    this.synchUIService.onAddNewRowSubject.pipe(takeUntil(this.destroy$)).subscribe(() =>  this.onAddNewTask() )
-    this.synchUIService.showFilterSubject.pipe(takeUntil(this.destroy$)).subscribe(() => this.showFilter() )
+    this.synchUIService.clickInsideHeader$.pipe(takeUntil(this.destroy$)).subscribe(data =>  this.clickInsideHeader = data )
+    this.synchUIService.onAddNewRow$.pipe(takeUntil(this.destroy$)).subscribe(() =>  this.onAddNewTask() )
+    this.synchUIService.showFilter$.pipe(takeUntil(this.destroy$)).subscribe(() => this.showFilter() )
 
     this.tasksCrudService.getTasksList();
     this.currentUser = this.authService.currentUserName;

@@ -11,15 +11,15 @@ import { Subject, BehaviorSubject } from 'rxjs';
 export class SynchUIService {  //#########################################################################################################################
   constructor() { }
 
-  isComponentLoadingSubject = new Subject<boolean>();
+  isComponentLoading$ = new Subject<boolean>();
 
-  clickInsideHeaderSubject = new Subject<boolean>();
+  clickInsideHeader$ = new Subject<boolean>();
 
-  onAddNewRowSubject = new Subject<boolean>();
+  onAddNewRow$ = new Subject<boolean>();
 
-  showFilterSubject = new Subject<boolean>();
+  showFilter$ = new Subject<boolean>();
   
-  showPopupViewSubject = new BehaviorSubject<boolean>(false);
+  showPopupView$ = new BehaviorSubject<boolean>(false);
 
   modifyEntryView : boolean ;
 

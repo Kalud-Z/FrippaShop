@@ -50,13 +50,13 @@ export class BalanceComponent implements OnInit , OnDestroy { //################
               ) { }
 
   ngOnInit(): void {
-    this.balanceCrudService.balanceItemSubject.pipe(takeUntil(this.destroy$)).subscribe(data => {
+    this.balanceCrudService.balanceItem$.pipe(takeUntil(this.destroy$)).subscribe(data => {
       this.balanceItemsList = data 
-      this.synchUIService.isComponentLoadingSubject.next(false);
+      this.synchUIService.isComponentLoading$.next(false);
     })
-    this.synchUIService.clickInsideHeaderSubject.pipe(takeUntil(this.destroy$)).subscribe(data =>  this.clickInsideHeader = data )
-    this.synchUIService.onAddNewRowSubject.pipe(takeUntil(this.destroy$)).subscribe(() =>  this.onAddBalanceItem() )
-    this.synchUIService.showFilterSubject.pipe(takeUntil(this.destroy$)).subscribe(() => this.showFilter() )
+    this.synchUIService.clickInsideHeader$.pipe(takeUntil(this.destroy$)).subscribe(data =>  this.clickInsideHeader = data )
+    this.synchUIService.onAddNewRow$.pipe(takeUntil(this.destroy$)).subscribe(() =>  this.onAddBalanceItem() )
+    this.synchUIService.showFilter$.pipe(takeUntil(this.destroy$)).subscribe(() => this.showFilter() )
     this.balanceCrudService.getBalanceItemsList();
     this.currentUser = this.authService.currentUserName;
     this.adminName = environment.khaledName;

@@ -13,12 +13,12 @@ import { environment } from 'src/environments/environment';
 // ######################################################################################################################################################
 export class AddressCrudService { //####################################################################################################################
   addressList: Address[] = [];
-  addressSubject = new Subject<Address[]>();
+  address$ = new Subject<Address[]>();
   sentDataToAddressNow = false;
 
   constructor(private dataStorageService: DataStorageService) { }
   
-  private addressListUpdatedNotify()  { this.addressSubject.next(this.addressList.slice()) }
+  private addressListUpdatedNotify()  { this.address$.next(this.addressList.slice()) }
 
 
   addAddress(name: string , city : string , country : string , postalCode : number , street : string , houseNr : number , phone : string) {

@@ -26,7 +26,7 @@ export class AreYouSureYouWannaExitComponent implements OnInit { //#############
 
 
   ngOnInit() {
-    this.synchUIService.showPopupViewSubject.pipe(takeUntil(this.destroy$)).subscribe(data => { this.popupView = data })
+    this.synchUIService.showPopupView$.pipe(takeUntil(this.destroy$)).subscribe(data => { this.popupView = data })
   }
 
   
@@ -42,7 +42,7 @@ export class AreYouSureYouWannaExitComponent implements OnInit { //#############
     } else {
       this.router.navigate(['../'] , { relativeTo :  this.route } );
     }
-    this.synchUIService.showPopupViewSubject.next(false);
+    this.synchUIService.showPopupView$.next(false);
   }
 
 

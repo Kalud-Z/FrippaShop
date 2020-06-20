@@ -29,14 +29,14 @@ export class HeaderComponent implements OnInit  { //############################
 
   clickedOutsideHeader() {
     // this.clickInsideHeader = false;
-    this.synchUIService.clickInsideHeaderSubject.next(false)
+    this.synchUIService.clickInsideHeader$.next(false)
   }
 
 
   mouseEnterHeader() {
     setTimeout(() => {
       // this.clickInsideHeader = true;
-    this.synchUIService.clickInsideHeaderSubject.next(true)
+    this.synchUIService.clickInsideHeader$.next(true)
     }, 20);
   }
 
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit  { //############################
     // if(this.clickInsideHeader) {
     //   this.showFilterCrl = true
     // }
-    this.synchUIService.showFilterSubject.next(true)
+    this.synchUIService.showFilter$.next(true)
   }
 
 
@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit  { //############################
     //   console.log('we are now going to new task')
     //   this.router.navigate(['new-task'] , { relativeTo :  this.route } );
     // }
-    this.synchUIService.onAddNewRowSubject.next(true)
+    this.synchUIService.onAddNewRow$.next(true)
   }
 
 

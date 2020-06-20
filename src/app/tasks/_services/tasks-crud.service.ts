@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class tasksCrudService { //##########################################################################################################################
   tasksList: Task[] = [];
 
-  tasksListChangedSubject = new Subject<Task[]>();
+  tasksListChanged$ = new Subject<Task[]>();
 
   sentDataToTasksNow = false;
   
@@ -120,7 +120,7 @@ export class tasksCrudService { //##############################################
   // ###########################################################################   PRIVATE  ##################################################################
   
   private tasksChangedNotify() {
-    this.tasksListChangedSubject.next(this.tasksList.slice());
+    this.tasksListChanged$.next(this.tasksList.slice());
   }
 
 

@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit { //#############################
               ) { }
 
   ngOnInit(){
-    this.synchUIService.isComponentLoadingSubject.subscribe(data => {
+    this.synchUIService.isComponentLoading$.subscribe(data => {
        this.isLoadingTemp = data;
     })
   }

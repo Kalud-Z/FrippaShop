@@ -106,15 +106,12 @@ table : 80;
     .filterHeader {
         position: relative;
         margin-bottom: 4rem;
-        // background-color: red;
-        @include respond(phone) {  //added
-            margin-bottom: 6rem;
-        }
+        @include respond(phone) {  margin-bottom: 6rem }
 
         &__exitIcon {
             position: absolute;
             top: 0%;
-            right: -6%;
+            right: -46px;
             height: 2rem;
             width: 2rem;
             cursor: pointer;

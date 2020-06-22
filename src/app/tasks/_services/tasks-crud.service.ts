@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../task.model';
+
 import { Subject } from 'rxjs';
-import { DataStorageService } from '../../shared/_services/data-storage.service';
 import { environment } from 'src/environments/environment';
+
+
+
+import { DataStorageService } from '../../shared/_services/data-storage.service';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,30 +25,29 @@ export class tasksCrudService { //ng############################################
   constructor(private dataStorageService : DataStorageService) { }
 
 
-  setTasksList(newList: Task[]) {
-    newList.forEach(el => { this.tasksList.push(el) })
-    this.tasksChangedNotify();
-  }
+
 
   deleteTask(id : number) {
-      this.tasksList.forEach( (el, index) => {
+      this.tasksList.forEach((el, index) => {
         if(el.id === id) { this.tasksList.splice(index, 1) }
       })
       this.tasksChangedNotify();
+
       this.dataStorageService.storeTasksList(this.tasksList).subscribe(() => {
         localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
       });
   }
 
+
+
   createNewTaskAndPush(type: string, alreadySent: boolean , details: string , id?:number , date?: Date , state?: string) {
     let correctDate : Date;
     if(!date) { correctDate = new Date() }
     else { correctDate = date }
-
     const task = this.createNewTask(type, alreadySent, details , id , correctDate);
 
-    this.tasksList.push(task);
 
+    this.tasksList.push(task);
     if(this.sentDataToTasksNow) { this.tasksChangedNotify() }
 
     if(state && state === 'store') {
@@ -52,6 +57,7 @@ export class tasksCrudService { //ng############################################
     }
 
   } //createNewTask()
+
 
 
   updateTask(id : number , type: string, alreadySent: boolean , details: string) {
@@ -80,19 +86,16 @@ export class tasksCrudService { //ng############################################
   }
   
 
+
   getTasksList() {
     if(this.tasksList.length === 0 && environment.useLocalStorage) { // memory still empty . we fetch from localStorage (if we are allowed)
       const localStorageData = JSON.parse(localStorage.getItem('tasksList'));
-      console.log('we just fetched from localStorage and this the list : ' , localStorageData)
-      if(localStorageData && localStorageData.length !== 0) { 
-        this.pushToList(localStorageData)
-      }
+      if(localStorageData && localStorageData.length !== 0) {  this.pushToList(localStorageData) }
     }
 
-    if(this.tasksList.length > 0) {console.log('we just fetched from Memory') ;  this.tasksChangedNotify() }
+    if(this.tasksList.length > 0) { this.tasksChangedNotify() }
     else {  // fetch stuff from dataBase
         this.dataStorageService.fetchTasksList().subscribe(data => {
-        console.log('we just fetched from Database')
         this.pushToList(data);
         localStorage.setItem('tasksList', JSON.stringify(this.tasksList));
       })
@@ -124,6 +127,7 @@ export class tasksCrudService { //ng############################################
   }
 
 
+
   private createNewTask(type: string, alreadySent: boolean , details: string , id?:number , date?: Date) {
     let correctID : number;
     if(id)  { correctID = id }
@@ -132,6 +136,7 @@ export class tasksCrudService { //ng############################################
     const task = new Task(correctID , type , details , alreadySent , date);
     return task;
   }
+
 
 
   private pushToList(data: Array<any>) {
@@ -160,6 +165,41 @@ export class tasksCrudService { //ng############################################
     })
 
   }//pushToList
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

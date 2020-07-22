@@ -41,6 +41,7 @@ after each update of files in database. a function should sent a notification to
 
 * on firefox mobile : all tables are missing id column , and half of the second column !
 
+
 * scoll top and bottom functionality
 
 _____________________________________________________

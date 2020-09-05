@@ -88,7 +88,6 @@ export class NewTaskComponent implements OnInit {  //###########################
   
 
   onExitEntryView(event) {
-    console.log('we closing');
     if(
       event.target.className === "container" ||
       event.target.nodeName === "svg" ||

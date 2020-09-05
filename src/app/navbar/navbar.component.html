@@ -5,7 +5,7 @@
     <div class="nav__item tasks" [ngClass]="{ elementUnclickable : !clickInsideNav}"  
     routerLinkActive='activeItem'   routerLink="/tasks"  (click)="showLoadingSpinner('tasks')">
       <span class="nav__item__text" routerLinkActive='activeLogoAndText'> Tasks </span>
-      <app-loading-spinner-login class="nav__item__spinner navbarView"  [ngClass]="{show : isLoading && module === 'tasks' }"  ></app-loading-spinner-login>
+      <app-loading-spinner-login class="nav__item__spinner navbarView"  [ngClass]="{ show : isLoading && module === 'tasks' }"  ></app-loading-spinner-login>
       <svg class="nav__item__icon" routerLinkActive='activeLogoAndText' [ngClass]="{'hidden' : isLoading && module === 'tasks' }" > 
         <use xlink:href="/assets/symbol-defs.svg#icon-clipboard-edit"></use>
       </svg>

@@ -7,7 +7,6 @@ import { BalanceItem } from '../../balance/balanceItem.model';
 })
 export class FilterByYearPipe implements PipeTransform {
 
- 
   transform(tasks: Task[] | BalanceItem[], yearInput: number) {
     if (!yearInput) { return tasks }
 

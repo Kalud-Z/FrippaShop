@@ -182,9 +182,7 @@ table : 80;
                 right:0;
                 transition: all 0.2s;
 
-                &:hover {
-                    fill:rgb(214, 54, 54);
-                }
+                &:hover { fill:rgb(214, 54, 54) }
             }
 
                     
@@ -217,14 +215,10 @@ table : 80;
                     @include flexCenter;
                     border-bottom:1px solid transparent;
                     position: relative;
-
                 }
-
             }
-
         }
     }
-
 }
 
 .filterOptionSelected { background-color: #852d3c !important }

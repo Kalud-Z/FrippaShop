@@ -1,10 +1,10 @@
 import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { environment } from 'src/environments/environment';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
 import { AuthService } from '../login/_services/auth.service';
 import { Task } from './task.model';
 import { tasksCrudService } from './_services/tasks-crud.service';
@@ -22,7 +22,7 @@ import { SynchUIService } from '../_services/synch-ui.service';
 })
 
 // ###########################################################################################################################################################
-export class TasksComponent implements OnInit , OnDestroy  { //###########################################################################################################
+export class TasksComponent implements OnInit , OnDestroy  { //################################################################################################
   @HostBinding('@routeSlideState') routeAnimation = true;
 
   tasks: Task[];
@@ -94,11 +94,11 @@ export class TasksComponent implements OnInit , OnDestroy  { //#################
 
   addOrRemoveMonth(month : string) {
     let indexOfTarget =  this.filterByMonthInput.indexOf(month);
-    if(indexOfTarget === -1) {
+    if(indexOfTarget === -1) { //adding a month
       this.filterByMonthInput = [...this.filterByMonthInput , month];
-    } else {
+    } else {  // removing a month
       this.filterByMonthInput.splice(indexOfTarget , 1);
-      this.filterByMonthInput = [...this.filterByMonthInput];
+      this.filterByMonthInput = [...this.filterByMonthInput];  // I had to reassign it like this , otherwise the pipe wouldn't be triggered.
     }
   }
 
@@ -131,8 +131,8 @@ export class TasksComponent implements OnInit , OnDestroy  { //#################
   }
 
   onAddNewTask() {
-    if(this.currentUser === this.adminName && this.clickInsideHeader ) {
-      this.router.navigate(['new-task'] , { relativeTo :  this.route } );
+    if(this.currentUser === this.adminName && this.clickInsideHeader) {
+      this.router.navigate(['new-task'] , { relativeTo :  this.route });
     }
   }
 

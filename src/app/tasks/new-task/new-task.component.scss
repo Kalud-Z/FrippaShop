@@ -39,7 +39,7 @@
         right: -4%;
         height: 2rem;
         width: 2rem;
-        align-self: flex-end;
+        // align-self: flex-end;
         cursor: pointer;
         @include respond(phone) { top: -174%; right: -8% }
     }
@@ -73,11 +73,9 @@
                 padding: 1rem 2rem;
                 background-color: #d0ffc6;
                 border:1px solid transparent;
-                &:not(:last-child) { margin-bottom: .5rem; }
+                &:not(:last-child) { margin-bottom: .5rem }
 
-                &:hover {
-                    background-color: #c6d9ff ;
-                }
+                &:hover { background-color: #c6d9ff }
 
                 &-selected {
                     background-color: #c6d9ff !important;

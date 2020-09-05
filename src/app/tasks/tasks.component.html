@@ -9,7 +9,6 @@
             <svg class="filterHeader__exitIcon" (click)='showFilterCrl = false; resetAllFilters()'>  <use xlink:href="/assets/symbol-defs.svg#icon-clear"></use> </svg> 
         </div>
 
-
         <div class="filterBody">
             <div class="monthFilter  filterCatWrapper">
                 <div class="monthFilter__optionsWrapper  filterOptionsWrapper">
@@ -17,10 +16,9 @@
                         <svg class="filterCatWrapper__trashBinLogo"  (click)="filterByMonthInput = []" >  <use xlink:href="/assets/symbol-defs.svg#icon-bin"></use> </svg>
                     </div>
                     <div class="monthFilter__option  filterOptionsWrapper__filterOption" *ngFor='let month of monthsArray' 
-                    [ngClass]="{filterOptionSelected :  filterByMonthInput.indexOf(month) !== -1 }"  (click)='addOrRemoveMonth(month)' > {{ month }} </div>
+                    [ngClass]="{ filterOptionSelected :  filterByMonthInput.indexOf(month) !== -1 }"  (click)='addOrRemoveMonth(month)' > {{ month }} </div>
                 </div>
              </div>
-
 
              <div class="yearFilter  filterCatWrapper">
                 <div class="yearFilter__optionsWrapper  filterOptionsWrapper">
@@ -32,7 +30,6 @@
                 </div>
              </div>
     
-    
              <div class="typeFilter  filterCatWrapper">
                 <div class="typeFilter__optionsWrapper  filterOptionsWrapper">
                     <div class="typeFilter__option  filterOptionsWrapper__filterOption"> Filter By Type
@@ -42,7 +39,6 @@
                     [ngClass]="{ filterOptionSelected : filterByTypeInput.indexOf(type) !== -1 }" (click)='addOrRemoveType(type)'> {{ type }} </div>
                 </div>
              </div>
-
     
              <div class="alreadySentFilter  filterCatWrapper">
                 <div class="alreadySentFilter__optionsWrapper  filterOptionsWrapper">
@@ -55,8 +51,7 @@
                     (click)='setAlreadySent(false)'>Not Yet </div>
                 </div>
              </div>
-    
-        </div>  <!-- filterbody -->
+        </div>
     </div>  <!-- filterWrapper -->
     
 

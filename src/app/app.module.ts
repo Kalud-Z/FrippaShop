@@ -30,7 +30,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BalanceModule,
     AddressModule,
     BrowserAnimationsModule,
-    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
